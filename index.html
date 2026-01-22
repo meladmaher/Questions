@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار مقرر الجودة وتطبيقاتها في التعليم</title>
+    <title>اختبار إنجليزي 2 - التكنولوجيا الرقمية</title>
     <style>
         * {
             box-sizing: border-box;
@@ -13,7 +13,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            background: linear-gradient(135deg, #2c3e50, #3498db, #2c3e50);
             color: #333;
             line-height: 1.6;
             padding: 20px;
@@ -34,17 +34,17 @@
             text-align: center;
             margin-bottom: 30px;
             padding-bottom: 20px;
-            border-bottom: 2px solid #1a2a6c;
+            border-bottom: 2px solid #2c3e50;
         }
         
         h1 {
-            color: #1a2a6c;
+            color: #2c3e50;
             font-size: 32px;
             margin-bottom: 10px;
         }
         
         .subtitle {
-            color: #b21f1f;
+            color: #3498db;
             font-size: 18px;
             font-weight: 500;
         }
@@ -53,7 +53,7 @@
             display: flex;
             justify-content: space-between;
             margin: 20px 0;
-            background: #f0f4ff;
+            background: #f0f8ff;
             padding: 15px;
             border-radius: 10px;
             font-weight: bold;
@@ -69,7 +69,7 @@
         
         .progress-bar {
             height: 100%;
-            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            background: linear-gradient(to right, #2c3e50, #3498db);
             width: 0%;
             transition: width 0.5s ease;
         }
@@ -80,7 +80,7 @@
         
         .question-number {
             font-size: 18px;
-            color: #b21f1f;
+            color: #3498db;
             margin-bottom: 10px;
             font-weight: bold;
         }
@@ -88,13 +88,13 @@
         .question-text {
             font-size: 22px;
             margin-bottom: 25px;
-            color: #1a2a6c;
+            color: #2c3e50;
             font-weight: 600;
             line-height: 1.8;
-            background: #f8f9ff;
+            background: #f8fbff;
             padding: 20px;
             border-radius: 10px;
-            border-left: 5px solid #1a2a6c;
+            border-left: 5px solid #2c3e50;
         }
         
         .options-container {
@@ -125,22 +125,22 @@
         
         .option:hover {
             background-color: #e9e9e9;
-            border-color: #1a2a6c;
+            border-color: #2c3e50;
         }
         
         .option.selected {
-            border-color: #1a2a6c;
+            border-color: #2c3e50;
             background-color: #e0e7ff;
         }
         
         .option.correct {
-            border-color: #4CAF50;
-            background-color: #e8f5e9;
+            border-color: #27ae60;
+            background-color: #d5f4e6;
         }
         
         .option.incorrect {
-            border-color: #f44336;
-            background-color: #ffebee;
+            border-color: #e74c3c;
+            background-color: #fadbd8;
         }
         
         .option.correct::after {
@@ -149,7 +149,7 @@
             right: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: #4CAF50;
+            color: #27ae60;
             font-size: 24px;
             font-weight: bold;
         }
@@ -160,13 +160,13 @@
             right: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: #f44336;
+            color: #e74c3c;
             font-size: 24px;
             font-weight: bold;
         }
         
         .btn {
-            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            background: linear-gradient(to right, #2c3e50, #3498db);
             color: white;
             border: none;
             padding: 15px 35px;
@@ -200,27 +200,52 @@
         
         .results-title {
             font-size: 32px;
-            color: #1a2a6c;
+            color: #2c3e50;
             margin-bottom: 20px;
         }
         
         .score {
             font-size: 80px;
             font-weight: bold;
-            color: #b21f1f;
+            color: #e74c3c;
             margin: 20px 0;
+        }
+        
+        .score.pass {
+            color: #27ae60;
         }
         
         .grade {
             font-size: 28px;
-            color: #1a2a6c;
-            margin-bottom: 30px;
+            color: #2c3e50;
+            margin-bottom: 15px;
             font-weight: bold;
+        }
+        
+        .funny-message {
+            font-size: 24px;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 80%;
+            font-weight: bold;
+        }
+        
+        .fail-message {
+            background-color: #fadbd8;
+            color: #c0392b;
+            border: 2px solid #e74c3c;
+        }
+        
+        .pass-message {
+            background-color: #d5f4e6;
+            color: #27ae60;
+            border: 2px solid #27ae60;
         }
         
         .mistakes-title {
             font-size: 24px;
-            color: #b21f1f;
+            color: #3498db;
             margin: 30px 0 20px;
             text-align: right;
             border-bottom: 2px solid #eee;
@@ -239,18 +264,18 @@
         .mistake-question {
             font-size: 20px;
             font-weight: 600;
-            color: #1a2a6c;
+            color: #2c3e50;
             margin-bottom: 15px;
         }
         
         .incorrect-answer {
-            color: #f44336;
+            color: #e74c3c;
             font-size: 18px;
             margin-bottom: 10px;
         }
         
         .correct-answer {
-            color: #4CAF50;
+            color: #27ae60;
             font-size: 18px;
             font-weight: bold;
         }
@@ -263,11 +288,11 @@
         }
         
         .restart-btn {
-            background: linear-gradient(to right, #4CAF50, #2E7D32);
+            background: linear-gradient(to right, #27ae60, #2ecc71);
         }
         
         .question-type {
-            background: #1a2a6c;
+            background: #3498db;
             color: white;
             padding: 5px 15px;
             border-radius: 20px;
@@ -307,19 +332,23 @@
             .true-false-container {
                 grid-template-columns: 1fr;
             }
+            
+            .funny-message {
+                font-size: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>اختبار مقرر الجودة وتطبيقاتها في التعليم</h1>
-            <div class="subtitle">جامعة المنيا - (ED 325) - النسخة الموسعة</div>
+            <h1>اختبار مادة إنجليزي 2</h1>
+            <div class="subtitle">الوحدة الأولى والثانية - التكنولوجيا الرقمية والويب</div>
         </header>
         
         <div class="quiz-info">
-            <div>عدد الأسئلة: <span id="totalQuestions">120</span></div>
-            <div>الأسئلة المتبقية: <span id="remainingQuestions">120</span></div>
+            <div>عدد الأسئلة: <span id="totalQuestions">100</span></div>
+            <div>الأسئلة المتبقية: <span id="remainingQuestions">100</span></div>
             <div>الإجابات الصحيحة: <span id="correctCount">0</span></div>
         </div>
         
@@ -340,9 +369,10 @@
         </div>
         
         <div class="results-container" id="resultsContainer">
-            <h2 class="results-title">نتائج الاختبار</h2>
+            <h2 class="results-title">نتائج اختبار إنجليزي 2</h2>
             <div class="score" id="finalScore"></div>
             <div class="grade" id="finalGrade"></div>
+            <div class="funny-message" id="funnyMessage"></div>
             
             <h3 class="mistakes-title">الأسئلة التي تحتاج إلى تحسين</h3>
             <div id="mistakesList"></div>
@@ -354,677 +384,562 @@
     </div>
 
     <script>
-        // الأسئلة الاختيارية (60 سؤال)
+        // الأسئلة الاختيارية (50 سؤال)
         const mcqQuestions = [
+            // Unit 1 Questions
             {
-                question: "ما تعريف الجودة؟",
+                question: "Digital technology in schools primarily involves:",
                 options: [
-                    "ضبط المنتج أو الخدمة وفق معايير مقننة قابلة للقياس",
-                    "الاهتمام بالشكل الخارجي للمنتج فقط",
-                    "تخفيض تكاليف الإنتاج",
-                    "زيادة سرعة الإنتاج"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "ما هي أنواع الجودة؟",
-                options: [
-                    "جودة المنتج، جودة الخدمة، جودة المنشأة",
-                    "جودة التصنيع، جودة التصميم، جودة التسويق",
-                    "الجودة الداخلية، الجودة الخارجية",
-                    "الجودة الفردية، الجودة الجماعية"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "ما هو مستوى الجودة الذي يشمل ضبط الجودة بالإضافة إلى توثيق العمليات؟",
-                options: [
-                    "ضبط الجودة",
-                    "ضمان الجودة",
-                    "إدارة الجودة",
-                    "إدارة الجودة الشاملة"
+                    "Only computers",
+                    "Computer and technology-assisted strategies",
+                    "Only smartphones",
+                    "Only tablets"
                 ],
                 correctAnswer: 1
             },
             {
-                question: "ما هي المرحلة الأولى في تطبيق الجودة الشاملة؟",
+                question: "Studies show that digital technology leads to:",
                 options: [
-                    "مرحلة التخطيط",
-                    "مرحلة التنفيذ",
-                    "مرحلة الإعداد",
-                    "مرحلة الرقابة"
+                    "Moderate learning gains",
+                    "No learning gains",
+                    "Extreme learning gains",
+                    "Negative learning gains"
+                ],
+                correctAnswer: 0
+            },
+            {
+                question: "Digital technology should be used to:",
+                options: [
+                    "Replace traditional teaching",
+                    "Supplement other teaching methods",
+                    "Eliminate textbooks",
+                    "Replace teachers"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "Teachers who integrate technology in their teaching succeed in:",
+                options: [
+                    "Reducing student attendance",
+                    "Creating engaging and interactive environments",
+                    "Eliminating homework",
+                    "Reducing learning time"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "Students using technology in learning become:",
+                options: [
+                    "More dependent on teachers",
+                    "Less responsible",
+                    "More autonomous and self-directed",
+                    "Less interested in learning"
                 ],
                 correctAnswer: 2
             },
             {
-                question: "ما هو المبدأ الأول من مبادئ الجودة الشاملة؟",
+                question: "Digital television has improved:",
                 options: [
-                    "التركيز على العملاء",
-                    "القيادة",
-                    "مشاركة العاملين",
-                    "التخطيط الاستراتيجي"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "ما هي أهمية تطبيق الجودة الشاملة في المؤسسات؟",
-                options: [
-                    "زيادة ثقة العملاء فقط",
-                    "تقليل التكاليف فقط",
-                    "زيادة ثقة العملاء وزيادة الموارد وتقليل التكاليف",
-                    "زيادة عدد الموظفين فقط"
+                    "Only picture quality",
+                    "Only sound quality",
+                    "Both picture and audio quality",
+                    "Neither picture nor sound quality"
                 ],
                 correctAnswer: 2
             },
             {
-                question: "ما هو تعريف العميل وفقاً لمقرر الجودة؟",
+                question: "E-Books offer:",
                 options: [
-                    "المدير التنفيذي للمؤسسة",
-                    "الفرد أو الجهة التي تطلب أو تقبل على الخدمة أو المنتج",
-                    "المورد الرئيسي للمؤسسة",
-                    "الموظف المتميز في المؤسسة"
+                    "Only printed content",
+                    "Multimedia, audio, and interactive features",
+                    "Only pictures",
+                    "Only audio content"
                 ],
                 correctAnswer: 1
             },
             {
-                question: "ما هو العميل الذي لديه معلومات كافية عن المنتج وقرار للشراء؟",
+                question: "Geolocation uses:",
                 options: [
-                    "العميل المتردد",
-                    "العميل الواقعي",
-                    "العميل الغاضب",
-                    "العميل المشاهد"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هي طريقة قياس رأي العملاء باستخدام استمارة محددة العبارات؟",
-                options: [
-                    "تقارير المبيعات",
-                    "استبيانات الرأي",
-                    "متابعة الشبكات الاجتماعية",
-                    "متابعة شكاوى العملاء"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هو مفهوم الموارد البشرية؟",
-                options: [
-                    "الأموال والمعدات المتاحة للمؤسسة",
-                    "العاملين بالمؤسسة باعتبارهم من مدخلات نظام المؤسسة",
-                    "المنتجات التي تنتجها المؤسسة",
-                    "الاستراتيجيات التسويقية للمؤسسة"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هي المهمة الأساسية لإدارة الموارد البشرية؟",
-                options: [
-                    "جذب الموظفين واختيارهم وتدريبهم وتقييمهم",
-                    "تصنيع المنتجات وتسويقها",
-                    "إدارة الشؤون المالية للمؤسسة",
-                    "تطوير البرمجيات والتقنيات"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "ما هو نظام التوريد في الوقت المناسب؟",
-                options: [
-                    "طريقة لتخزين كميات كبيرة من المواد",
-                    "طريقة لمراقبة المخزون التي تجمع المواد عند الحاجة إليها",
-                    "نظام لتأخير عمليات الإنتاج",
-                    "طريقة لزيادة التكاليف التوريدية"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما أهمية تنظيم علاقات جيدة مع الموردين؟",
-                options: [
-                    "زيادة التكاليف فقط",
-                    "تقليل التكاليف وزيادة المرونة وتحسين العملية",
-                    "تأخير عمليات الإنتاج",
-                    "تقليل جودة المنتجات"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هو تعريف التخطيط الاستراتيجي؟",
-                options: [
-                    "عملية يومية لإدارة الموظفين",
-                    "عملية تقوم بها المؤسسة بتحديد أهدافها وتخصيص مواردها لتحقيقها",
-                    "إجراءات الرقابة على الجودة",
-                    "طريقة لتقييم الموظفين"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هي الرؤية وفقاً لدليل الاعتماد؟",
-                options: [
-                    "الخطة اليومية للمؤسسة",
-                    "وصف مختصر لما تطمح المؤسسة إلى تحقيقه في المستقبل",
-                    "تقرير الميزانية السنوي",
-                    "قائمة بالموظفين"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هو تحليل سوات (SWOT Analysis)؟",
-                options: [
-                    "تحليل للموارد المالية فقط",
-                    "تقييم بيئة العمل الداخلية والخارجية للمؤسسة",
-                    "طريقة لتقييم الموظفين",
-                    "نظام لمراقبة الجودة"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هي الغايات الاستراتيجية؟",
-                options: [
-                    "تفاصيل العمليات اليومية",
-                    "عبارات عامة تصف ما تريد المؤسسة تحقيقه",
-                    "التقارير المالية السنوية",
-                    "قوائم الموظفين"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هي الخطة التنفيذية؟",
-                options: [
-                    "الرؤية العامة للمؤسسة",
-                    "مخطط عمل يتم فيه توضيح إجراءات تحقيق الغايات والأهداف",
-                    "تقرير عن أداء الموظفين",
-                    "قائمة بالموردين"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هو الفرق بين الإدارة والقيادة؟",
-                options: [
-                    "لا يوجد فرق بينهما",
-                    "القيادة هي القدرة على التأثير، والإدارة هي القدرة على التحكم",
-                    "الإدارة تركز على المستقبل والقيادة تركز على الحاضر",
-                    "القيادة تنفذ التعليمات والإدارة تضع المبادئ"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هي المستويات الإدارية في المؤسسة؟",
-                options: [
-                    "إدارة عليا، إدارة وسطى، إدارة دنيا",
-                    "إدارة تنفيذية، إدارة تخطيطية",
-                    "إدارة مالية، إدارة إنتاجية",
-                    "إدارة داخلية، إدارة خارجية"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "ما هو دور مجلس إدارة الجودة بالمؤسسة؟",
-                options: [
-                    "إدارة الشؤون المالية",
-                    "السلطة المهيمنة على شئون الجودة ووضع السياسات",
-                    "تقييم الموظفين فقط",
-                    "التسويق للمنتجات"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هو مفهوم الحوكمة الرشيدة؟",
-                options: [
-                    "زيادة أرباح المؤسسة فقط",
-                    "نظام المراقبة والتوجيه داخل المؤسسة يدعم العدالة والشفافية",
-                    "طريقة لتخفيض التكاليف",
-                    "نظام لتقييم المنتجات"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هي المعايير الأكاديمية؟",
-                options: [
-                    "الحد الأدنى من المعارف والمهارات التي يجب أن يمتلكها الخريج",
-                    "قائمة المقررات الدراسية",
-                    "عدد ساعات التدريس",
-                    "شروط القبول في المؤسسة"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "ما هو مفهوم البرنامج الأكاديمي؟",
-                options: [
-                    "مادة دراسية واحدة",
-                    "مجموعة من المقررات التي يدرسها الطالب في مجال معين",
-                    "الخطة الاستراتيجية للمؤسسة",
-                    "نظام تقييم الطلاب"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هو الهدف من توصيف البرنامج الأكاديمي؟",
-                options: [
-                    "حصر مخرجات التعلم المطلوبة وتنفيذ أفضل الإجراءات لتحقيقها",
-                    "تحديد رواتب الموظفين",
-                    "تصميم المبنى التعليمي",
-                    "تسويق المؤسسة"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "ما هي استراتيجيات التدريس؟",
-                options: [
-                    "الخطة العامة للتدريس التي يتم الالتزام بها في العملية التعليمية",
-                    "طريقة تقييم الطلاب فقط",
-                    "قائمة الكتب الدراسية",
-                    "جدول المحاضرات"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "ما هي طرق التدريس التقليدية؟",
-                options: [
-                    "التعلم الإلكتروني",
-                    "التعلم التعاوني",
-                    "المحاضرة التقليدية والبيان العملي",
-                    "العصف الذهني"
+                    "Only maps",
+                    "Only compass",
+                    "Satellite and digital technology",
+                    "Only GPS"
                 ],
                 correctAnswer: 2
             },
             {
-                question: "ما هو الاعتماد الأكاديمي؟",
+                question: "Modern computers are:",
                 options: [
-                    "عملية منهجية تمكن المؤسسات التعليمية من الحصول على صفة مميزة",
-                    "طريقة لتخفيض التكاليف",
-                    "نظام لمراقبة الموظفين",
-                    "استراتيجية تسويقية"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "ما هي مراحل اعتماد المؤسسات التعليمية؟",
-                options: [
-                    "التقدم للاعتماد، دفع الرسوم، رفع المستندات، فريق المراجعة، النتيجة، الحصول على الاعتماد",
-                    "تقييم الموظفين فقط",
-                    "تسويق المؤسسة فقط",
-                    "تصميم المقررات الدراسية"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "ما هو دور منسق المؤسسة في عملية الاعتماد؟",
-                options: [
-                    "المسئول عن التواصل بين المؤسسة التعليمية والهيئة القومية",
-                    "مدير الشؤون المالية",
-                    "مصمم المقررات الدراسية",
-                    "مشرف على العمال"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "ما هو الاعتماد المؤسسي؟",
-                options: [
-                    "اعتماد برنامج تعليمي واحد فقط",
-                    "اعتماد المؤسسة التعليمية ككل لمستوى الجودة في خدماتها",
-                    "اعتماد الموظفين فقط",
-                    "اعتماد الموردين"
+                    "Larger than before",
+                    "More compact and powerful",
+                    "Less powerful",
+                    "Only for gaming"
                 ],
                 correctAnswer: 1
             },
             {
-                question: "كم عدد معايير الاعتماد المؤسسي؟",
+                question: "Digital cameras make it easier to:",
                 options: [
-                    "5 معايير",
-                    "8 معايير",
-                    "12 معيار",
-                    "15 معيار"
+                    "Only print photos",
+                    "Only store photos",
+                    "Store, organize, edit, and share photos",
+                    "Only delete photos"
                 ],
                 correctAnswer: 2
             },
             {
-                question: "ما هو المعيار الأول من معايير الاعتماد المؤسسي؟",
+                question: "BYOD stands for:",
                 options: [
-                    "معيار التخطيط الاستراتيجي",
-                    "معيار القيادة والحوكمة",
-                    "معيار إدارة الجودة والتطوير",
-                    "معيار أعضاء هيئة التدريس"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "ما هو الاعتماد البرامجي؟",
-                options: [
-                    "اعتماد المؤسسة التعليمية ككل",
-                    "اعتماد برنامج تعليمي محدد داخل المؤسسة",
-                    "اعتماد الموردين فقط",
-                    "اعتماد الموظفين"
+                    "Build Your Own Device",
+                    "Bring Your Own Device",
+                    "Buy Your Own Device",
+                    "Break Your Own Device"
                 ],
                 correctAnswer: 1
             },
             {
-                question: "ما هي أنواع الاعتماد في مؤسسات التعليم قبل الجامعي؟",
+                question: "E-portfolios are used to:",
                 options: [
-                    "المدارس الحكومية فقط",
-                    "المدارس الخاصة فقط",
-                    "المدارس الحكومية والخاصة والدولية",
-                    "المدارس الدولية فقط"
+                    "Only store photos",
+                    "Track learning journey",
+                    "Only play games",
+                    "Only watch videos"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "In a flipped classroom, students:",
+                options: [
+                    "Skip all lessons",
+                    "Only study in class",
+                    "Learn new content before the lesson",
+                    "Only do homework in class"
                 ],
                 correctAnswer: 2
             },
             {
-                question: "ما هو المحور الأول في معايير اعتماد مؤسسات التعليم قبل الجامعي؟",
+                question: "PLN stands for:",
                 options: [
-                    "الفاعلية التعليمية",
-                    "القدرة المؤسسية",
-                    "الجانب المالي فقط",
-                    "التسويق والمبيعات"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هو المجال الأول في محور القدرة المؤسسية؟",
-                options: [
-                    "القيادة والحوكمة",
-                    "رؤية المدرسة ورسالتها",
-                    "المبنى والتجهيزات",
-                    "المشاركة المجتمعية"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هو مفهوم الجودة الشاملة؟",
-                options: [
-                    "التركيز على المنتج فقط",
-                    "التأكد من سلامة المنتج أثناء الإنتاج وضمان الجودة وإدارة الجودة مع التخطيط الشامل",
-                    "تخفيض التكاليف دون مراعاة الجودة",
-                    "زيادة الإنتاج دون مراعاة الجودة"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هي مرحلة الرقابة في تطبيق الجودة الشاملة؟",
-                options: [
-                    "تشكيل فريق الجودة",
-                    "التقييم الذاتي لجميع الموارد والعمليات",
-                    "دراسة الوضع الحالي للمؤسسة",
-                    "تنفيذ ما تم تخطيطه"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هو التطبيق المجتمعي للجودة؟",
-                options: [
-                    "زيادة أرباح المؤسسة فقط",
-                    "مراعاة الجانب الاجتماعي والبيئي لنشاط المؤسسة",
-                    "تخفيض تكاليف الإنتاج",
-                    "زيادة عدد الموظفين"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هو العميل المحتمل؟",
-                options: [
-                    "من له تاريخ في الاستفادة من منتجات المؤسسة",
-                    "من الفئة المستهدفة للمؤسسة وقد يكون من عملائها في المستقبل",
-                    "من لديه خبرات سيئة مسبقة",
-                    "من يريد الشراء فوراً"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هي إحدى طرق قياس رأي العملاء؟",
-                options: [
-                    "تقارير المبيعات أو الاستفادة من الخدمات",
-                    "تقييم الموظفين",
-                    "مراجعة الميزانية",
-                    "تصميم المنتجات الجديدة"
+                    "Personal Learning Network",
+                    "Public Learning Network",
+                    "Private Learning Network",
+                    "Professional Learning Network"
                 ],
                 correctAnswer: 0
             },
             {
-                question: "ما هي إحدى مهام إدارة الموارد البشرية؟",
+                question: "A Virtual Learning Environment is:",
                 options: [
-                    "التدريب ورفع الكفاءة",
-                    "تصنيع المنتجات",
-                    "تسويق الخدمات",
-                    "إدارة علاقات الموردين"
+                    "Only for games",
+                    "A web-based education system",
+                    "Only for videos",
+                    "Only for homework"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "Interactive Whiteboards allow:",
+                options: [
+                    "Only writing",
+                    "Only drawing",
+                    "Interactive content display and manipulation",
+                    "Only erasing"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "Software Applications (Apps) are designed for:",
+                options: [
+                    "Only computers",
+                    "Only tablets",
+                    "Mobile devices",
+                    "Only gaming consoles"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "Web 2.0 includes:",
+                options: [
+                    "Only social media",
+                    "Only emails",
+                    "Podcasts, blogs, wikis, and social networks",
+                    "Only search engines"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "Digital technology offers:",
+                options: [
+                    "Only delayed feedback",
+                    "No feedback",
+                    "Immediate feedback",
+                    "Weekly feedback"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "The 'digital divide' refers to:",
+                options: [
+                    "Different types of computers",
+                    "Different types of software",
+                    "Access gap between those who have and don't have technology",
+                    "Different types of internet"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "Scratch programming is used to:",
+                options: [
+                    "Only play games",
+                    "Only write code",
+                    "Create learning environments",
+                    "Only draw pictures"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "Digital clocks are:",
+                options: [
+                    "Harder to read than analog",
+                    "Make loud ticking sounds",
+                    "Easy to read even in dark",
+                    "Only work during daytime"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "Modern cars rely on computers for:",
+                options: [
+                    "Only entertainment",
+                    "Only navigation",
+                    "Engine monitoring and safety control",
+                    "Only radio"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "Digital music is now available:",
+                options: [
+                    "Only on vinyl",
+                    "Only on cassettes",
+                    "On CDs and streaming platforms",
+                    "Only on radio"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "Social media sites include:",
+                options: [
+                    "Only Facebook",
+                    "Only Twitter",
+                    "Facebook, Twitter, and Instagram",
+                    "Only email services"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "Self-scan machines use:",
+                options: [
+                    "Only barcodes",
+                    "RFID technology",
+                    "Only manual input",
+                    "Only paper receipts"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "Robotics in medicine includes:",
+                options: [
+                    "Only surgery",
+                    "Only diagnostics",
+                    "Nanorobots for medical procedures",
+                    "Only monitoring"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "Drones are used for:",
+                options: [
+                    "Only photography",
+                    "Only delivery",
+                    "Military applications and remote control",
+                    "Only entertainment"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "Digital technology in the Arab world is recognized as:",
+                options: [
+                    "Only for entertainment",
+                    "A tool for student-centered learning",
+                    "Only for teachers",
+                    "Only for administrators"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "ATMs provide:",
+                options: [
+                    "Only cash withdrawal",
+                    "Only balance checking",
+                    "Quick access to multiple banking services",
+                    "Only deposits"
+                ],
+                correctAnswer: 2
+            },
+            // Unit 2 Questions
+            {
+                question: "Web 1.0 was known as the _____ web.",
+                options: [
+                    "interactive",
+                    "read-only",
+                    "semantic",
+                    "dynamic"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "The earliest version of the Internet emerged from:",
+                options: [
+                    "DARPA",
+                    "Facebook",
+                    "Wikipedia",
+                    "Twitter"
                 ],
                 correctAnswer: 0
             },
             {
-                question: "ما أهمية العلاقات الجيدة مع الموردين؟",
+                question: "In Web 1.0, users were mostly:",
                 options: [
-                    "زيادة التكاليف",
-                    "تقليل تكلفة التوريد وزيادة المرونة",
-                    "تأخير عمليات الإنتاج",
-                    "تقليل جودة المواد"
+                    "active contributors",
+                    "passive readers",
+                    "content creators",
+                    "social networkers"
                 ],
                 correctAnswer: 1
             },
             {
-                question: "ما هي إحدى مراحل التخطيط الاستراتيجي؟",
+                question: "Web 2.0 emerged in the:",
                 options: [
-                    "الرؤية والرسالة والقيم",
-                    "تصنيع المنتجات",
-                    "تسويق الخدمات",
-                    "تقييم الموردين"
+                    "20th century",
+                    "19th century",
+                    "21st century",
+                    "18th century"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "Which of these is a Web 2.0 application?",
+                options: [
+                    "Static webpage",
+                    "Facebook",
+                    "Blockchain",
+                    "DOS"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "CSS in web development refers to:",
+                options: [
+                    "Computer Style System",
+                    "Cascading Style Sheets",
+                    "Computer System Style",
+                    "Creative Style System"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "Web 3.0 makes use of:",
+                options: [
+                    "Only static pages",
+                    "Only social media",
+                    "Machine learning and AI",
+                    "Only HTML"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "Web 2.0 information is considered:",
+                options: [
+                    "Static",
+                    "Dynamic",
+                    "Unchangeable",
+                    "Fixed"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "The term ISP stands for:",
+                options: [
+                    "Internet System Program",
+                    "Internet Service Provider",
+                    "Internet Security Protocol",
+                    "Internet Style Program"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "Web 1.0 pages were mostly:",
+                options: [
+                    "Interactive",
+                    "Dynamic",
+                    "Static",
+                    "Social"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "Web 2.0 focuses on:",
+                options: [
+                    "Read-only content",
+                    "Reading and writing content",
+                    "Static content only",
+                    "Offline content"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "A Wiki allows:",
+                options: [
+                    "Only one user to edit",
+                    "No editing",
+                    "Multiple users to edit",
+                    "Only administrators to edit"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "Web 3.0 emphasizes:",
+                options: [
+                    "Centralized applications",
+                    "Static pages",
+                    "Decentralized applications",
+                    "Web 1.0 features"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "Cryptocurrency is a key feature of:",
+                options: [
+                    "Web 1.0",
+                    "Web 2.0",
+                    "Web 3.0",
+                    "None of these"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "HTML stands for:",
+                options: [
+                    "Hyper Text Markup Language",
+                    "High Text Markup Language",
+                    "Hyper Text Making Language",
+                    "High Text Making Language"
                 ],
                 correctAnswer: 0
             },
             {
-                question: "ما هي نقاط القوة في تحليل سوات؟",
+                question: "Web 1.0 was:",
                 options: [
-                    "ما يعوق المؤسسة داخلياً",
-                    "ما تتميز به المؤسسة داخلياً ويساعدها في تحقيق أهدافها",
-                    "التهديدات الخارجية",
-                    "الفرص الخارجية"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هي الخطة التنفيذية؟",
-                options: [
-                    "الرؤية العامة للمؤسسة",
-                    "مخطط عمل لتحقيق الأهداف الاستراتيجية خلال فترة زمنية",
-                    "تقرير الأداء السنوي",
-                    "قائمة الموظفين"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هو مستوى الإدارة العليا؟",
-                options: [
-                    "المشرفين ومديري المكاتب",
-                    "المستوى الأعلى للإدارة يهتم بالتخطيط واتخاذ القرارات",
-                    "مديري الأقسام فقط",
-                    "الموظفين التنفيذيين"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هو دور وحدة الجودة بالمؤسسة؟",
-                options: [
-                    "إدارة الشؤون المالية",
-                    "تتولى جميع شئون الجودة وتحقيق معاييرها",
-                    "تسويق المنتجات",
-                    "تصنيع المواد"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هي آليات الشكاوى والمقترحات؟",
-                options: [
-                    "نظام لتلقي الشكاوى والمقترحات والتحقيق فيها",
-                    "طريقة لتقييم المنتجات",
-                    "استراتيجية تسويقية",
-                    "نظام للموارد البشرية"
+                    "More difficult to change",
+                    "Easy to change",
+                    "Always changing",
+                    "Highly interactive"
                 ],
                 correctAnswer: 0
             },
             {
-                question: "ما هي معايير NARS؟",
+                question: "Web 2.0 is considered:",
                 options: [
-                    "معايير وضعتها الهيئة القومية لضمان جودة التعليم بمصر",
-                    "نظام للموارد البشرية",
-                    "استراتيجية تسويقية",
-                    "طريقة لتصنيع المنتجات"
+                    "Less secure than Web 1.0",
+                    "Static only",
+                    "Read-only",
+                    "Non-interactive"
                 ],
                 correctAnswer: 0
             },
             {
-                question: "ما هو المقرر الدراسي؟",
+                question: "DAO in Web 3.0 stands for:",
                 options: [
-                    "البرنامج الأكاديمي الكامل",
-                    "جزء من البرنامج التعليمي عبارة عن مادة دراسية",
-                    "الخطة الاستراتيجية للمؤسسة",
-                    "نظام تقييم الطلاب"
+                    "Digital Access Online",
+                    "Decentralized Autonomous Organization",
+                    "Data Access Operation",
+                    "Digital Authorization Office"
                 ],
                 correctAnswer: 1
             },
             {
-                question: "ما هو الهدف من مراجعة البرامج والمقررات؟",
+                question: "Web 3.0 requires:",
                 options: [
-                    "زيادة أرباح المؤسسة",
-                    "تأكد من استيفاء المقرر لجميع المواصفات الأكاديمية والمنفعة المجتمعية",
-                    "تخفيض تكاليف التدريس",
-                    "زيادة عدد الطلاب"
+                    "Basic hardware",
+                    "No special hardware",
+                    "Above-average hardware",
+                    "Only smartphones"
                 ],
-                correctAnswer: 1
+                correctAnswer: 2
             },
             {
-                question: "ما هي طرق التدريس الالكترونية؟",
+                question: "Blockchain is an enabler for:",
                 options: [
-                    "المحاضرة التقليدية",
-                    "استخدام المنصات التعليمية ومحاضرات الفيديو الإلكترونية",
-                    "البيان العملي",
-                    "التعلم التعاوني"
+                    "Web 1.0 applications",
+                    "Web 2.0 applications",
+                    "Web 3.0 decentralized applications",
+                    "None of these"
                 ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هو شرط التقدم للاعتماد الأكاديمي؟",
-                options: [
-                    "أن تكون المؤسسة قد منحت شهادة دراسية لدفعة واحدة على الأقل",
-                    "أن يكون لديها عدد كبير من الموظفين",
-                    "أن تكون أرباحها عالية",
-                    "أن يكون مبنى المؤسسة جديداً"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "ما هو دور فريق المراجعة؟",
-                options: [
-                    "تسويق المؤسسة",
-                    "تقويم أنشطة المؤسسة وتوثيق نتائج التقويم",
-                    "تصنيع المنتجات",
-                    "إدارة الموارد البشرية"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هي زيارة المراجعة الخارجية؟",
-                options: [
-                    "زيارة اجتماعية غير رسمية",
-                    "زيارة تقييم رسمية لتحديد استيفاء شروط الاعتماد",
-                    "زيارة لتقييم الموردين",
-                    "زيارة لتسويق المنتجات"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هو معيار الطلاب في الاعتماد البرامجي؟",
-                options: [
-                    "شروط واضحة لقبول الطلاب ونظام فعال للإرشاد الأكاديمي",
-                    "تقييم الموردين فقط",
-                    "مراجعة الميزانية",
-                    "تصميم المبنى التعليمي"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "ما هو ملف التقدم للاعتماد لمؤسسات التعليم قبل الجامعي؟",
-                options: [
-                    "تفويض المدرسة للمنسق، طلب التقدم، مستند سداد الرسوم، الإحصاءات، التقويم الذاتي، خطط التحسين، خرائط المنهج، فريق الجودة",
-                    "قائمة المنتجات فقط",
-                    "تقرير المبيعات السنوي",
-                    "شؤون الموظفين"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "ما هو المجال السابع في محور الفاعلية التعليمية؟",
-                options: [
-                    "المتعلم",
-                    "المعلم",
-                    "المناخ التربوي",
-                    "ضمان الجودة"
-                ],
-                correctAnswer: 1
+                correctAnswer: 2
             }
         ];
 
-        // أسئلة صح/خطأ (60 سؤال)
+        // أسئلة صح/خطأ (50 سؤال)
         const tfQuestions = [
-            { question: "الجودة تعني ضبط المنتج أو الخدمة وفق معايير مقننة قابلة للقياس.", answer: true },
-            { question: "الجودة الشاملة تشمل فقط ضبط الجودة وضمان الجودة.", answer: false },
-            { question: "مرحلة الإعداد هي المرحلة الأولى والأهم في تطبيق الجودة الشاملة.", answer: true },
-            { question: "التركيز على العملاء هو المبدأ الثاني من مبادئ الجودة الشاملة.", answer: false },
-            { question: "تطبيق الجودة الشاملة يؤدي إلى زيادة ثقة العملاء وزيادة الموارد وتقليل التكاليف.", answer: true },
-            { question: "العميل هو الفرد أو الجهة التي تطلب أو تقبل على الخدمة أو المنتج الذي تقدمه المؤسسة.", answer: true },
-            { question: "العميل المتردد هو الذي لديه معلومات كافية عن المنتج وقرار للشراء.", answer: false },
-            { question: "استبيانات الرأي هي إحدى طرق قياس رأي العملاء.", answer: true },
-            { question: "الموارد البشرية هي الأموال والمعدات المتاحة للمؤسسة.", answer: false },
-            { question: "جذب الموظفين واختيارهم وتدريبهم وتقييمهم هي من مهام إدارة الموارد البشرية.", answer: true },
-            { question: "نظام التوريد في الوقت المناسب هو طريقة لمراقبة المخزون التي تجمع المواد عند الحاجة إليها.", answer: true },
-            { question: "تنظيم علاقات جيدة مع الموردين يؤدي إلى زيادة التكاليف فقط.", answer: false },
-            { question: "التخطيط الاستراتيجي هو عملية يومية لإدارة الموظفين.", answer: false },
-            { question: "الرؤية هي وصف مختصر لما تطمح المؤسسة إلى تحقيقه في المستقبل.", answer: true },
-            { question: "تحليل سوات هو تقييم بيئة العمل الداخلية والخارجية للمؤسسة.", answer: true },
-            { question: "الغايات الاستراتيجية هي تفاصيل العمليات اليومية.", answer: false },
-            { question: "الخطة التنفيذية هي مخطط عمل يتم فيه توضيح إجراءات تحقيق الغايات والأهداف.", answer: true },
-            { question: "القيادة هي القدرة على التأثير، والإدارة هي القدرة على التحكم.", answer: true },
-            { question: "المستويات الإدارية في المؤسسة هي: إدارة عليا، إدارة وسطى، إدارة دنيا.", answer: true },
-            { question: "دور مجلس إدارة الجودة هو إدارة الشؤون المالية للمؤسسة.", answer: false },
-            { question: "الحوكمة الرشيدة هي نظام المراقبة والتوجيه داخل المؤسسة يدعم العدالة والشفافية.", answer: true },
-            { question: "المعايير الأكاديمية هي قائمة المقررات الدراسية.", answer: false },
-            { question: "البرنامج الأكاديمي هو مجموعة من المقررات التي يدرسها الطالب في مجال معين.", answer: true },
-            { question: "هدف توصيف البرنامج الأكاديمي هو حصر مخرجات التعلم المطلوبة وتنفيذ أفضل الإجراءات لتحقيقها.", answer: true },
-            { question: "استراتيجيات التدريس هي الخطة العامة للتدريس التي يتم الالتزام بها في العملية التعليمية.", answer: true },
-            { question: "المحاضرة التقليدية والبيان العملي هي من طرق التدريس الحديثة.", answer: false },
-            { question: "الاعتماد الأكاديمي هو عملية منهجية تمكن المؤسسات التعليمية من الحصول على صفة مميزة.", answer: true },
-            { question: "مراحل اعتماد المؤسسات التعليمية تبدأ بتسويق المؤسسة فقط.", answer: false },
-            { question: "دور منسق المؤسسة هو المسئول عن التواصل بين المؤسسة التعليمية والهيئة القومية.", answer: true },
-            { question: "الاعتماد المؤسسي هو اعتماد برنامج تعليمي واحد فقط.", answer: false },
-            { question: "عدد معايير الاعتماد المؤسسي هو 10 معايير.", answer: false },
-            { question: "المعيار الأول من معايير الاعتماد المؤسسي هو معيار التخطيط الاستراتيجي.", answer: true },
-            { question: "الاعتماد البرامجي هو اعتماد برنامج تعليمي محدد داخل المؤسسة.", answer: true },
-            { question: "أنواع الاعتماد في مؤسسات التعليم قبل الجامعي تشمل المدارس الحكومية والخاصة والدولية.", answer: true },
-            { question: "المحور الأول في معايير اعتماد مؤسسات التعليم قبل الجامعي هو الفاعلية التعليمية.", answer: false },
-            { question: "المجال الأول في محور القدرة المؤسسية هو رؤية المدرسة ورسالتها.", answer: true },
-            { question: "الجودة الشاملة تعني التركيز على المنتج فقط.", answer: false },
-            { question: "مرحلة الرقابة في تطبيق الجودة الشاملة هي التقييم الذاتي لجميع الموارد والعمليات.", answer: true },
-            { question: "التطبيق المجتمعي للجودة هو مراعاة الجانب الاجتماعي والبيئي لنشاط المؤسسة.", answer: true },
-            { question: "العميل المحتمل هو من له تاريخ في الاستفادة من منتجات المؤسسة.", answer: false },
-            { question: "تقارير المبيعات هي إحدى طرق قياس رأي العملاء.", answer: true },
-            { question: "التدريب ورفع الكفاءة هي من مهام إدارة الموارد البشرية.", answer: true },
-            { question: "العلاقات الجيدة مع الموردين تؤدي إلى تقليل تكلفة التوريد وزيادة المرونة.", answer: true },
-            { question: "الرؤية والرسالة والقيم هي إحدى مراحل التخطيط الاستراتيجي.", answer: true },
-            { question: "نقاط القوة في تحليل سوات هي ما يعوق المؤسسة داخلياً.", answer: false },
-            { question: "الخطة التنفيذية هي مخطط عمل لتحقيق الأهداف الاستراتيجية خلال فترة زمنية.", answer: true },
-            { question: "مستوى الإدارة العليا يهتم بالتفاصيل اليومية للمؤسسة.", answer: false },
-            { question: "دور وحدة الجودة هو تسويق منتجات المؤسسة.", answer: false },
-            { question: "آليات الشكاوى والمقترحات هي نظام لتلقي الشكاوى والمقترحات والتحقيق فيها.", answer: true },
-            { question: "معايير NARS هي معايير وضعتها الهيئة القومية لضمان جودة التعليم بمصر.", answer: true },
-            { question: "المقرر الدراسي هو البرنامج الأكاديمي الكامل.", answer: false },
-            { question: "الهدف من مراجعة البرامج والمقررات هو زيادة أرباح المؤسسة فقط.", answer: false },
-            { question: "طرق التدريس الالكترونية تشمل استخدام المنصات التعليمية ومحاضرات الفيديو الإلكترونية.", answer: true },
-            { question: "شرط التقدم للاعتماد الأكاديمي هو أن تكون المؤسسة قد منحت شهادة دراسية لدفعة واحدة على الأقل.", answer: true },
-            { question: "دور فريق المراجعة هو تقويم أنشطة المؤسسة وتوثيق نتائج التقويم.", answer: true },
-            { question: "زيارة المراجعة الخارجية هي زيارة اجتماعية غير رسمية.", answer: false },
-            { question: "معيار الطلاب في الاعتماد البرامجي يتضمن شروط واضحة لقبول الطلاب ونظام فعال للإرشاد الأكاديمي.", answer: true },
-            { question: "ملف التقدم للاعتماد لمؤسسات التعليم قبل الجامعي يتضمن فقط قائمة المنتجات.", answer: false },
-            { question: "المجال السابع في محور الفاعلية التعليمية هو المعلم.", answer: true }
+            // Unit 1 True/False
+            { question: "Digital technology in schools is only about using computers for games.", answer: false },
+            { question: "Technology-assisted strategies have shown significant improvements in student learning, adding about four months of progress.", answer: true },
+            { question: "Traditional teaching methods should be completely replaced by digital technology.", answer: false },
+            { question: "Students who use technology become less responsible for their learning.", answer: false },
+            { question: "Interactive whiteboards can only be used with a special pen, not with fingers.", answer: false },
+            { question: "E-portfolios are only used to store photos and cannot track learning progress.", answer: false },
+            { question: "In a flipped classroom, students learn new content at home before the class.", answer: true },
+            { question: "Personal Learning Networks (PLN) allow access to ideas beyond the physical institution.", answer: true },
+            { question: "Virtual Learning Environments are only accessible from school computers.", answer: false },
+            { question: "BYOD (Bring Your Own Device) helps reduce costs for educational institutions.", answer: true },
+            { question: "Digital technology can provide immediate feedback to both teachers and students.", answer: true },
+            { question: "Smartphones have only changed how we make phone calls.", answer: false },
+            { question: "Digital cameras can only store photos but cannot edit them.", answer: false },
+            { question: "Web 2.0 includes features like podcasts, blogs, and social networking.", answer: true },
+            { question: "The digital divide refers to the age gap between technology users.", answer: false },
+            { question: "Self-scan machines use RFID technology to replace traditional barcodes.", answer: true },
+            { question: "Digital clocks are more difficult to read than analog clocks.", answer: false },
+            { question: "Robotics in medicine includes the use of nanorobots for medical procedures.", answer: true },
+            { question: "Digital technology in the Arab world supports student-centered learning.", answer: true },
+            { question: "E-books cannot allow users to customize font sizes and styles.", answer: false },
+            // Unit 2 True/False
+            { question: "Web 1.0 was known as the 'read-only' web.", answer: true },
+            { question: "Web 2.0 requires special hardware to access.", answer: false },
+            { question: "Facebook and Twitter are examples of Web 3.0 applications.", answer: false },
+            { question: "Web 1.0 pages were mostly dynamic and interactive.", answer: false },
+            { question: "Web 2.0 focuses on both reading and writing content.", answer: true },
+            { question: "Blockchain technology is a key feature of Web 2.0.", answer: false },
+            { question: "Web 3.0 incorporates artificial intelligence and machine learning.", answer: true },
+            { question: "In Web 1.0, users were mostly active contributors.", answer: false },
+            { question: "Web 2.0 emerged in the aftermath of the dotcom bubble.", answer: true },
+            { question: "CSS was introduced to make coding more difficult in Web 1.0.", answer: false },
+            { question: "Web 3.0 emphasizes centralized applications.", answer: false },
+            { question: "Wiki pages can only be edited by a single owner.", answer: false },
+            { question: "Web 2.0 is considered more social and interactive than Web 1.0.", answer: true },
+            { question: "The early Internet was developed by DARPA.", answer: true },
+            { question: "Cryptocurrency is not related to Web 3.0 services.", answer: false },
+            { question: "Web 2.0 applications are generally considered more secure than Web 1.0.", answer: false },
+            { question: "Static information was a characteristic of Web 1.0.", answer: true },
+            { question: "Web 3.0 does not use decentralized blockchain technology.", answer: false },
+            { question: "Web 2.0 allows for greater collaboration and flexibility.", answer: true },
+            { question: "Individual webpages in Web 1.0 were hosted by ISPs or free hosting services.", answer: true }
         ];
 
-        // دمج الأسئلة: أول 60 اختيارية ثم 60 صح/خطأ
+        // دمج الأسئلة: أول 50 اختيارية ثم 50 صح/خطأ
         const allQuestions = [...mcqQuestions, ...tfQuestions.map(q => ({
             question: q.question,
-            options: ["صح", "خطأ"],
+            options: ["True", "False"],
             correctAnswer: q.answer ? 0 : 1,
             isTF: true
         }))];
@@ -1040,6 +955,7 @@
         const progressBar = document.getElementById('progressBar');
         const finalScore = document.getElementById('finalScore');
         const finalGrade = document.getElementById('finalGrade');
+        const funnyMessage = document.getElementById('funnyMessage');
         const mistakesList = document.getElementById('mistakesList');
         const restartBtn = document.getElementById('restartBtn');
         const totalQuestionsEl = document.getElementById('totalQuestions');
@@ -1076,10 +992,10 @@
             // تحديد نوع السؤال
             if (question.isTF) {
                 questionType.textContent = "صح أم خطأ";
-                questionType.style.background = "#b21f1f";
+                questionType.style.background = "#e74c3c";
             } else {
                 questionType.textContent = "اختياري";
-                questionType.style.background = "#1a2a6c";
+                questionType.style.background = "#3498db";
             }
             
             questionNumber.textContent = `السؤال ${currentQuestion + 1} من ${allQuestions.length}`;
@@ -1205,27 +1121,22 @@
             const percentage = Math.round((score / allQuestions.length) * 100);
             finalScore.textContent = `${score}/${allQuestions.length}`;
             
-            // تحديد التقدير
-            let grade, gradeClass;
-            if (percentage >= 90) {
-                grade = "ممتاز";
-                gradeClass = "excellent";
-            } else if (percentage >= 80) {
-                grade = "جيد جداً";
-                gradeClass = "very-good";
-            } else if (percentage >= 70) {
-                grade = "جيد";
-                gradeClass = "good";
-            } else if (percentage >= 60) {
-                grade = "مقبول";
-                gradeClass = "acceptable";
-            } else {
-                grade = "راسب";
-                gradeClass = "fail";
-            }
+            // تحديد النجاح أو الرسوب (60% للنجاح)
+            const isPass = percentage >= 60;
             
-            finalGrade.textContent = grade;
-            finalGrade.className = `grade ${gradeClass}`;
+            if (isPass) {
+                finalScore.classList.add('pass');
+                finalGrade.textContent = "ناجح";
+                finalGrade.style.color = "#27ae60";
+                funnyMessage.textContent = "ناجح دحيح الدفعة 🙂";
+                funnyMessage.className = "funny-message pass-message";
+            } else {
+                finalScore.classList.remove('pass');
+                finalGrade.textContent = "ساقط";
+                finalGrade.style.color = "#e74c3c";
+                funnyMessage.textContent = "يخربيتك هتودينا في داهيه يا ساقط 😂";
+                funnyMessage.className = "funny-message fail-message";
+            }
             
             // عرض الأسئلة الخاطئة
             mistakesList.innerHTML = '';
@@ -1242,7 +1153,7 @@
                     userAnswer.classList.add('incorrect-answer');
                     
                     if (question.isTF) {
-                        userAnswer.textContent = `إجابتك: ${userAnswers[index] === 0 ? "صح" : "خطأ"}`;
+                        userAnswer.textContent = `إجابتك: ${userAnswers[index] === 0 ? "True" : "False"}`;
                     } else {
                         userAnswer.textContent = `إجابتك: ${question.options[userAnswers[index]]}`;
                     }
@@ -1251,7 +1162,7 @@
                     correctAnswer.classList.add('correct-answer');
                     
                     if (question.isTF) {
-                        correctAnswer.textContent = `الإجابة الصحيحة: ${question.correctAnswer === 0 ? "صح" : "خطأ"}`;
+                        correctAnswer.textContent = `الإجابة الصحيحة: ${question.correctAnswer === 0 ? "True" : "False"}`;
                     } else {
                         correctAnswer.textContent = `الإجابة الصحيحة: ${question.options[question.correctAnswer]}`;
                     }
@@ -1267,10 +1178,10 @@
             if (mistakesList.innerHTML === '') {
                 const noMistakes = document.createElement('div');
                 noMistakes.classList.add('mistake-item');
-                noMistakes.textContent = 'لا توجد أخطاء! جميع إجاباتك صحيحة.';
+                noMistakes.textContent = 'لا توجد أخطاء! جميع إجاباتك صحيحة. أنت أسطورة! 🏆';
                 noMistakes.style.textAlign = 'center';
                 noMistakes.style.fontWeight = 'bold';
-                noMistakes.style.color = '#4CAF50';
+                noMistakes.style.color = '#27ae60';
                 mistakesList.appendChild(noMistakes);
             }
         }
