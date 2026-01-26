@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار إنجليزي 2 - التكنولوجيا الرقمية</title>
+    <title>اختبار البيئات الافتراضية</title>
     <style>
         * {
             box-sizing: border-box;
@@ -13,7 +13,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #2c3e50, #3498db, #2c3e50);
+            background: linear-gradient(135deg, #8E44AD, #3498DB, #8E44AD);
             color: #333;
             line-height: 1.6;
             padding: 20px;
@@ -34,17 +34,17 @@
             text-align: center;
             margin-bottom: 30px;
             padding-bottom: 20px;
-            border-bottom: 2px solid #2c3e50;
+            border-bottom: 2px solid #8E44AD;
         }
         
         h1 {
-            color: #2c3e50;
+            color: #8E44AD;
             font-size: 32px;
             margin-bottom: 10px;
         }
         
         .subtitle {
-            color: #3498db;
+            color: #3498DB;
             font-size: 18px;
             font-weight: 500;
         }
@@ -53,7 +53,7 @@
             display: flex;
             justify-content: space-between;
             margin: 20px 0;
-            background: #f0f8ff;
+            background: #f5f0fa;
             padding: 15px;
             border-radius: 10px;
             font-weight: bold;
@@ -69,7 +69,7 @@
         
         .progress-bar {
             height: 100%;
-            background: linear-gradient(to right, #2c3e50, #3498db);
+            background: linear-gradient(to right, #8E44AD, #3498DB);
             width: 0%;
             transition: width 0.5s ease;
         }
@@ -80,7 +80,7 @@
         
         .question-number {
             font-size: 18px;
-            color: #3498db;
+            color: #3498DB;
             margin-bottom: 10px;
             font-weight: bold;
         }
@@ -88,13 +88,13 @@
         .question-text {
             font-size: 22px;
             margin-bottom: 25px;
-            color: #2c3e50;
+            color: #8E44AD;
             font-weight: 600;
             line-height: 1.8;
-            background: #f8fbff;
+            background: #faf5ff;
             padding: 20px;
             border-radius: 10px;
-            border-left: 5px solid #2c3e50;
+            border-left: 5px solid #8E44AD;
         }
         
         .options-container {
@@ -125,12 +125,12 @@
         
         .option:hover {
             background-color: #e9e9e9;
-            border-color: #2c3e50;
+            border-color: #8E44AD;
         }
         
         .option.selected {
-            border-color: #2c3e50;
-            background-color: #e0e7ff;
+            border-color: #8E44AD;
+            background-color: #f0e6ff;
         }
         
         .option.correct {
@@ -166,7 +166,7 @@
         }
         
         .btn {
-            background: linear-gradient(to right, #2c3e50, #3498db);
+            background: linear-gradient(to right, #8E44AD, #3498DB);
             color: white;
             border: none;
             padding: 15px 35px;
@@ -200,7 +200,7 @@
         
         .results-title {
             font-size: 32px;
-            color: #2c3e50;
+            color: #8E44AD;
             margin-bottom: 20px;
         }
         
@@ -217,7 +217,7 @@
         
         .grade {
             font-size: 28px;
-            color: #2c3e50;
+            color: #8E44AD;
             margin-bottom: 15px;
             font-weight: bold;
         }
@@ -245,7 +245,7 @@
         
         .mistakes-title {
             font-size: 24px;
-            color: #3498db;
+            color: #3498DB;
             margin: 30px 0 20px;
             text-align: right;
             border-bottom: 2px solid #eee;
@@ -264,7 +264,7 @@
         .mistake-question {
             font-size: 20px;
             font-weight: 600;
-            color: #2c3e50;
+            color: #8E44AD;
             margin-bottom: 15px;
         }
         
@@ -342,13 +342,13 @@
 <body>
     <div class="container">
         <header>
-            <h1>اختبار مادة إنجليزي 2</h1>
-            <div class="subtitle"> التكنولوجيا </div>
+            <h1>اختبار البيئات الافتراضية</h1>
+            <div class="subtitle">الفصول 2-5: الإنترنت والتعليم الإلكتروني والبيئات الافتراضية</div>
         </header>
         
         <div class="quiz-info">
-            <div>عدد الأسئلة: <span id="totalQuestions">100</span></div>
-            <div>الأسئلة المتبقية: <span id="remainingQuestions">100</span></div>
+            <div>عدد الأسئلة: <span id="totalQuestions">75</span></div>
+            <div>الأسئلة المتبقية: <span id="remainingQuestions">75</span></div>
             <div>الإجابات الصحيحة: <span id="correctCount">0</span></div>
         </div>
         
@@ -369,7 +369,7 @@
         </div>
         
         <div class="results-container" id="resultsContainer">
-            <h2 class="results-title">نتائج اختبار إنجليزي 2</h2>
+            <h2 class="results-title">نتائج اختبار البيئات الافتراضية</h2>
             <div class="score" id="finalScore"></div>
             <div class="grade" id="finalGrade"></div>
             <div class="funny-message" id="funnyMessage"></div>
@@ -384,562 +384,431 @@
     </div>
 
     <script>
-        // الأسئلة الاختيارية (50 سؤال)
+        // الأسئلة صح/خطأ (35 سؤال)
+        const tfQuestions = [
+            // الفصل الثاني
+            { question: "التعريف التقني للإنترنت هو دائرة المعارف العالمية.", answer: false },
+            { question: "لا توجد جهة مركزية تتحكم في شبكة الإنترنت.", answer: true },
+            { question: "من استخدامات الإنترنت في التعليم الحصول على أحدث الأبحاث عبر المكتبات الرقمية.", answer: true },
+            { question: "يؤدي استخدام الإنترنت إلى تحويل دور المعلم من موجه إلى ملقن.", answer: false },
+            { question: "التعليم الإلكتروني نظام تفاعلي يعتمد على بيئة إلكترونية متكاملة.", answer: true },
+            { question: "من مميزات التعليم الإلكتروني تجاوز الفروق الفردية بين المتعلمين.", answer: true },
+            { question: "الجيل الأول من التعليم الإلكتروني كان يعتمد على الأقمار الصناعية.", answer: false },
+            { question: "بدأ الجيل الثاني مع بداية استعمال الإنترنت وتطوير إيصال المحتوى بطريقة شبكية.", answer: true },
+            { question: "التعليم الإلكتروني المتزامن لا يحتاج لوجود المتعلمين في نفس الوقت.", answer: false },
+            { question: "التعليم المدمج يجمع بين التعليم المتزامن وغير المتزامن.", answer: true },
+            { question: "في النموذج المساعد المكمل، يستخدم التعليم الإلكتروني كبديل كامل للتعليم التقليدي.", answer: false },
+            { question: "النظام الإداري في التعليم الإلكتروني مسؤول عن القبول والتسجيل.", answer: true },
+            { question: "تكلفة التعليم الصفي التقليدي في البداية أعلى من التعليم الإلكتروني.", answer: false },
+            { question: "في التعليم الإلكتروني، الطالب هو محور العملية التعليمية.", answer: true },
+            { question: "التسجيل والإدارة في التعليم التقليدي تتم إلكترونياً.", answer: false },
+            { question: "التعليم الإلكتروني يسمح بقبول أعداد غير محددة من الطلاب من أنحاء العالم.", answer: true },
+            { question: "المحتوى العلمي في التعليم التقليدي يكون أكثر إثارة من التعليم الإلكتروني.", answer: false },
+            { question: "التعليم الإلكتروني يراعي الفروق الفردية بينما التقليدي غالباً لا يراعيها.", answer: true },
+            { question: "تعتمد آليات التدريس التكنولوجية على الحفظ والاستظهار.", answer: false },
+            { question: "أول خطوة في التخطيط للتعليم الإلكتروني هي تحديد الهدف من التطبيق.", answer: true },
+            // الفصل الثالث
+            { question: "تطوير بيئات التعلم في ضوء مجتمع المعرفة يتطلب الارتقاء بالنمو المهني للمعلمين.", answer: true },
+            { question: "نظم التعليم الإلكتروني تمنع المتعلم من تحديد أهداف التعلم الخاصة به.", answer: false },
+            { question: "بيئات التعلم الإلكترونية تعتمد على تقنيات الجيل الثاني للويب (Web 2.0).", answer: true },
+            { question: "من سمات بيئات التعلم 'الأصالة' وتعني أنها المصدر الأصلي للمعلومات.", answer: true },
+            { question: "التصميم التعليمي الجيد يؤدي إلى تقليل التوتر لدى المعلمين.", answer: true },
+            { question: "نموذج ADDIE يتكون من 3 مراحل فقط.", answer: false },
+            { question: "نموذج PDCA يسمى نموذج الجودة.", answer: true },
+            { question: "بيئات التعلم الشخصية تساعد المتعلمين على السيطرة وإدارة تعلمهم.", answer: true },
+            { question: "تعتبر المدونات والويكي من أدوات التواصل فقط.", answer: false },
+            { question: "بيئات التعلم التكيفية تقدم المحتوى نفسه لجميع الطلاب في نفس الوقت.", answer: false },
+            // الفصل الرابع
+            { question: "كلمة 'افتراضية' تعني كل ما يحاكي الواقع أو يناظره.", answer: true },
+            { question: "البيئات الافتراضية ثلاثية الأبعاد (3D) لا تسمح للمتعلم بالتجوال والتفاعل.", answer: false },
+            { question: "يحتاج مستخدم بيئات التعلم الافتراضي إلى هوية (ID).", answer: true },
+            { question: "المعلم في البيئة الافتراضية لديه نفس صلاحيات الطالب تماماً.", answer: false },
+            { question: "التنظيم المنطقي للمحتوى ينتقل من الصعب إلى السهل.", answer: false },
+            { question: "التنظيم الرأسي يهتم بترتيب المحتوى عبر المراحل الدراسية (امتداد الزمن).", answer: true },
+            { question: "العوالم الافتراضية الترفيهية هي ألعاب تفاعلية تستخدم الصور الرمزية.", answer: true },
+            { question: "عالم 'Active Worlds' هو مثال لمنصات العوالم الافتراضية.", answer: true },
+            { question: "الحياة الثانية (Second Life) تستخدم فقط لأغراض اللعب والترفيه.", answer: false },
+            { question: "الواقع الافتراضي (VR) يوفر للمستخدم خبرة شبه حقيقية.", answer: true },
+            { question: "من متطلبات الواقع الافتراضي استخدام 'وحدات عرض محمول على الرأس'.", answer: true },
+            { question: "الرحلات الافتراضية لا تناسب ذوي الاحتياجات الخاصة.", answer: false },
+            { question: "المكتبات الافتراضية لها وجود مادي فعلي وتشغل حيزاً مكانياً.", answer: false },
+            { question: "موقع 'مكتبة الإسكندرية' يعتبر نموذجاً للمكتبات الافتراضية.", answer: true },
+            { question: "الكتاب الإلكتروني لا يمكن قراءته إلا على أجهزة الكمبيوتر المكتبية فقط.", answer: false },
+            { question: "الفصول الافتراضية تتيح التفاعل الفوري (المتزامن) بين المعلم والطالب.", answer: true },
+            { question: "برنامج 'Zoom' يعتبر من تطبيقات الفصول الافتراضية.", answer: true },
+            { question: "المتحف الافتراضي يساعد على الحفاظ على القطع الأثرية من التلف.", answer: true },
+            { question: "المعرض الافتراضي متاح للجمهور فقط في أوقات الدوام الرسمي.", answer: false },
+            { question: "التنظيم الهرمي للمحتوى يبدأ من الفرعي إلى العام.", answer: false },
+            // الفصل الخامس
+            { question: "تصميم الموقع هو عملية برمجة الواجهة الأمامية لمواقع الويب.", answer: true },
+            { question: "لغة بايثون (Python) ليست مفتوحة المصدر.", answer: false },
+            { question: "لغة Java Script تضيف التفاعلية والديناميكية للموقع.", answer: true },
+            { question: "أنظمة إدارة المحتوى (CMS) هي نفسها أنظمة إدارة المقررات.", answer: false },
+            { question: "نظام Moodle هو نظام إدارة تعلم مغلق المصدر.", answer: false }
+        ];
+
+        // الأسئلة الاختيارية (40 سؤال)
         const mcqQuestions = [
-            // Unit 1 Questions
+            // الفصل الثاني
             {
-                question: "Digital technology in schools primarily involves:",
+                question: "عبارة عن مجموعة كبيرة من أجهزة الكمبيوتر المترابطة حول العالم:",
                 options: [
-                    "Only computers",
-                    "Computer and technology-assisted strategies",
-                    "Only smartphones",
-                    "Only tablets"
+                    "التعليم الإلكتروني",
+                    "الإنترنت (التعريف التقني)",
+                    "المكتبة الرقمية",
+                    "الفصول الافتراضية"
                 ],
                 correctAnswer: 1
             },
             {
-                question: "Studies show that digital technology leads to:",
+                question: "من العناصر التي تعرف الإنترنت أن الاتصال يتم وفق:",
                 options: [
-                    "Moderate learning gains",
-                    "No learning gains",
-                    "Extreme learning gains",
-                    "Negative learning gains"
+                    "رغبة المستخدم",
+                    "بروتوكولات محددة",
+                    "اتصال عشوائي",
+                    "بدون ضوابط"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "دمج الوسائل التقليدية (هاتف، فاكس، تلفاز) في أداة واحدة يسمى:",
+                options: [
+                    "التعلم المستقل",
+                    "الاحتوائية الاتصالية",
+                    "التعليم المدمج",
+                    "التفاعل الفردي"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "من مميزات التعليم الإلكتروني للمعلم:",
+                options: [
+                    "زيادة الأعباء الإدارية",
+                    "تقليل الأعباء الإدارية",
+                    "إلغاء دور المعلم",
+                    "التركيز على التلقين"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "الجيل الذي بدأ مع مفهوم التجارة الإلكترونية عبر الأقمار الصناعية هو:",
+                options: [
+                    "الأول",
+                    "الثاني",
+                    "الثالث",
+                    "الرابع"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "التعليم الذي يستخدم فيه المعلم 'لعب الأدوار' و 'مجموعات العمل' هو:",
+                options: [
+                    "التعليم الموجه",
+                    "التعلم التعاوني",
+                    "المحاضرة",
+                    "التعليم بالفريق"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "تلقي المتعلمين المادة من أكثر من معلم في أكثر من تخصص في مكان واحد يسمى:",
+                options: [
+                    "التعليم الموجه",
+                    "التعليم بالفريق",
+                    "المناقشة الإلكترونية",
+                    "التعلم الذاتي"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "أدوات التعليم غير المتزامن تشمل:",
+                options: [
+                    "المحادثة الفورية",
+                    "البريد الإلكتروني",
+                    "المؤتمرات المرئية",
+                    "البث المباشر"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "أدوات نظام عرض المقررات مثل:",
+                options: [
+                    "البريد",
+                    "جدول المقرر",
+                    "واجهات التفاعل",
+                    "صفحات الويب"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "توفير محتوى مصمم بفاعلية كبيرة من مميزات:",
+                options: [
+                    "التعليم التقليدي",
+                    "التعليم الإلكتروني",
+                    "التعليم الفردي",
+                    "التعليم المباشر"
+                ],
+                correctAnswer: 1
+            },
+            // الفصل الثالث
+            {
+                question: "استخدام الرسوم والصوت والفيديو في بيئات التعلم يسمى:",
+                options: [
+                    "التفاعل",
+                    "الأصالة",
+                    "الوسائط المتعددة",
+                    "التكيف"
+                ],
+                correctAnswer: 2
+            },
+            {
+                question: "مرحلة في نموذج ADDIE يتم فيها تحديد الاحتياجات والأهداف:",
+                options: [
+                    "التحليل",
+                    "التطوير",
+                    "التطبيق",
+                    "التقويم"
                 ],
                 correctAnswer: 0
             },
             {
-                question: "Digital technology should be used to:",
+                question: "عنصر في نموذج 'جون كيلر' يعني ثقة المتعلم بقدرته على النجاح:",
                 options: [
-                    "Replace traditional teaching",
-                    "Supplement other teaching methods",
-                    "Eliminate textbooks",
-                    "Replace teachers"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "Teachers who integrate technology in their teaching succeed in:",
-                options: [
-                    "Reducing student attendance",
-                    "Creating engaging and interactive environments",
-                    "Eliminating homework",
-                    "Reducing learning time"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "Students using technology in learning become:",
-                options: [
-                    "More dependent on teachers",
-                    "Less responsible",
-                    "More autonomous and self-directed",
-                    "Less interested in learning"
+                    "الانتباه",
+                    "الصلة",
+                    "الثقة",
+                    "الرضا"
                 ],
                 correctAnswer: 2
             },
             {
-                question: "Digital television has improved:",
+                question: "من نماذج بيئات التعلم التكيفية الذي يضع استدلالات حول معرفة الطالب:",
                 options: [
-                    "Only picture quality",
-                    "Only sound quality",
-                    "Both picture and audio quality",
-                    "Neither picture nor sound quality"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "E-Books offer:",
-                options: [
-                    "Only printed content",
-                    "Multimedia, audio, and interactive features",
-                    "Only pictures",
-                    "Only audio content"
+                    "نموذج المحتوى",
+                    "نموذج الطالب",
+                    "النموذج التدريسي",
+                    "النموذج الإرشادي"
                 ],
                 correctAnswer: 1
             },
             {
-                question: "Geolocation uses:",
+                question: "خاصية في بيئات التعلم التكيفية تعني مساعدة ذوي الاحتياجات الخاصة:",
                 options: [
-                    "Only maps",
-                    "Only compass",
-                    "Satellite and digital technology",
-                    "Only GPS"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "Modern computers are:",
-                options: [
-                    "Larger than before",
-                    "More compact and powerful",
-                    "Less powerful",
-                    "Only for gaming"
+                    "المرونة",
+                    "التوافق",
+                    "التميز",
+                    "التكامل"
                 ],
                 correctAnswer: 1
             },
             {
-                question: "Digital cameras make it easier to:",
+                question: "من أهم مقترحات تطوير بيئات التعلم:",
                 options: [
-                    "Only print photos",
-                    "Only store photos",
-                    "Store, organize, edit, and share photos",
-                    "Only delete photos"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "BYOD stands for:",
-                options: [
-                    "Build Your Own Device",
-                    "Bring Your Own Device",
-                    "Buy Your Own Device",
-                    "Break Your Own Device"
+                    "إلغاء الإنترنت",
+                    "بناء خطط استراتيجية وإجرائية",
+                    "العودة للتعليم التقليدي",
+                    "تقليل التفاعل"
                 ],
                 correctAnswer: 1
             },
             {
-                question: "E-portfolios are used to:",
+                question: "مكون من مكونات بيئة التعلم يحتوي على سجل الدرجات والدليل الإرشادي:",
                 options: [
-                    "Only store photos",
-                    "Track learning journey",
-                    "Only play games",
-                    "Only watch videos"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "In a flipped classroom, students:",
-                options: [
-                    "Skip all lessons",
-                    "Only study in class",
-                    "Learn new content before the lesson",
-                    "Only do homework in class"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "PLN stands for:",
-                options: [
-                    "Personal Learning Network",
-                    "Public Learning Network",
-                    "Private Learning Network",
-                    "Professional Learning Network"
+                    "الصفحة الرئيسية",
+                    "الأنشطة والاختبارات",
+                    "المراجع",
+                    "المحتوى"
                 ],
                 correctAnswer: 0
             },
             {
-                question: "A Virtual Learning Environment is:",
+                question: "أدوات تساعد في 'التشبيك الاجتماعي':",
                 options: [
-                    "Only for games",
-                    "A web-based education system",
-                    "Only for videos",
-                    "Only for homework"
+                    "الويكي",
+                    "ربط الأشخاص لتبادل الخبرات",
+                    "مواقع الصور",
+                    "الرسوم"
                 ],
                 correctAnswer: 1
             },
             {
-                question: "Interactive Whiteboards allow:",
+                question: "تغيير دور المتعلم من المتلقي السلبي إلى الإيجابي من مميزات البيئات:",
                 options: [
-                    "Only writing",
-                    "Only drawing",
-                    "Interactive content display and manipulation",
-                    "Only erasing"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "Software Applications (Apps) are designed for:",
-                options: [
-                    "Only computers",
-                    "Only tablets",
-                    "Mobile devices",
-                    "Only gaming consoles"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "Web 2.0 includes:",
-                options: [
-                    "Only social media",
-                    "Only emails",
-                    "Podcasts, blogs, wikis, and social networks",
-                    "Only search engines"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "Digital technology offers:",
-                options: [
-                    "Only delayed feedback",
-                    "No feedback",
-                    "Immediate feedback",
-                    "Weekly feedback"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "The 'digital divide' refers to:",
-                options: [
-                    "Different types of computers",
-                    "Different types of software",
-                    "Access gap between those who have and don't have technology",
-                    "Different types of internet"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "Scratch programming is used to:",
-                options: [
-                    "Only play games",
-                    "Only write code",
-                    "Create learning environments",
-                    "Only draw pictures"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "Digital clocks are:",
-                options: [
-                    "Harder to read than analog",
-                    "Make loud ticking sounds",
-                    "Easy to read even in dark",
-                    "Only work during daytime"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "Modern cars rely on computers for:",
-                options: [
-                    "Only entertainment",
-                    "Only navigation",
-                    "Engine monitoring and safety control",
-                    "Only radio"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "Digital music is now available:",
-                options: [
-                    "Only on vinyl",
-                    "Only on cassettes",
-                    "On CDs and streaming platforms",
-                    "Only on radio"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "Social media sites include:",
-                options: [
-                    "Only Facebook",
-                    "Only Twitter",
-                    "Facebook, Twitter, and Instagram",
-                    "Only email services"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "Self-scan machines use:",
-                options: [
-                    "Only barcodes",
-                    "RFID technology",
-                    "Only manual input",
-                    "Only paper receipts"
+                    "التقليدية",
+                    "التكيفية",
+                    "المغلقة",
+                    "الورقية"
                 ],
                 correctAnswer: 1
             },
             {
-                question: "Robotics in medicine includes:",
+                question: "تلبية احتياجات الطلاب المتفوقين في البيئات التكيفية تسمى:",
                 options: [
-                    "Only surgery",
-                    "Only diagnostics",
-                    "Nanorobots for medical procedures",
-                    "Only monitoring"
+                    "التميز",
+                    "التطوير",
+                    "التأقلم",
+                    "الاستيعاب"
                 ],
-                correctAnswer: 2
+                correctAnswer: 0
             },
+            // الفصل الرابع
             {
-                question: "Drones are used for:",
+                question: "بيئة افتراضية تتيح الشراء والتعامل بالدولار وتصميم مختبرات:",
                 options: [
-                    "Only photography",
-                    "Only delivery",
-                    "Military applications and remote control",
-                    "Only entertainment"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "Digital technology in the Arab world is recognized as:",
-                options: [
-                    "Only for entertainment",
-                    "A tool for student-centered learning",
-                    "Only for teachers",
-                    "Only for administrators"
+                    "المكتبة الرقمية",
+                    "الحياة الثانية (SL)",
+                    "الكتاب الإلكتروني",
+                    "المعرض الافتراضي"
                 ],
                 correctAnswer: 1
             },
             {
-                question: "ATMs provide:",
+                question: "من تطبيقات الواقع الافتراضي في التعليم:",
                 options: [
-                    "Only cash withdrawal",
-                    "Only balance checking",
-                    "Quick access to multiple banking services",
-                    "Only deposits"
-                ],
-                correctAnswer: 2
-            },
-            // Unit 2 Questions
-            {
-                question: "Web 1.0 was known as the _____ web.",
-                options: [
-                    "interactive",
-                    "read-only",
-                    "semantic",
-                    "dynamic"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "The earliest version of the Internet emerged from:",
-                options: [
-                    "DARPA",
-                    "Facebook",
-                    "Wikipedia",
-                    "Twitter"
+                    "تشريح جسم الإنسان",
+                    "طباعة الكتب",
+                    "المحاضرة التقليدية",
+                    "البريد العادي"
                 ],
                 correctAnswer: 0
             },
             {
-                question: "In Web 1.0, users were mostly:",
+                question: "الرحلات التي تتيح رؤية المكان من جميع الاتجاهات تسمى رحلات:",
                 options: [
-                    "active contributors",
-                    "passive readers",
-                    "content creators",
-                    "social networkers"
+                    "نصية",
+                    "بانورامية 360 درجة",
+                    "صوتية",
+                    "تقليدية"
                 ],
                 correctAnswer: 1
             },
             {
-                question: "Web 2.0 emerged in the:",
+                question: "من مكونات الرحلات الافتراضية:",
                 options: [
-                    "20th century",
-                    "19th century",
-                    "21st century",
-                    "18th century"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "Which of these is a Web 2.0 application?",
-                options: [
-                    "Static webpage",
-                    "Facebook",
-                    "Blockchain",
-                    "DOS"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "CSS in web development refers to:",
-                options: [
-                    "Computer Style System",
-                    "Cascading Style Sheets",
-                    "Computer System Style",
-                    "Creative Style System"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "Web 3.0 makes use of:",
-                options: [
-                    "Only static pages",
-                    "Only social media",
-                    "Machine learning and AI",
-                    "Only HTML"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "Web 2.0 information is considered:",
-                options: [
-                    "Static",
-                    "Dynamic",
-                    "Unchangeable",
-                    "Fixed"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "The term ISP stands for:",
-                options: [
-                    "Internet System Program",
-                    "Internet Service Provider",
-                    "Internet Security Protocol",
-                    "Internet Style Program"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "Web 1.0 pages were mostly:",
-                options: [
-                    "Interactive",
-                    "Dynamic",
-                    "Static",
-                    "Social"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "Web 2.0 focuses on:",
-                options: [
-                    "Read-only content",
-                    "Reading and writing content",
-                    "Static content only",
-                    "Offline content"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "A Wiki allows:",
-                options: [
-                    "Only one user to edit",
-                    "No editing",
-                    "Multiple users to edit",
-                    "Only administrators to edit"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "Web 3.0 emphasizes:",
-                options: [
-                    "Centralized applications",
-                    "Static pages",
-                    "Decentralized applications",
-                    "Web 1.0 features"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "Cryptocurrency is a key feature of:",
-                options: [
-                    "Web 1.0",
-                    "Web 2.0",
-                    "Web 3.0",
-                    "None of these"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "HTML stands for:",
-                options: [
-                    "Hyper Text Markup Language",
-                    "High Text Markup Language",
-                    "Hyper Text Making Language",
-                    "High Text Making Language"
+                    "المقدمة والمهام والخاتمة",
+                    "الورق والحبر",
+                    "الحضور الإلزامي",
+                    "المباني المدرسية"
                 ],
                 correctAnswer: 0
             },
             {
-                question: "Web 1.0 was:",
+                question: "كتاب يتم نشره بصورة إلكترونية وتتمتع صفحاته بمواصفات صفحات الويب:",
                 options: [
-                    "More difficult to change",
-                    "Easy to change",
-                    "Always changing",
-                    "Highly interactive"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "Web 2.0 is considered:",
-                options: [
-                    "Less secure than Web 1.0",
-                    "Static only",
-                    "Read-only",
-                    "Non-interactive"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "DAO in Web 3.0 stands for:",
-                options: [
-                    "Digital Access Online",
-                    "Decentralized Autonomous Organization",
-                    "Data Access Operation",
-                    "Digital Authorization Office"
+                    "الكتاب الورقي",
+                    "الكتاب الإلكتروني",
+                    "المقال الصحفي",
+                    "البحث المطبوع"
                 ],
                 correctAnswer: 1
             },
             {
-                question: "Web 3.0 requires:",
+                question: "من مميزات الفصول الافتراضية:",
                 options: [
-                    "Basic hardware",
-                    "No special hardware",
-                    "Above-average hardware",
-                    "Only smartphones"
+                    "التكلفة العالية دائماً",
+                    "تخزين الدروس والرجوع إليها",
+                    "ضرورة التواجد المكاني",
+                    "صعوبة التقييم"
                 ],
-                correctAnswer: 2
+                correctAnswer: 1
             },
             {
-                question: "Blockchain is an enabler for:",
+                question: "الجزء من نظام الفصل الافتراضي الذي يمكن المعلم من متابعة الأداء:",
                 options: [
-                    "Web 1.0 applications",
-                    "Web 2.0 applications",
-                    "Web 3.0 decentralized applications",
-                    "None of these"
+                    "واجهة الطالب",
+                    "واجهة المعلم",
+                    "واجهة الزائر",
+                    "لوحة التحكم العامة"
                 ],
-                correctAnswer: 2
+                correctAnswer: 1
+            },
+            {
+                question: "من خصائص المعارض الافتراضية:",
+                options: [
+                    "الثبات",
+                    "الديناميكية والمرونة في التحديث",
+                    "المحدودية",
+                    "المحلية فقط"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "يسمى تنظيم المحتوى الذي ينتقل من المحسوس للمجرد بالتنظيم:",
+                options: [
+                    "السيكولوجي",
+                    "المنطقي",
+                    "الرأسي",
+                    "الهرمي"
+                ],
+                correctAnswer: 0
+            },
+            {
+                question: "البيئة التي تضيق الفجوة بين المعرفة وتطبيقها هي:",
+                options: [
+                    "البيئة التقليدية",
+                    "البيئة الافتراضية",
+                    "البيئة الورقية",
+                    "البيئة السمعية"
+                ],
+                correctAnswer: 1
+            },
+            // الفصل الخامس
+            {
+                question: "اللغة المستخدمة لبناء الهيكل الأساسي لصفحات الويب:",
+                options: [
+                    "CSS",
+                    "HTML",
+                    "Java",
+                    "Python"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "نظام رقمي مصمم خصيصاً لإدارة مقررات إلكترونية وإتاحة عمل تعاوني:",
+                options: [
+                    "CMS",
+                    "LMS",
+                    "LCMS",
+                    "HTML"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "من مميزات نظام Moodle أنه:",
+                options: [
+                    "تجاري",
+                    "متاح للجميع وبشكل مجاني",
+                    "مغلق المصدر",
+                    "صعب التعديل"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "نظام إدارة تعلم تجاري (مغلق المصدر) يعتبر من أقوى الأنظمة:",
+                options: [
+                    "Moodle",
+                    "Blackboard",
+                    "WordPress",
+                    "Wix"
+                ],
+                correctAnswer: 1
+            },
+            {
+                question: "من الخدمات التي يقدمها 'بلاك بورد' للمعلم:",
+                options: [
+                    "الإعلانات والتقويم الزمني",
+                    "برمجة الألعاب",
+                    "صيانة الأجهزة",
+                    "تصميم واجهات الهاتف"
+                ],
+                correctAnswer: 0
             }
         ];
 
-        // أسئلة صح/خطأ (50 سؤال)
-        const tfQuestions = [
-            // Unit 1 True/False
-            { question: "Digital technology in schools is only about using computers for games.", answer: false },
-            { question: "Technology-assisted strategies have shown significant improvements in student learning, adding about four months of progress.", answer: true },
-            { question: "Traditional teaching methods should be completely replaced by digital technology.", answer: false },
-            { question: "Students who use technology become less responsible for their learning.", answer: false },
-            { question: "Interactive whiteboards can only be used with a special pen, not with fingers.", answer: false },
-            { question: "E-portfolios are only used to store photos and cannot track learning progress.", answer: false },
-            { question: "In a flipped classroom, students learn new content at home before the class.", answer: true },
-            { question: "Personal Learning Networks (PLN) allow access to ideas beyond the physical institution.", answer: true },
-            { question: "Virtual Learning Environments are only accessible from school computers.", answer: false },
-            { question: "BYOD (Bring Your Own Device) helps reduce costs for educational institutions.", answer: true },
-            { question: "Digital technology can provide immediate feedback to both teachers and students.", answer: true },
-            { question: "Smartphones have only changed how we make phone calls.", answer: false },
-            { question: "Digital cameras can only store photos but cannot edit them.", answer: false },
-            { question: "Web 2.0 includes features like podcasts, blogs, and social networking.", answer: true },
-            { question: "The digital divide refers to the age gap between technology users.", answer: false },
-            { question: "Self-scan machines use RFID technology to replace traditional barcodes.", answer: true },
-            { question: "Digital clocks are more difficult to read than analog clocks.", answer: false },
-            { question: "Robotics in medicine includes the use of nanorobots for medical procedures.", answer: true },
-            { question: "Digital technology in the Arab world supports student-centered learning.", answer: true },
-            { question: "E-books cannot allow users to customize font sizes and styles.", answer: false },
-            // Unit 2 True/False
-            { question: "Web 1.0 was known as the 'read-only' web.", answer: true },
-            { question: "Web 2.0 requires special hardware to access.", answer: false },
-            { question: "Facebook and Twitter are examples of Web 3.0 applications.", answer: false },
-            { question: "Web 1.0 pages were mostly dynamic and interactive.", answer: false },
-            { question: "Web 2.0 focuses on both reading and writing content.", answer: true },
-            { question: "Blockchain technology is a key feature of Web 2.0.", answer: false },
-            { question: "Web 3.0 incorporates artificial intelligence and machine learning.", answer: true },
-            { question: "In Web 1.0, users were mostly active contributors.", answer: false },
-            { question: "Web 2.0 emerged in the aftermath of the dotcom bubble.", answer: true },
-            { question: "CSS was introduced to make coding more difficult in Web 1.0.", answer: false },
-            { question: "Web 3.0 emphasizes centralized applications.", answer: false },
-            { question: "Wiki pages can only be edited by a single owner.", answer: false },
-            { question: "Web 2.0 is considered more social and interactive than Web 1.0.", answer: true },
-            { question: "The early Internet was developed by DARPA.", answer: true },
-            { question: "Cryptocurrency is not related to Web 3.0 services.", answer: false },
-            { question: "Web 2.0 applications are generally considered more secure than Web 1.0.", answer: false },
-            { question: "Static information was a characteristic of Web 1.0.", answer: true },
-            { question: "Web 3.0 does not use decentralized blockchain technology.", answer: false },
-            { question: "Web 2.0 allows for greater collaboration and flexibility.", answer: true },
-            { question: "Individual webpages in Web 1.0 were hosted by ISPs or free hosting services.", answer: true }
-        ];
-
-        // دمج الأسئلة: أول 50 اختيارية ثم 50 صح/خطأ
+        // دمج الأسئلة: أول 40 اختيارية ثم 35 صح/خطأ
         const allQuestions = [...mcqQuestions, ...tfQuestions.map(q => ({
             question: q.question,
-            options: ["True", "False"],
+            options: ["صح", "خطأ"],
             correctAnswer: q.answer ? 0 : 1,
             isTF: true
         }))];
@@ -1153,7 +1022,7 @@
                     userAnswer.classList.add('incorrect-answer');
                     
                     if (question.isTF) {
-                        userAnswer.textContent = `إجابتك: ${userAnswers[index] === 0 ? "True" : "False"}`;
+                        userAnswer.textContent = `إجابتك: ${userAnswers[index] === 0 ? "صح" : "خطأ"}`;
                     } else {
                         userAnswer.textContent = `إجابتك: ${question.options[userAnswers[index]]}`;
                     }
@@ -1162,7 +1031,7 @@
                     correctAnswer.classList.add('correct-answer');
                     
                     if (question.isTF) {
-                        correctAnswer.textContent = `الإجابة الصحيحة: ${question.correctAnswer === 0 ? "True" : "False"}`;
+                        correctAnswer.textContent = `الإجابة الصحيحة: ${question.correctAnswer === 0 ? "صح" : "خطأ"}`;
                     } else {
                         correctAnswer.textContent = `الإجابة الصحيحة: ${question.options[question.correctAnswer]}`;
                     }
@@ -1178,7 +1047,7 @@
             if (mistakesList.innerHTML === '') {
                 const noMistakes = document.createElement('div');
                 noMistakes.classList.add('mistake-item');
-                noMistakes.textContent = 'لا توجد أخطاء! جميع إجاباتك صحيحة. أنت أسطورة! 🏆';
+                noMistakes.textContent = 'لا توجد أخطاء! جميع إجاباتك صحيحة. أنت خبير البيئات الافتراضية! 🏆';
                 noMistakes.style.textAlign = 'center';
                 noMistakes.style.fontWeight = 'bold';
                 noMistakes.style.color = '#27ae60';
