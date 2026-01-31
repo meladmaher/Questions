@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>امتحان برمجة الألعاب</title>
+    <title>اختبار برمجة الألعاب</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -18,7 +18,11 @@
             --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
             font-family: 'Tajawal', sans-serif;
@@ -53,8 +57,15 @@
             flex-shrink: 0;
         }
 
-        header h1 { font-size: 1.5rem; margin-bottom: 5px; }
-        header p { font-size: 0.9rem; opacity: 0.9; }
+        header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
 
         .screen {
             padding: 40px;
@@ -65,75 +76,193 @@
             overflow-y: auto;
         }
 
-        .screen.active { display: block; }
+        .screen.active {
+            display: block;
+        }
 
         .start-img {
-            width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
-            margin-bottom: 20px; border: 4px solid var(--primary-color);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid var(--primary-color);
         }
 
-        h2.section-title { color: var(--primary-dark); margin-bottom: 20px; font-size: 1.8rem; }
+        h2.section-title {
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
 
         .btn {
-            background: var(--primary-color); color: white; border: none; padding: 12px 30px;
-            font-size: 1.1rem; border-radius: 50px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
-            font-family: 'Tajawal', sans-serif; font-weight: 700; margin-top: 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            margin-top: 20px;
         }
-        .btn:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
 
-        .quiz-screen { padding: 30px; text-align: right; overflow-y: auto; }
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
 
-        .progress-bar-container { width: 100%; background: #e2e8f0; height: 10px; border-radius: 10px; margin-bottom: 25px; overflow: hidden; }
-        .progress-bar { height: 100%; background: var(--success-color); width: 0%; transition: width 0.5s ease; }
+        /* Quiz Screen Styles */
+        .quiz-screen {
+            padding: 30px;
+            text-align: right;
+        }
 
-        .question-meta { display: flex; justify-content: space-between; color: var(--accent-color); margin-bottom: 15px; font-size: 0.9rem; }
+        .progress-bar-container {
+            width: 100%;
+            background: #e2e8f0;
+            height: 10px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
 
-        .question-text { font-size: 1.3rem; line-height: 1.6; margin-bottom: 25px; color: #0f172a; font-weight: 600; }
+        .progress-bar {
+            height: 100%;
+            background: var(--success-color);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
 
-        .input-area { margin-bottom: 20px; }
+        .question-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        .input-area {
+            margin-bottom: 20px;
+        }
+
         .text-input {
-            width: 100%; padding: 15px; border: 2px solid #cbd5e1; border-radius: 10px;
-            font-size: 1.1rem; font-family: 'Tajawal', sans-serif; transition: border-color 0.3s; text-align: center;
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-family: 'Tajawal', sans-serif;
+            transition: border-color 0.3s;
+            text-align: center;
         }
-        .text-input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
 
-        .options-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-        @media(min-width: 600px) { .options-grid { grid-template-columns: 1fr 1fr; } }
+        .text-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        @media(min-width: 600px) {
+            .options-grid { grid-template-columns: 1fr 1fr; }
+            .tf-container { grid-template-columns: 1fr 1fr; }
+        }
 
         .option-btn {
-            background: white; border: 2px solid #e2e8f0; padding: 15px; border-radius: 12px;
-            font-size: 1rem; cursor: pointer; transition: all 0.2s; font-family: 'Tajawal', sans-serif;
-            text-align: right; color: var(--text-color);
+            background: white;
+            border: 2px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Tajawal', sans-serif;
+            text-align: right;
+            color: var(--text-color);
         }
-        .option-btn:hover { border-color: var(--primary-color); background: #f0f9ff; }
-        .option-btn.selected { background: var(--primary-color); color: white; border-color: var(--primary-color); }
 
-        .feedback-area {
-            margin-top: 25px; padding: 15px; border-radius: 10px; display: none;
-            animation: slideUp 0.3s ease; font-size: 1.05rem; line-height: 1.6;
+        .option-btn:hover {
+            border-color: var(--primary-color);
+            background: #f0f9ff;
         }
+
+        .option-btn.selected {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* T/F Buttons */
+        .tf-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .tf-btn {
+            padding: 20px;
+            font-size: 1.3rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            background: white;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 800;
+            transition: all 0.2s;
+            color: var(--text-color);
+        }
+
+        .tf-btn:hover { border-color: var(--primary-color); background: #f0f9ff; }
+        .tf-btn.selected-true { background: var(--success-color); color: white; border-color: var(--success-color); }
+        .tf-btn.selected-false { background: var(--error-color); color: white; border-color: var(--error-color); }
+
+        /* Feedback Area */
+        .feedback-area {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            animation: slideUp 0.3s ease;
+            text-align: right;
+        }
+
         .feedback-correct { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
         .feedback-wrong { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
-        .correct-answer-text { font-weight: bold; display: block; margin-top: 5px; }
 
-        .result-header { margin-bottom: 20px; }
+        .result-header { margin-bottom: 20px; text-align: center; }
         .score-display { font-size: 3rem; font-weight: 800; color: var(--primary-color); margin: 10px 0; }
-        .status-badge { display: inline-block; padding: 10px 20px; border-radius: 50px; font-weight: bold; font-size: 1.5rem; margin-bottom: 10px; color: white; }
+        
+        .status-badge {
+            display: inline-block; padding: 10px 20px; border-radius: 50px; font-weight: bold; font-size: 1.5rem; color: white;
+        }
         .status-pass { background: var(--success-color); }
         .status-fail { background: var(--error-color); }
         .result-message { font-size: 1.2rem; color: #334155; margin-bottom: 20px; }
 
         .review-section {
-            background: #f1f5f9; border-radius: 15px; padding: 20px; margin-top: 20px;
-            text-align: right; max-height: 300px; overflow-y: auto; border: 1px solid #cbd5e1;
+            background: #f1f5f9; border-radius: 15px; padding: 20px; margin-top: 20px; text-align: right; max-height: 300px; overflow-y: auto; border: 1px solid #cbd5e1;
         }
         .review-title { font-weight: bold; margin-bottom: 15px; color: var(--error-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
-        .review-item {
-            background: white; padding: 12px; margin-bottom: 10px; border-radius: 8px;
-            border-right: 4px solid var(--error-color); box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
+        .review-item { background: white; padding: 12px; margin-bottom: 10px; border-radius: 8px; border-right: 4px solid var(--error-color); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .review-q-text { font-size: 0.95rem; color: #475569; margin-bottom: 5px; font-weight: bold; }
-        .review-ans-box { font-size: 0.85rem; display: flex; flex-direction: column; gap: 4px; }
+        .review-ans-box { font-size: 0.85rem; display: flex; flex-direction: column; gap: 2px; }
         .ans-wrong { color: var(--error-color); }
         .ans-correct { color: var(--success-color); }
 
@@ -146,57 +275,55 @@
 
     <div class="exam-container">
         <header>
-            <h1>برمجة الألعاب</h1>
-            <p>اختبار تفاعلي شامل (أكمل - اختر - صح وخطأ)</p>
+            <h1>اختبار برمجة الألعاب</h1>
+            <p>اختبار شامل (أكمل - اختر - صح وخطأ)</p>
         </header>
 
-        <!-- شاشة البداية -->
+        <!-- Start Screen -->
         <div id="start-screen" class="screen active">
             <img src="https://picsum.photos/seed/gamedev/200/200" alt="Logo" class="start-img">
-            <h2 class="section-title">أهلاً بك في الاختبار</h2>
-            <p style="margin-bottom: 20px; line-height: 1.6;">
-                يحتوي هذا الاختبار على 91 سؤالاً متنوعاً حول برمجة الألعاب.<br>
-                في أسئلة "أكمل"، يتم مراعاة المعنى والتشابه في الكتابة (بدون همزات أو مسافات زائدة).<br>
-                حاول الحصول على أعلى نتيجة!
-            </p>
-            <button class="btn" onclick="startExam()">بدء الامتحان</button>
+            <h2 class="section-title">أهلاً بك</h2>
+            <p style="margin-bottom: 20px; line-height: 1.6;">اختبار تفاعلي لمادة برمجة الألعاب.</p>
+            <button class="btn" onclick="startExam()">بدء الاختبار</button>
         </div>
 
-        <!-- شاشة الامتحان -->
+        <!-- Quiz Screen -->
         <div id="quiz-screen" class="screen quiz-screen hidden">
             <div class="progress-bar-container">
                 <div id="progress-bar" class="progress-bar"></div>
             </div>
             
             <div class="question-meta">
-                <span id="section-name">قسم: اختر الإجابة</span>
-                <span id="question-counter">سؤال 1 من 91</span>
+                <span id="section-name">القسم</span>
+                <span id="question-counter">سؤال 1 من --</span>
             </div>
 
             <div id="question-text" class="question-text"></div>
 
+            <!-- Interaction Area -->
             <div id="interaction-area" class="input-area"></div>
 
             <div style="text-align: center; margin-top: 30px;">
                 <button id="submit-btn" class="btn" onclick="submitAnswer()">تحقق</button>
-                <button id="next-btn" class="btn hidden" onclick="nextQuestion()">السؤال التالي</button>
+                <button id="next-btn" class="btn hidden" onclick="nextQuestion()">التالي</button>
             </div>
 
+            <!-- Feedback -->
             <div id="feedback-area" class="feedback-area"></div>
         </div>
 
-        <!-- شاشة النتائج -->
+        <!-- Result Screen -->
         <div id="result-screen" class="screen hidden">
             <div class="result-header">
-                <h2 class="section-title">نتيجة الاختبار</h2>
+                <h2 class="section-title">النتيجة النهائية</h2>
                 <div id="status-badge" class="status-badge status-pass">ناجح</div>
-                <div class="score-display"><span id="final-score">0</span> / 91</div>
+                <div class="score-display"><span id="final-score">0</span> / <span id="total-questions">0</span></div>
                 <div class="result-message" id="result-message"></div>
                 <p style="color: var(--accent-color); font-size: 0.9rem;">الدقة: <span id="accuracy-percent">0</span>%</p>
             </div>
 
             <div id="review-container" class="review-section hidden">
-                <div class="review-title">📝 مراجعة الأسئلة:</div>
+                <div class="review-title">📝 مراجعة الأخطاء:</div>
                 <div id="review-list"></div>
             </div>
 
@@ -206,10 +333,10 @@
 
     <script>
         // ==========================================
-        // 1. قاعدة البيانات (برمجة الألعاب)
+        // DATA: Questions (Game Programming)
         // ==========================================
         const questionsDB = [
-            // ================= اختر الإجابة الصحيحة (37 سؤال) =================
+            // MCQ Questions
             { type: 'mcq', text: "أي مما يلي يُعد من مميزات الألعاب التعليمية؟", options: ["تقريب المفاهيم لدى المتعلمين", "زيادة التواصل مع المعلم خارج الفصل", "تحسين التعلم القائم على المشروع", "تقليل نفقات العملية التعليمية"], answer: 0 },
             { type: 'mcq', text: "أي مما يلي هو دور المعلم في اللعبة التعليمية؟", options: ["توزيع الأدوار بين المتعلمين", "التفاعل مع اللعبة", "العمل ضمن فريق", "لعب الأدوار داخل اللعبة"], answer: 0 },
             { type: 'mcq', text: "يمكن تصنيف الألعاب حسب سلوك المتعلم إلى:", options: ["تمثيل الأدوار", "تطبيق المعرفة", "ألعاب لغوية", "ألعاب زوجية"], answer: 0 },
@@ -225,7 +352,7 @@
             { type: 'mcq', text: "النظرية التربوية التي ترى أن التعلم عبارة عن تغيير شبه دائم في سلوك الفرد هي:", options: ["النظرية السلوكية", "النظرية البنائية", "النظرية المعرفية", "النظرية الارتباطية"], answer: 0 },
             { type: 'mcq', text: "النظرية التي تفسر حدوث التعلم من خلال تعريض المتعلم لمواقف تستدعي استدعاء خبراته السابقة هي:", options: ["النظرية السلوكية", "النظرية البنائية", "النظرية المعرفية", "النظرية الارتباطية"], answer: 2 },
             { type: 'mcq', text: "النظرية التي ترى أن التعلم عبارة عن تفاعل المتعلم مع ما حوله من أشياء وأشخاص هي:", options: ["النظرية السلوكية", "النظرية البنائية", "النظرية المعرفية", "النظرية الارتباطية"], answer: 1 },
-            { type: 'mcq', text: "من المرحلة العمرية التي تتميز بالرغبة في التعاون مع الآخرين هي:", options: ["من سنة إلى 5 سنوات", "من 5 إلى 8 سنوات", "من 8 إلى 12 سنة", "من 12 إلى 15 سنة"], answer: 2 },
+            { type: 'mcq', text: "من المرحلة العمرية التي تتميز بالرغبة في التعاون مع الآخرين هي:", options: ["من سنة إلى 5 سنوات", "من 5 إلى 8 سنوات", "من 8 إلى 12 سنة", "من 12 إلى 15 سنة"], answer: 1 },
             { type: 'mcq', text: "من المرحلة العمرية التي تتميز بالرغبة في التنافس مع الأقران هي:", options: ["من سنة إلى 5 سنوات", "من 5 إلى 8 سنوات", "من 8 إلى 12 سنة", "من 12 إلى 15 سنة"], answer: 2 },
             { type: 'mcq', text: "من المرحلة العمرية التي تقتصر على اللعب الفردي واللعب المتبادل هي:", options: ["من سنة إلى 5 سنوات", "من 5 إلى 8 سنوات", "من 8 إلى 12 سنة", "من 12 إلى 15 سنة"], answer: 0 },
             { type: 'mcq', text: "تحديد الفئة المستهدفة يتم ضمن مرحلة:", options: ["الإعداد", "التجريب", "التقويم", "التنفيذ"], answer: 0 },
@@ -248,7 +375,7 @@
             { type: 'mcq', text: "مرحلة يتم فيها توزيع الأدوار على اللاعبين:", options: ["الإعداد", "التجريب", "التقويم", "التعديل"], answer: 1 },
             { type: 'mcq', text: "تطبيق يحتوي على برمجة داخلية Action Script تستخدم في إنتاج الألعاب المعقدة:", options: ["Scratch", "Game Maker", "Unity", "Adobe Animate"], answer: 3 },
 
-            // ================= صح و غلط (33 سؤال) =================
+            // TF Questions
             { type: 'tf', text: "من مميزات اللعب إكساب الطفل المهارات الاجتماعية.", answer: true },
             { type: 'tf', text: "لا تسهم الألعاب التعليمية في توضيح الفروق الفردية بين المتعلمين.", answer: false },
             { type: 'tf', text: "ألعاب حل المشكلات تتطلب سلوكيات خاصة من المتعلم.", answer: true },
@@ -268,7 +395,7 @@
             { type: 'tf', text: "الألعاب الإلكترونية تتصف بعنصر التشويق.", answer: true },
             { type: 'tf', text: "اللاعب المستكشف يهدف إلى البحث عن خبرات وتجارب جديدة.", answer: true },
             { type: 'tf', text: "اللاعب المشارك يهدف إلى منافسة الآخرين والقضاء عليهم.", answer: false },
-            { type: 'tf', text: "الألعاب الإلكترونية تعطي انغماسا أعلى في الموقف التعليمي.", answer: true },
+            { type: 'tf', text: "الألعاب الإلكترونية تعطي انغماساً أعلى في الموقف التعليمي.", answer: true },
             { type: 'tf', text: "تتميز الألعاب الإلكترونية بإمكانية التعلم من التكرار والخطأ.", answer: true },
             { type: 'tf', text: "تطبيق Unity يمكنه إنتاج ألعاب ثلاثية الأبعاد.", answer: true },
             { type: 'tf', text: "من عوامل نجاح توظيف الألعاب توزيع الأدوار وفق قدرات المتعلمين.", answer: true },
@@ -285,32 +412,33 @@
             { type: 'tf', text: "من التقنيات التقليدية القديمة في مجال الألعاب استخدام الواقع الافتراضي.", answer: false },
             { type: 'tf', text: "توفر الألعاب التقليدية أقصى درجات التحكم للاعب في ممارسة اللعبة.", answer: false },
 
-            // ================= أكمل الفراغ (21 سؤال) =================
-            { type: 'complete', text: "اللعب هو نشاط حر أو موجه يقوم به الإنسان بدافع المتعة أو التعلم.", answer: ["نشاط حر أو موجه يقوم به الإنسان بدافع المتعة أو التعلم"] },
-            { type: 'complete', text: "اللعبة التعليمية هو نشاط منظم ومقصود يهدف إلى تحقيق أهداف تعليمية محددة.", answer: ["نشاط منظم ومقصود يهدف إلى تحقيق أهداف تعليمية محددة"] },
-            { type: 'complete', text: "تصنيف الألعاب التعليمية: حسب الهدف إلى أهداف معرفي، وجداني، مهاري.", answer: ["أهداف معرفي وجداني مهاري"] },
-            { type: 'complete', text: "ألعاب تمثيل الأدوار يقوم المتعلم فيها بمحاكاة مواقف أو شخصيات تعليمية.", answer: ["بمحاكاة مواقف أو شخصيات تعليمية"] },
-            { type: 'complete', text: "ألعاب إلكترونية تعتمد على استخدام الوسائط التقنية والحاسوب.", answer: ["على استخدام الوسائط التقنية والحاسوب"] },
-            { type: 'complete', text: "الاستراتيجية التعلمية هو أسلوب منظم لتوصيل المادة التعليمية للطلاب بطريقة فعالة.", answer: ["أسلوب منظم لتوصيل المادة التعليمية للطلاب بطريقة فعالة"] },
-            { type: 'complete', text: "استراتيجية التعليم الفردي تتيح للمتعلم التعلم وفق قدراته وسرعته الخاصة.", answer: ["ووفق قدراته وسرعته الخاصة"] },
-            { type: 'complete', text: "استراتيجية التعليم المصغر تقديم المحتوى في شكل وحدات صغيرة ومركزة.", answer: ["تقديم المحتوى في شكل وحدات صغيرة ومركزة"] },
-            { type: 'complete', text: "نظرية التعلم السلوكية ترى أن التعلم هو تغيير في السلوك نتيجة للمثيرات.", answer: ["هو تغيير في السلوك نتيجة للمثيرات"] },
-            { type: 'complete', text: "نظرية التعلم المعرفية ترى أن التعلم يحدث داخل العقل من خلال التفكير والفهم.", answer: ["يحدث داخل العقل من خلال التفكير والفهم"] },
-            { type: 'complete', text: "نظرية التعلم البنائية تؤكد على أن التعلم يتم من خلال تفاعل المتعلم مع بيئته.", answer: ["يتم من خلال تفاعل المتعلم مع بيئته"] },
-            { type: 'complete', text: "المرحلة العمرية فترة زمنية محددة تتصف بخصائص نمائية وسلوكية.", answer: ["فترة زمنية محددة تتصف بخصائص نمائية وسلوكية"] },
-            { type: 'complete', text: "من عوامل نجاح اللعبة التعليمية وضوح الأهداف الفئة المستهدفة.", answer: ["وضوح الأهداف الفئة المستهدفة"] },
-            { type: 'complete', text: "اللعب التعاوني يهدف إلى التعاون مع الزملاء لتحقيق هدف مشترك.", answer: ["إلى التعاون مع الزملاء لتحقيق هدف مشترك"] },
-            { type: 'complete', text: "مراحل تصميم اللعبة التعليمية الإعداد، التجريب، التقييم.", answer: ["الإعداد التجريب التقييم"] },
-            { type: 'complete', text: "التحكم هي قدرة اللاعب على بدء اللعبة أو إنهائها أو التحكم في مجرياتها.", answer: ["على بدء اللعبة أو إنهائها أو التحكم في مجرياتها"] },
-            { type: 'complete', text: "التعلم من الخطأ هو مبدأ تربوي يقوم على تعديل السلوك عبر التجربة.", answer: ["يقوم على تعديل السلوك عبر التجربة"] },
-            { type: 'complete', text: "الانغماس التعليمي هو تفاعل المتعلم الكامل مع بيئة اللعبة.", answer: ["هو تفاعل المتعلم الكامل مع بيئة اللعبة"] },
-            { type: 'complete', text: "التعلم القائم على الوسائط المتعددة هو الدمج بين النص والصوت والصورة لتحقيق التعلم.", answer: ["هو الدمج بين النص والصوت والصورة لتحقيق التعلم"] },
-            { type: 'complete', text: "Scratch من تطبيقات تصميم الألعاب وهو مجاني ومناسب للأطفال للتعلم.", answer: ["مجاني ومناسب للأطفال للتعلم"] },
-            { type: 'complete', text: "نمط اللاعب المقاتل يهدف إلى منافسة الآخرين والانتصار عليهم بينما يهدف نمط المدير إلى تطوير مهارات محددة للوصول لدرجة الإتقان، وفي نمط المستكشف يبحث اللاعبون عن خبرات وتجارب جديدة، وفي الأخير يهدف نمط المشارك إلى التفاعل مع الآخرين.", answer: ["نمط المقاتل منافسة الآخرين والانتصار نمط المدير تطوير مهارات محددة للوصول لدرجة الإتقان نمط المستكشف يبحث اللاعبون عن خبرات وتجارب جديدة نمط المشارك التفاعل مع الآخرين"] }
+            // Fill in the Blank
+            { type: 'complete', text: ".... هو نشاط حر أو موجه يقوم به الإنسان بدافع المتعة أو التعلم.", answer: ["اللعب"] },
+            { type: 'complete', text: ".... هو نشاط منظم ومقصود يهدف إلى تحقيق أهداف تعليمية محددة.", answer: ["اللعبة التعليمية"] },
+            { type: 'complete', text: "تصنيف الألعاب التعليمية: حسب الهدف إلى أهداف .......", answer: ["معرفي، وجداني، مهاري"] },
+            { type: 'complete', text: "ألعاب .... يقوم المتعلم فيها بمحاكاة مواقف أو شخصيات تعليمية.", answer: ["ألعاب تمثيل الأدوار"] },
+            { type: 'complete', text: "ألعاب .... تعتمد على استخدام الوسائط التقنية والحاسوب.", answer: ["ألعاب إلكترونية"] },
+            { type: 'complete', text: ".... هو أسلوب منظم لتوصيل المادة التعليمية للطلاب بطريقة فعالة.", answer: ["الاستراتيجية التعلمية"] },
+            { type: 'complete', text: ".... تتيح للمتعلم التعلم وفق قدراته وسرعته الخاصة.", answer: ["استراتيجية التعليم الفردي"] },
+            { type: 'complete', text: ".... تقديم المحتوى في شكل وحدات صغيرة ومركزة.", answer: ["استراتيجية التعليم المصغر"] },
+            { type: 'complete', text: ".... ترى أن التعلم هو تغيير في السلوك نتيجة للمثيرات.", answer: ["نظرية التعلم السلوكية"] },
+            { type: 'complete', text: ".... ترى أن التعلم يحدث داخل العقل من خلال التفكير والفهم.", answer: ["نظرية التعلم المعرفية"] },
+            { type: 'complete', text: ".... تؤكد على أن التعلم يتم من خلال تفاعل المتعلم مع بيئته.", answer: ["نظرية التعلم البنائية"] },
+            { type: 'complete', text: ".... فترة زمنية محددة تتصف بخصائص نمائية وسلوكية.", answer: ["المرحلة العمرية"] },
+            { type: 'complete', text: "من عوامل نجاح اللعبة التعليمية ....", answer: ["وضوح الأهداف الفئة المستهدفة"] },
+            { type: 'complete', text: "يهدف .... إلى التعاون مع الزملاء لتحقيق هدف مشترك.", answer: ["اللعب التعاوني"] },
+            { type: 'complete', text: "مراحل تصميم اللعبة التعليمية هي ....", answer: ["الإعداد، التجريب، التقييم"] },
+            { type: 'complete', text: ".... هي قدرة اللاعب على بدء اللعبة أو إنهائها أو التحكم في مجرياتها.", answer: ["التحكم"] },
+            { type: 'complete', text: ".... هو مبدأ تربوي يقوم على تعديل السلوك عبر التجربة.", answer: ["التعلم من الخطأ"] },
+            { type: 'complete', text: ".... هو تفاعل المتعلم الكامل مع بيئة اللعبة.", answer: ["الانغماس التعليمي"] },
+            { type: 'complete', text: ".... هو الدمج بين النص والصوت والصورة لتحقيق التعلم.", answer: ["التعلم القائم على الوسائط المتعددة"] },
+            { type: 'complete', text: "من تطبيقات تصميم الألعاب وهو مجاني ومناسب للأطفال للتعلم.", answer: ["Scratch"] },
+            { type: 'complete', text: "يمكن تصنيف أنماط اللاعبين وميولهم في الألعاب الالكترونية إلى العديد من الأنماط، وكل نمط له خصائصه، فنمط .... يهدف إلى منافسة الآخرين والانتصار عليهم بينما يهدف نمط .... إلى تطوير مهارات محددة للوصول لدرجة الإتقان، وفي نمط .... يبحث اللاعبون عن خبرات وتجارب جديدة وشيقة بهدف المتعة والاسترخاء، وفي الأخير يهدف نمط .... إلى التفاعل مع الآخرين في مهام جماعية لإنجاز أعمال محددة في بيئة إلكترونية.", answer: ["اللاعب المقاتل، المدير، المستكشف، المشارك"] },
+            { type: 'complete', text: "يمر تصميم الألعاب التعليمية بعدة مراحل، حيث تُحدد الأهداف التعليمية الخاصة باللعبة في مرحلة .... بينما يتم توزيع أدوار اللعبة على اللاعبين في مرحلة .... وفي مرحلة .... يتم تعديل اللعبة لمعرفة مدى تحقيق اللعبة للأهداف التعليمية.", answer: ["إعداد، التجريب، التقييم"] }
         ];
 
         // ==========================================
-        // 2. متغيرات الحالة
+        // LOGIC: Smart Arabic Matching
         // ==========================================
         let currentQuestionIndex = 0;
         let score = 0;
@@ -318,92 +446,105 @@
         let selectedOptionValue = null;
         let userHistory = [];
 
-        // ==========================================
-        // 3. دوال المنطق الذكي (Normalization & Similarity)
-        // ==========================================
-
-        // تطبيع النصوص العربية
         function normalizeArabic(text) {
+            if (!text) return "";
             return text
-                .trim()
                 .toLowerCase()
-                .replace(/[أآإ]/g, 'ا')          // توحيد الألف
-                .replace(/ة/g, 'ه')             // التاء المربوطة -> هاء
-                .replace(/ى/g, 'ي')             // الألف المقصورة -> ياء
-                .replace(/ال/g, '')             // إزالة أل التعريف
-                .replace(/\s+/g, '')            // إزالة المسافات
-                .replace(/[^\w\u0600-\u06FF]/g, ''); // إزالة الترقيم
+                .trim()
+                .replace(/[أآإ]/g, 'ا') // Normalize Alef
+                .replace(/ة/g, 'ه')      // Normalize Ta Marbuta
+                .replace(/ى/g, 'ي')      // Normalize Ya
+                .replace(/ال/g, '')      // Remove Al (article)
+                .replace(/\s+/g, '')     // Remove all spaces
+                .replace(/[^\w\u0600-\u06FF]/g, ''); // Remove punctuation/symbols
         }
 
-        // حساب مسافة Levenshtein (للتشابه)
-        function levenshteinDistance(a, b) {
-            const matrix = [];
-            for (let i = 0; i <= b.length; i++) {
-                matrix[i] = [i];
-            }
-            for (let j = 0; j <= a.length; j++) {
-                matrix[0][j] = j;
-            }
-            for (let i = 1; i <= b.length; i++) {
-                for (let j = 1; j <= a.length; j++) {
-                    if (b.charAt(i - 1) === a.charAt(j - 1)) {
-                        matrix[i][j] = matrix[i - 1][j - 1];
-                    } else {
-                        matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
+        function checkSimilarity(s1, s2) {
+            let longer = s1;
+            let shorter = s2;
+            if (s1.length < s2.length) { longer = s2; shorter = s1; }
+            const longerLength = longer.length;
+            if (longerLength === 0) return 1.0;
+            
+            // Calculate Levenshtein Distance
+            const costs = new Array();
+            for (let i = 0; i <= longer.length; i++) {
+                let lastValue = i;
+                for (let j = 0; j <= shorter.length; j++) {
+                    if (i == 0) costs[j] = j;
+                    else {
+                        if (j > 0) {
+                            let newValue = costs[j - 1];
+                            if (longer.charAt(i - 1) != shorter.charAt(j - 1))
+                                newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+                            costs[j - 1] = lastValue;
+                            lastValue = newValue;
+                        }
                     }
                 }
+                if (i > 0) costs[shorter.length] = lastValue;
             }
-            return matrix[b.length][a.length];
+            return (longerLength - costs[shorter.length]) / parseFloat(longerLength);
         }
 
-        // حساب نسبة التشابه
-        function calculateSimilarity(str1, str2) {
-            if (str1 === str2) return 100;
-            const distance = levenshteinDistance(str1, str2);
-            const maxLen = Math.max(str1.length, str2.length);
-            if (maxLen === 0) return 100;
-            return Math.round(((maxLen - distance) / maxLen) * 100);
-        }
-
-        // التحقق من الإجابة (أكمل) باستخدام التطبيع والتشابه
         function checkFillInAnswer(userVal, correctArray) {
+            // For fill in blank, we usually have one main answer string (sometimes with commas)
+            // Combine the array into a string for checking
+            const correctString = correctArray.join(" "); 
             const normalizedUser = normalizeArabic(userVal);
             
-            // تحقق من أي إجابة صحيحة محتملة
-            for (let part of correctArray) {
-                const normalizedPart = normalizeArabic(part);
-                
-                // 1. التطابق التام بعد التطبيع
-                if (normalizedUser === normalizedPart) return true;
-                
-                // 2. التشابه المعنوي (>= 70%)
-                const similarity = calculateSimilarity(normalizedUser, normalizedPart);
-                if (similarity >= 70) return true;
+            // Normalize the correct answer as well (remove spaces for partial check)
+            const normalizedCorrectFull = normalizeArabic(correctString);
+
+            // 1. Direct inclusion check (User typed "مباراة" and answer is "المباراة")
+            if (normalizedCorrectFull.includes(normalizedUser) || normalizedUser.includes(normalizedCorrectFull)) {
+                return true;
             }
+
+            // 2. Similarity Check (>= 70%)
+            const similarity = checkSimilarity(normalizedUser, normalizedCorrectFull);
+            if (similarity >= 0.7) return true;
+
             return false;
         }
 
+        function getCorrectAnswerString(q) {
+            if (q.type === 'mcq') return q.options[q.answer];
+            if (q.type === 'tf') return q.answer ? "صح" : "خطأ";
+            if (q.type === 'complete') return q.answer.join(" / ");
+            return "";
+        }
+
         // ==========================================
-        // 4. دوال التحكم
+        // CORE: Exam Functions
         // ==========================================
         function startExam() {
             document.getElementById('start-screen').classList.remove('active');
             document.getElementById('start-screen').classList.add('hidden');
             document.getElementById('quiz-screen').classList.remove('hidden');
             document.getElementById('quiz-screen').classList.add('active');
+            
+            // Update Total Count
+            document.getElementById('total-questions').innerText = questionsDB.length;
             loadQuestion();
         }
 
         function loadQuestion() {
             const q = questionsDB[currentQuestionIndex];
+            
+            // Update Progress
             document.getElementById('question-counter').innerText = `سؤال ${currentQuestionIndex + 1} من ${questionsDB.length}`;
             document.getElementById('progress-bar').style.width = `${((currentQuestionIndex) / questionsDB.length) * 100}%`;
             
-            let sectionName = q.type === 'complete' ? "أكمل الفراغ" : (q.type === 'mcq' ? "اختر الإجابة الصحيحة" : "صح أم خطأ");
-            document.getElementById('section-name').innerText = `قسم: ${sectionName}`;
+            let sectionName = "";
+            if (q.type === 'complete') sectionName = "أكمل الفراغ";
+            else if (q.type === 'mcq') sectionName = "اختر الإجابة الصحيحة";
+            else sectionName = "صح أم خطأ";
+            document.getElementById('section-name').innerText = `القسم: ${sectionName}`;
 
             document.getElementById('question-text').innerText = q.text;
 
+            // Reset UI
             document.getElementById('submit-btn').classList.remove('hidden');
             document.getElementById('next-btn').classList.add('hidden');
             document.getElementById('feedback-area').style.display = 'none';
@@ -437,11 +578,11 @@
                 interactionArea.appendChild(grid);
             } else if (q.type === 'tf') {
                 const grid = document.createElement('div');
-                grid.className = 'options-grid';
+                grid.className = 'tf-container';
                 const opts = ["صح", "خطأ"];
                 opts.forEach((opt, idx) => {
                     const btn = document.createElement('button');
-                    btn.className = 'option-btn';
+                    btn.className = 'tf-btn';
                     btn.innerText = opt;
                     btn.onclick = () => selectOption(idx === 0 ? true : false, btn);
                     btn.id = `opt-${idx}`;
@@ -454,15 +595,19 @@
         function selectOption(value, btnElement) {
             if (userAnswered) return;
             selectedOptionValue = value;
+            
+            // Clear other selections
+            if (document.querySelector('.selected-true')) document.querySelector('.selected-true').classList.remove('selected-true');
+            if (document.querySelector('.selected-false')) document.querySelector('.selected-false').classList.remove('selected-false');
             document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-            btnElement.classList.add('selected');
-        }
 
-        function getCorrectAnswerString(q) {
-            if (q.type === 'mcq') return q.options[q.answer];
-            if (q.type === 'tf') return q.answer ? "صح" : "خطأ";
-            if (q.type === 'complete') return q.answer.join(" / ");
-            return "";
+            // Apply selection style based on type
+            if (btnElement.classList.contains('tf-btn')) {
+                if (value) btnElement.classList.add('selected-true');
+                else btnElement.classList.add('selected-false');
+            } else {
+                btnElement.classList.add('selected');
+            }
         }
 
         function submitAnswer() {
@@ -487,6 +632,7 @@
             userAnswered = true;
             if (isCorrect) score++;
 
+            // Push to history
             userHistory.push({
                 qIndex: currentQuestionIndex,
                 qText: q.text,
@@ -495,16 +641,21 @@
                 isCorrect: isCorrect
             });
 
-            // منطق عرض النتيجة (Critical)
+            // Result Display Logic
             const feedbackArea = document.getElementById('feedback-area');
             feedbackArea.style.display = 'block';
-            
+
             if (isCorrect) {
                 feedbackArea.className = 'feedback-area feedback-correct';
-                feedbackArea.innerHTML = `✔️ الإجابة الصحيحة: ${correctAnswerStr}`;
+                // CORRECT: Show ONLY the official correct answer text
+                feedbackArea.innerHTML = `<span>✔️ الإجابة الصحيحة: ${correctAnswerStr}</span>`;
             } else {
                 feedbackArea.className = 'feedback-area feedback-wrong';
-                feedbackArea.innerHTML = `❌ إجابتك: ${userAnswerStr}<br>✔️ التصحيح: ${correctAnswerStr}`;
+                // WRONG: Show User Answer AND Correction
+                feedbackArea.innerHTML = `
+                    <span>❌ إجابتك: ${userAnswerStr}</span><br>
+                    <span>✔️ التصحيح: ${correctAnswerStr}</span>
+                `;
             }
 
             document.getElementById('submit-btn').classList.add('hidden');
@@ -536,22 +687,21 @@
             const reviewContainer = document.getElementById('review-container');
             const reviewList = document.getElementById('review-list');
 
+            // Passing grade (e.g., 60%)
             const isPassed = percent >= 60;
 
             if (isPassed) {
                 statusBadge.className = "status-badge status-pass";
                 statusBadge.innerText = "ناجح ✅";
-                resultMessage.innerHTML = "مبروك النجاح! <br> غششني بكره يسطا 😂";
+                resultMessage.innerHTML = "أحسنت! <br> ناجح... غششني بكره يسطا 😂";
             } else {
                 statusBadge.className = "status-badge status-fail";
                 statusBadge.innerText = "ساقط ❌";
                 resultMessage.innerHTML = "للأسف... <br> ساقط، حاول تاني بكرة يا صاحبي 🤣";
             }
 
-            // مراجعة الأسئلة (Modified Logic)
+            // Generate Review List
             reviewList.innerHTML = "";
-            // عرض كل الأسئلة في المراجعة ليس فقط الأخطاء حسب الطلب "عرض للمستخدم الاجابات الغلط" 
-            // ولكن سأعرض الأخطاء فقط لتجنب الازدحام كما في التصميم السابق، ولكن باستخدام المنطق الجديد.
             const wrongAnswers = userHistory.filter(item => !item.isCorrect);
 
             if (wrongAnswers.length > 0) {
