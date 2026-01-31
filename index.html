@@ -3,1185 +3,588 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار اقتصاديات التكنولوجيا</title>
+    <title>امتحان برمجة الألعاب</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary-color: #f8fafc;
+            --text-color: #1e293b;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --accent-color: #64748b;
+            --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
         }
-        
-         {
-            background: linear-gradient(135deg, #16A085, #2ECC71, #16A085);
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-color);
             min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            padding: 30px;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #16A085;
-        }
-        
-        h1 {
-            color: #16A085;
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-        
-        .subtitle {
-            color: #2ECC71;
-            font-size: 18px;
-            font-weight: 500;
-        }
-        
-        .quiz-info {
             display: flex;
-            justify-content: space-between;
-            margin: 20px 0;
-            background: #e8f8f5;
-            padding: 15px;
-            border-radius: 10px;
-            font-weight: bold;
-        }
-        
-        .progress-container {
-            margin: 20px 0;
-            background-color: #e0e0e0;
-            border-radius: 10px;
-            height: 20px;
-            overflow: hidden;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(to right, #16A085, #2ECC71);
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-        
-        .question-container {
-            margin: 25px 0;
-        }
-        
-        .question-number {
-            font-size: 18px;
-            color: #2ECC71;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        
-        .question-text {
-            font-size: 22px;
-            margin-bottom: 25px;
-            color: #16A085;
-            font-weight: 600;
-            line-height: 1.8;
-            background: #f2fcf9;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid #16A085;
-        }
-        
-        .options-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        
-        .true-false-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        
-        .option {
-            background-color: #f5f5f5;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            padding: 15px 20px;
-            cursor: pointer;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .option:hover {
-            background-color: #e9e9e9;
-            border-color: #16A085;
-        }
-        
-        .option.selected {
-            border-color: #16A085;
-            background-color: #d1f2eb;
-        }
-        
-        .option.correct {
-            border-color: #27ae60;
-            background-color: #d5f4e6;
-        }
-        
-        .option.incorrect {
-            border-color: #e74c3c;
-            background-color: #fadbd8;
-        }
-        
-        .option.correct::after {
-            content: '✓';
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #27ae60;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        
-        .option.incorrect::after {
-            content: '✗';
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #e74c3c;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        
-        .btn {
-            background: linear-gradient(to right, #16A085, #2ECC71);
-            color: white;
-            border: none;
-            padding: 15px 35px;
-            font-size: 18px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: block;
-            margin: 20px auto;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .results-container {
-            display: none;
-            text-align: center;
-            padding: 30px;
-        }
-        
-        .results-title {
-            font-size: 32px;
-            color: #16A085;
-            margin-bottom: 20px;
-        }
-        
-        .score {
-            font-size: 80px;
-            font-weight: bold;
-            color: #e74c3c;
-            margin: 20px 0;
-        }
-        
-        .score.pass {
-            color: #27ae60;
-        }
-        
-        .grade {
-            font-size: 28px;
-            color: #16A085;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-        
-        .funny-message {
-            font-size: 24px;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px auto;
-            max-width: 80%;
-            font-weight: bold;
-        }
-        
-        .fail-message {
-            background-color: #fadbd8;
-            color: #c0392b;
-            border: 2px solid #e74c3c;
-        }
-        
-        .pass-message {
-            background-color: #d5f4e6;
-            color: #27ae60;
-            border: 2px solid #27ae60;
-        }
-        
-        .mistakes-title {
-            font-size: 24px;
-            color: #2ECC71;
-            margin: 30px 0 20px;
-            text-align: right;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-        }
-        
-        .mistake-item {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            text-align: right;
-        }
-        
-        .mistake-question {
-            font-size: 20px;
-            font-weight: 600;
-            color: #16A085;
-            margin-bottom: 15px;
-        }
-        
-        .incorrect-answer {
-            color: #e74c3c;
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-        
-        .correct-answer {
-            color: #27ae60;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        
-        .final-buttons {
-            display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
+            padding: 20px;
         }
-        
-        .restart-btn {
-            background: linear-gradient(to right, #27ae60, #2ecc71);
-        }
-        
-        .question-type {
-            background: #2ECC71;
-            color: white;
-            padding: 5px 15px;
+
+        .exam-container {
+            background: rgba(255, 255, 255, 0.98);
+            width: 100%;
+            max-width: 850px;
             border-radius: 20px;
-            font-size: 16px;
-            display: inline-block;
-            margin-bottom: 10px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            max-height: 95vh;
         }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            
-            h1 {
-                font-size: 26px;
-            }
-            
-            .question-text {
-                font-size: 20px;
-            }
-            
-            .option {
-                font-size: 16px;
-                padding: 12px 15px;
-            }
-            
-            .btn {
-                padding: 12px 25px;
-                font-size: 16px;
-            }
-            
-            .quiz-info {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .true-false-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .funny-message {
-                font-size: 20px;
-            }
+
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+            flex-shrink: 0;
         }
+
+        header h1 { font-size: 1.5rem; margin-bottom: 5px; }
+        header p { font-size: 0.9rem; opacity: 0.9; }
+
+        .screen {
+            padding: 40px;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .screen.active { display: block; }
+
+        .start-img {
+            width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
+            margin-bottom: 20px; border: 4px solid var(--primary-color);
+        }
+
+        h2.section-title { color: var(--primary-dark); margin-bottom: 20px; font-size: 1.8rem; }
+
+        .btn {
+            background: var(--primary-color); color: white; border: none; padding: 12px 30px;
+            font-size: 1.1rem; border-radius: 50px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+            font-family: 'Tajawal', sans-serif; font-weight: 700; margin-top: 20px;
+        }
+        .btn:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+
+        .quiz-screen { padding: 30px; text-align: right; overflow-y: auto; }
+
+        .progress-bar-container { width: 100%; background: #e2e8f0; height: 10px; border-radius: 10px; margin-bottom: 25px; overflow: hidden; }
+        .progress-bar { height: 100%; background: var(--success-color); width: 0%; transition: width 0.5s ease; }
+
+        .question-meta { display: flex; justify-content: space-between; color: var(--accent-color); margin-bottom: 15px; font-size: 0.9rem; }
+
+        .question-text { font-size: 1.3rem; line-height: 1.6; margin-bottom: 25px; color: #0f172a; font-weight: 600; }
+
+        .input-area { margin-bottom: 20px; }
+        .text-input {
+            width: 100%; padding: 15px; border: 2px solid #cbd5e1; border-radius: 10px;
+            font-size: 1.1rem; font-family: 'Tajawal', sans-serif; transition: border-color 0.3s; text-align: center;
+        }
+        .text-input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+
+        .options-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        @media(min-width: 600px) { .options-grid { grid-template-columns: 1fr 1fr; } }
+
+        .option-btn {
+            background: white; border: 2px solid #e2e8f0; padding: 15px; border-radius: 12px;
+            font-size: 1rem; cursor: pointer; transition: all 0.2s; font-family: 'Tajawal', sans-serif;
+            text-align: right; color: var(--text-color);
+        }
+        .option-btn:hover { border-color: var(--primary-color); background: #f0f9ff; }
+        .option-btn.selected { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+
+        .feedback-area {
+            margin-top: 25px; padding: 15px; border-radius: 10px; display: none;
+            animation: slideUp 0.3s ease; font-size: 1.05rem; line-height: 1.6;
+        }
+        .feedback-correct { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+        .feedback-wrong { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+        .correct-answer-text { font-weight: bold; display: block; margin-top: 5px; }
+
+        .result-header { margin-bottom: 20px; }
+        .score-display { font-size: 3rem; font-weight: 800; color: var(--primary-color); margin: 10px 0; }
+        .status-badge { display: inline-block; padding: 10px 20px; border-radius: 50px; font-weight: bold; font-size: 1.5rem; margin-bottom: 10px; color: white; }
+        .status-pass { background: var(--success-color); }
+        .status-fail { background: var(--error-color); }
+        .result-message { font-size: 1.2rem; color: #334155; margin-bottom: 20px; }
+
+        .review-section {
+            background: #f1f5f9; border-radius: 15px; padding: 20px; margin-top: 20px;
+            text-align: right; max-height: 300px; overflow-y: auto; border: 1px solid #cbd5e1;
+        }
+        .review-title { font-weight: bold; margin-bottom: 15px; color: var(--error-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+        .review-item {
+            background: white; padding: 12px; margin-bottom: 10px; border-radius: 8px;
+            border-right: 4px solid var(--error-color); box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .review-q-text { font-size: 0.95rem; color: #475569; margin-bottom: 5px; font-weight: bold; }
+        .review-ans-box { font-size: 0.85rem; display: flex; flex-direction: column; gap: 4px; }
+        .ans-wrong { color: var(--error-color); }
+        .ans-correct { color: var(--success-color); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
-    <div class="container">
+
+    <div class="exam-container">
         <header>
-            <h1>اختبار اقتصاديات التكنولوجيا</h1>
-            <div class="subtitle">الاقتصاد الرقمي والتحول التكنولوجي</div>
+            <h1>برمجة الألعاب</h1>
+            <p>اختبار تفاعلي شامل (أكمل - اختر - صح وخطأ)</p>
         </header>
-        
-        <div class="quiz-info">
-            <div>عدد الأسئلة: <span id="totalQuestions">105</span></div>
-            <div>الأسئلة المتبقية: <span id="remainingQuestions">105</span></div>
-            <div>الإجابات الصحيحة: <span id="correctCount">0</span></div>
+
+        <!-- شاشة البداية -->
+        <div id="start-screen" class="screen active">
+            <img src="https://picsum.photos/seed/gamedev/200/200" alt="Logo" class="start-img">
+            <h2 class="section-title">أهلاً بك في الاختبار</h2>
+            <p style="margin-bottom: 20px; line-height: 1.6;">
+                يحتوي هذا الاختبار على 91 سؤالاً متنوعاً حول برمجة الألعاب.<br>
+                في أسئلة "أكمل"، يتم مراعاة المعنى والتشابه في الكتابة (بدون همزات أو مسافات زائدة).<br>
+                حاول الحصول على أعلى نتيجة!
+            </p>
+            <button class="btn" onclick="startExam()">بدء الامتحان</button>
         </div>
-        
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-        
-        <div id="quizContainer">
-            <div class="question-container">
-                <div class="question-type" id="questionType"></div>
-                <div class="question-number" id="questionNumber"></div>
-                <div class="question-text" id="questionText"></div>
+
+        <!-- شاشة الامتحان -->
+        <div id="quiz-screen" class="screen quiz-screen hidden">
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar"></div>
             </div>
             
-            <div id="optionsArea"></div>
-            
-            <button class="btn" id="nextBtn" disabled>التالي</button>
-        </div>
-        
-        <div class="results-container" id="resultsContainer">
-            <h2 class="results-title">نتائج اختبار اقتصاديات التكنولوجيا</h2>
-            <div class="score" id="finalScore"></div>
-            <div class="grade" id="finalGrade"></div>
-            <div class="funny-message" id="funnyMessage"></div>
-            
-            <h3 class="mistakes-title">الأسئلة التي تحتاج إلى تحسين</h3>
-            <div id="mistakesList"></div>
-            
-            <div class="final-buttons">
-                <button class="btn restart-btn" id="restartBtn">إعادة الاختبار</button>
+            <div class="question-meta">
+                <span id="section-name">قسم: اختر الإجابة</span>
+                <span id="question-counter">سؤال 1 من 91</span>
             </div>
+
+            <div id="question-text" class="question-text"></div>
+
+            <div id="interaction-area" class="input-area"></div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button id="submit-btn" class="btn" onclick="submitAnswer()">تحقق</button>
+                <button id="next-btn" class="btn hidden" onclick="nextQuestion()">السؤال التالي</button>
+            </div>
+
+            <div id="feedback-area" class="feedback-area"></div>
+        </div>
+
+        <!-- شاشة النتائج -->
+        <div id="result-screen" class="screen hidden">
+            <div class="result-header">
+                <h2 class="section-title">نتيجة الاختبار</h2>
+                <div id="status-badge" class="status-badge status-pass">ناجح</div>
+                <div class="score-display"><span id="final-score">0</span> / 91</div>
+                <div class="result-message" id="result-message"></div>
+                <p style="color: var(--accent-color); font-size: 0.9rem;">الدقة: <span id="accuracy-percent">0</span>%</p>
+            </div>
+
+            <div id="review-container" class="review-section hidden">
+                <div class="review-title">📝 مراجعة الأسئلة:</div>
+                <div id="review-list"></div>
+            </div>
+
+            <button class="btn" onclick="restartExam()">إعادة الاختبار</button>
         </div>
     </div>
 
     <script>
-        // الأسئلة الاختيارية (40 سؤال)
-        const mcqQuestions = [
-            {
-                question: "العلم الذي يسعى لتطبيق الفكر الاقتصادي على التربية والتعليم بهدف ترشيد الإنفاق هو:",
-                options: [
-                    "اقتصاديات السوق",
-                    "اقتصاديات التعليم",
-                    "الإدارة التربوية",
-                    "التنمية البشرية"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "تُعرف 'الكلفة' في اقتصاديات التعليم بأنها:",
-                options: [
-                    "الأرباح الناتجة عن المشروع",
-                    "الأموال المنفقة على الخدمات التعليمية لتحقيق أهداف محددة",
-                    "عدد الطلاب الخريجين",
-                    "جودة المعلم داخل الفصل"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "النسبة بين الفائدة المادية العائدة عن برنامج تعليمي وبين كلفته تسمى:",
-                options: [
-                    "الكفاية",
-                    "الفاعلية",
-                    "معدل العائد",
-                    "الميزانية"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "المصطلح الذي يعبر عن جودة الخدمات التعليمية وملائمتها للحاجات التنموية هو:",
-                options: [
-                    "الكفاية والفاعلية والتقييم",
-                    "الاستثمار البشري",
-                    "التكلفة المباشرة",
-                    "العائد الاجتماعي"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "وفقاً لنوع المستفيد، ينقسم العائد التعليمي إلى:",
-                options: [
-                    "مالي وغير مالي",
-                    "مباشر (للفرد) وغير مباشر (للمجتمع)",
-                    "داخلي وخارجي",
-                    "إيجابي وسلبي"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "تحسن صحة المتعلمين وزيادة مظاهر رفاهيتهم يعتبر عائداً:",
-                options: [
-                    "مباشراً للفرد",
-                    "غير مباشر للمجتمع",
-                    "مالياً مرتبطاً بالسوق",
-                    "تكلفة ضائعة"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "توسيع الإمكانات التكنولوجية واستخدام تكنولوجيا جديدة في الشركات هو عائد:",
-                options: [
-                    "اجتماعي",
-                    "غير مالي",
-                    "مالي أو اقتصادي مرتبط بالسوق",
-                    "مباشر للفرد"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "أي مما يلي يعد من 'التكاليف المادية' لتنفيذ التكنولوجيا في التعليم؟",
-                options: [
-                    "الأجهزة والبرمجيات وتراخيص الاشتراكات",
-                    "زيادة الذكاء الاجتماعي",
-                    "تحسن الحالة الصحية للطالب",
-                    "توفير وقت الفراغ"
-                ],
-                correctAnswer: 0
-            },
-            {
-                question: "أول خطوة في 'كيفية تنفيذ تقييم التكلفة مقابل الفوائد' هي:",
-                options: [
-                    "تقدير التكاليف",
-                    "تحديد الأهداف والمخرجات",
-                    "تقدير الفوائد",
-                    "تدريب المعلمين"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "يتحقق مفهوم 'اقتصاديات الحجم' في التعليم الإلكتروني عندما:",
-                options: [
-                    "تزداد التكاليف بزيادة الطلاب",
-                    "ينخفض متوسط تكلفة الطالب الواحد بزيادة عدد الطلاب",
-                    "يقل عدد المعلمين",
-                    "تثبت الميزانية السنوية"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "الاقتصاد الذي يعتمد مباشرة على إنتاج وتوزيع واستخدام المعرفة هو:",
-                options: [
-                    "الاقتصاد التقليدي",
-                    "اقتصاد المعرفة",
-                    "اقتصاد الندرة",
-                    "الاقتصاد الزراعي"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "يختلف الاقتصاد الجديد عن القديم في أنه يعرف بـ:",
-                options: [
-                    "الندرة",
-                    "الوفرة",
-                    "التكاليف الثابتة",
-                    "الجهد العضلي"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "يخضع اقتصاد المعرفة لقانون:",
-                options: [
-                    "تناقص الغلة",
-                    "تزايد الغلة",
-                    "العرض والطلب التقليدي",
-                    "الجاذبية الاقتصادية"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "العنصر الرئيس المسؤول عن إنتاج المعرفة في الاقتصاد الحديث هو:",
-                options: [
-                    "الآلة",
-                    "الأرض",
-                    "رأس المال البشري",
-                    "رأس المال المادي"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "توليد المعرفة يتم في الجامعات ومراكز البحث، وهذا يتطلب:",
-                options: [
-                    "تقليل الإنفاق",
-                    "رفع معدلات تمويلها ودعمها",
-                    "تحويلها لشركات خاصة",
-                    "تقليل عدد الباحثين"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "تقنية تصنع النماذج مهما كانت معقدة 'طبقة تلو طبقة' هي:",
-                options: [
-                    "الحوسبة السحابية",
-                    "الطباعة ثلاثية الأبعاد",
-                    "الواقع المعزز",
-                    "التعلم الآلي"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "من مميزات الطباعة ثلاثية الأبعاد أنها صديقة للبيئة لأن:",
-                options: [
-                    "سعرها رخيص",
-                    "مخلفاتها أقل من التقليدية",
-                    "لا تستخدم الكهرباء",
-                    "تصنع من الخشب فقط"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "عملية تبني التكنولوجيا والتحول من النماذج التقليدية إلى نماذج أكثر تفعيلاً هي:",
-                options: [
-                    "الميكنة",
-                    "التحول الرقمي",
-                    "العولمة",
-                    "الخصخصة"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "تعتبر شركة أمازون (Amazon) نموذجاً ناجحاً للتحول الرقمي في مجال:",
-                options: [
-                    "صناعة السيارات",
-                    "التجارة الإلكترونية",
-                    "الفضاء",
-                    "الطب"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "شركة Tesla هي نموذج للتحول الرقمي في صناعة:",
-                options: [
-                    "الكتب",
-                    "السيارات الكهربائية والقيادة الذاتية",
-                    "الأثاث",
-                    "الملابس"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "منصة edX تمثل نموذجاً ناجحاً في مجال:",
-                options: [
-                    "التجارة",
-                    "التعليم العالي الرقمي",
-                    "الترفيه",
-                    "السياحة"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "التنمية الاقتصادية تساوي:",
-                options: [
-                    "النمو - التكاليف",
-                    "النمو + مستوى المعيشة",
-                    "الدخل القومي فقط",
-                    "الاستثمار المادي فقط"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "مفهوم 'النمو الاقتصادي' مقارنة بالتنمية يعتبر:",
-                options: [
-                    "أوسع",
-                    "أضيق",
-                    "مساوياً",
-                    "غير مرتبط بها"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "النمو الاقتصادي يركز على مؤشرات:",
-                options: [
-                    "نوعية فقط",
-                    "كمية مثل زيادة الناتج المحلي",
-                    "اجتماعية",
-                    "سياسية"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "التعليم الذي يحدث في بيئة رقمية مع وجود اتصال متزامن وغير متزامن هو:",
-                options: [
-                    "التعليم التقليدي",
-                    "التعليم الرقمي",
-                    "التعليم الذاتي الورقي",
-                    "التعليم الميداني"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "المعلم الذي يحث الطالب على استخدام الوسائل التقنية وابتكار البرامج يقوم بدور:",
-                options: [
-                    "الشارح",
-                    "المحفز على توليد المعرفة والإبداع",
-                    "الرقيب",
-                    "المشجع على التفاعل"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "من تحديات تكنولوجيا التعليم التي تتعلق بعدم المساواة في الإمكانيات المادية:",
-                options: [
-                    "التواصل الاجتماعي",
-                    "التباين في الوصول",
-                    "جودة المحتوى",
-                    "سرعة المعالج"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "الاستثمارات في تطوير مهارات المدرسين وتقديم برامج تدريبية تسمى:",
-                options: [
-                    "استثمارات إنشائية",
-                    "استثمارات في التدريب والتطوير المهني",
-                    "استثمارات مادية",
-                    "استثمارات إدارية"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "تستخدم الطباعة ثلاثية الأبعاد في الطب لطباعة:",
-                options: [
-                    "الكتب الطبية",
-                    "الأعضاء البشرية",
-                    "أسرة المستشفيات",
-                    "الملابس الطبية"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "أصبحت 'غاية كل المجتمعات' في الوقت الحالي هي الاستثمار في:",
-                options: [
-                    "الموارد الطبيعية",
-                    "المورد البشري",
-                    "العقارات",
-                    "الذهب"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "من مخرجات التعليم الاقتصادية أنه يؤدي إلى:",
-                options: [
-                    "زيادة الفقر",
-                    "تقسيم العمل مما يجعل استخدام الآلات ميسوراً",
-                    "تقليل الإنتاجية",
-                    "زيادة الأمية"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "التعليم الرقمي يتضمن:",
-                options: [
-                    "محتوى إلكتروني فقط",
-                    "اختبارات ورقية فقط",
-                    "أنشطة تعلم واختبارات ومحتوى بشكل إلكتروني",
-                    "الحضور الإلزامي اليومي"
-                ],
-                correctAnswer: 2
-            },
-            {
-                question: "تكاليف 'تصميم المحتوى المتعدد الوسائط' تندرج تحت:",
-                options: [
-                    "التكاليف الإدارية",
-                    "تكاليف تطوير المحتوى التعليمي",
-                    "تكاليف الصيانة",
-                    "التكاليف القانونية"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "في التحول الرقمي، خطوة 'تقديم الدعم الفني' تهدف لمعالجة:",
-                options: [
-                    "نقص الميزانية",
-                    "المشكلات التقنية والاستفسارات",
-                    "غياب الطلاب",
-                    "وضع الاستراتيجية"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "مؤشر 'نقطة التعادل' في التعليم الإلكتروني يعني:",
-                options: [
-                    "تحقيق الربح الأقصى",
-                    "تساوي التكاليف الكلية مع الإيرادات الكلية",
-                    "فشل المشروع",
-                    "زيادة التكاليف المتغيرة"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "يعد التعليم المصدر الرئيسي لـ:",
-                options: [
-                    "زيادة البطالة",
-                    "المشاركة في الدخل القومي الفردي",
-                    "استهلاك الموارد",
-                    "التضخم"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "من الأمثلة على المواد المستخدمة في الطباعة ثلاثية الأبعاد:",
-                options: [
-                    "الورق فقط",
-                    "اللدائن والبوليمرات الكريستالية",
-                    "الخشب الطبيعي",
-                    "القماش"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "جامعة ستانفورد تميزت بتقديم:",
-                options: [
-                    "دورات سرية",
-                    "دورات مفتوحة المصدر وموارد تعلم مجانية",
-                    "تعليم ورقي فقط",
-                    "أبحاث في الزراعة فقط"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "التنمية الاقتصادية متعلقة بالدول:",
-                options: [
-                    "المتطورة فقط",
-                    "المتطورة وغير المتطورة",
-                    "الفقيرة فقط",
-                    "الأوروبية فقط"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "النمو الاقتصادي هو عملية:",
-                options: [
-                    "طويلة المدى",
-                    "قصيرة المدى محددة",
-                    "غير قابلة للقياس",
-                    "اجتماعية"
-                ],
-                correctAnswer: 1
-            },
-            // أسئلة التكميلية
-            {
-                question: "أي مما يلي يعد من تطبيقات الطباعة ثلاثية الأبعاد في البنية التحتية؟",
-                options: [
-                    "طباعة الأسنان",
-                    "بناء المنازل والهياكل",
-                    "القيادة الذاتية",
-                    "تجارة الكتب"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "ما هو المصطلح الذي يطلق على 'هجرة الكفاءات' في ملفاتك؟",
-                options: [
-                    "السياحة",
-                    "الهجرة للخارج",
-                    "التبادل الطلابي",
-                    "التنمية الريفية"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "المعلم الذي يقوم بدور 'الشارح باستخدام الوسائل التقنية' يهدف إلى:",
-                options: [
-                    "تعقيد المعلومة",
-                    "تسهيل عرض المادة العلمية",
-                    "إلغاء دور الطالب",
-                    "توفير الكهرباء"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "من فوائد التعليم للاقتصاد القومي أنه:",
-                options: [
-                    "يزيد من معدلات الاستهلاك فقط",
-                    "يؤدي لتغيير ميول الأفراد بما يتفق مع مصلحة الاقتصاد",
-                    "يقلل من استخدام التكنولوجيا",
-                    "يشجع على العزلة"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "في اقتصاد المعرفة، المعلومات:",
-                options: [
-                    "تفقد قيمتها بمجرد توزيعها",
-                    "تزداد قيمتها بالمشاركة والانتشار",
-                    "يجب إخفاؤها دائماً",
-                    "غير مهمة للإنتاج"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "تكاليف 'ترقية الأمان' في التعليم الرقمي ضرورية لـ:",
-                options: [
-                    "زيادة عدد الطلاب",
-                    "حماية البيانات والمحتوى من الاختراق",
-                    "تحسين سرعة الطباعة",
-                    "تقليل الرواتب"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "الطباعة ثلاثية الأبعاد تسمى أيضاً:",
-                options: [
-                    "التصنيع بالخصم",
-                    "التصنيع بالإضافة (Additive Manufacturing)",
-                    "النحت اليدوي",
-                    "التصوير الورقي"
-                ],
-                correctAnswer: 1
-            },
-            {
-                question: "مؤشر 'وفيات الأطفال' يستخدم لقياس مدى نجاح:",
-                options: [
-                    "النمو الاقتصادي",
-                    "التنمية الاقتصادية",
-                    "اقتصاديات الحجم",
-                    "التحول الرقمي"
-                ],
-                correctAnswer: 1
-            }
+        // ==========================================
+        // 1. قاعدة البيانات (برمجة الألعاب)
+        // ==========================================
+        const questionsDB = [
+            // ================= اختر الإجابة الصحيحة (37 سؤال) =================
+            { type: 'mcq', text: "أي مما يلي يُعد من مميزات الألعاب التعليمية؟", options: ["تقريب المفاهيم لدى المتعلمين", "زيادة التواصل مع المعلم خارج الفصل", "تحسين التعلم القائم على المشروع", "تقليل نفقات العملية التعليمية"], answer: 0 },
+            { type: 'mcq', text: "أي مما يلي هو دور المعلم في اللعبة التعليمية؟", options: ["توزيع الأدوار بين المتعلمين", "التفاعل مع اللعبة", "العمل ضمن فريق", "لعب الأدوار داخل اللعبة"], answer: 0 },
+            { type: 'mcq', text: "يمكن تصنيف الألعاب حسب سلوك المتعلم إلى:", options: ["تمثيل الأدوار", "تطبيق المعرفة", "ألعاب لغوية", "ألعاب زوجية"], answer: 0 },
+            { type: 'mcq', text: "يمكن تصنيف الألعاب حسب عدد المشاركين إلى:", options: ["ألعاب زوجية", "ألعاب خارجية", "ألعاب حل المشكلات", "ألعاب إلكترونية"], answer: 0 },
+            { type: 'mcq', text: "يمكن تصنيف الألعاب حسب مكان اللعب إلى:", options: ["ألعاب خارجية", "ألعاب فردية", "ألعاب تلقائية", "ألعاب موسيقية فنية"], answer: 0 },
+            { type: 'mcq', text: "كل ما يتعلق بأسلوب توصيل المادة للطلاب من قبل المعلم يُطلق عليه:", options: ["نظريات التعلم", "الاستراتيجية التعليمية", "الألعاب التعليمية", "التعليم الإلكتروني"], answer: 1 },
+            { type: 'mcq', text: "خطة منظمة تدفع المتعلم لاستخدام مخزونه المعرفي للوصول إلى حل مشكلة تعليمية تعرف باسم:", options: ["استراتيجية التعليم عن بعد", "استراتيجية المناقشة", "استراتيجية التعليم الفردي", "استراتيجية حل المشكلات"], answer: 3 },
+            { type: 'mcq', text: "أسلوب يقوم على تقديم المحتوى التعليمي على شكل مكونات جزئية وصغيرة في الحجم والمضمون هو:", options: ["استراتيجية التعليم المصغر", "استراتيجية التعليم عن بعد", "استراتيجية التعليم الفردي", "استراتيجية حل المشكلات"], answer: 0 },
+            { type: 'mcq', text: "عملية منظمة يحاول فيها المتعلم أن يكتسب بنفسه أكبر قدر من المعرفة تعرف بـ:", options: ["استراتيجية حل المشكلات", "استراتيجية التعليم الفردي", "استراتيجية التعليم المصغر", "استراتيجية المناقشة"], answer: 1 },
+            { type: 'mcq', text: "تهدف إلى جعل العملية التعليمية عبارة عن نشاط تفاعلي بين الطلاب:", options: ["استراتيجية المناقشة", "استراتيجية التعليم الفردي", "استراتيجية التعليم عن بعد", "استراتيجية حل المشكلات"], answer: 0 },
+            { type: 'mcq', text: "تقوم على فكرة إيصال المادة التعليمية إلى المتعلم عبر وسائط مختلفة هي:", options: ["استراتيجية المناقشة", "استراتيجية التعليم المصغر", "استراتيجية حل المشكلات", "استراتيجية التعليم عن بعد"], answer: 3 },
+            { type: 'mcq', text: "مجموعة من القواعد التي تهتم بتفسير كيفية حدوث عملية التعلم تُسمى:", options: ["نظريات التعلم", "الاستراتيجية التعليمية", "الألعاب التعليمية", "التعليم الإلكتروني"], answer: 0 },
+            { type: 'mcq', text: "النظرية التربوية التي ترى أن التعلم عبارة عن تغيير شبه دائم في سلوك الفرد هي:", options: ["النظرية السلوكية", "النظرية البنائية", "النظرية المعرفية", "النظرية الارتباطية"], answer: 0 },
+            { type: 'mcq', text: "النظرية التي تفسر حدوث التعلم من خلال تعريض المتعلم لمواقف تستدعي استدعاء خبراته السابقة هي:", options: ["النظرية السلوكية", "النظرية البنائية", "النظرية المعرفية", "النظرية الارتباطية"], answer: 2 },
+            { type: 'mcq', text: "النظرية التي ترى أن التعلم عبارة عن تفاعل المتعلم مع ما حوله من أشياء وأشخاص هي:", options: ["النظرية السلوكية", "النظرية البنائية", "النظرية المعرفية", "النظرية الارتباطية"], answer: 1 },
+            { type: 'mcq', text: "من المرحلة العمرية التي تتميز بالرغبة في التعاون مع الآخرين هي:", options: ["من سنة إلى 5 سنوات", "من 5 إلى 8 سنوات", "من 8 إلى 12 سنة", "من 12 إلى 15 سنة"], answer: 2 },
+            { type: 'mcq', text: "من المرحلة العمرية التي تتميز بالرغبة في التنافس مع الأقران هي:", options: ["من سنة إلى 5 سنوات", "من 5 إلى 8 سنوات", "من 8 إلى 12 سنة", "من 12 إلى 15 سنة"], answer: 2 },
+            { type: 'mcq', text: "من المرحلة العمرية التي تقتصر على اللعب الفردي واللعب المتبادل هي:", options: ["من سنة إلى 5 سنوات", "من 5 إلى 8 سنوات", "من 8 إلى 12 سنة", "من 12 إلى 15 سنة"], answer: 0 },
+            { type: 'mcq', text: "تحديد الفئة المستهدفة يتم ضمن مرحلة:", options: ["الإعداد", "التجريب", "التقويم", "التنفيذ"], answer: 0 },
+            { type: 'mcq', text: "أي مما يلي لا يندرج ضمن مرحلة التقويم ضمن مراحل تصميم اللعبة؟", options: ["التوازن في تصحيح أداء اللاعبين", "إمكانية إضافة التعديلات", "تحديد الفئة المستهدفة", "التأكد من تحقيق اللعبة"], answer: 2 },
+            { type: 'mcq', text: "شرح أهداف اللعبة للمتعلمين يتم ضمن مرحلة:", options: ["الإعداد", "التجريب", "التقويم", "التنفيذ"], answer: 1 },
+            { type: 'mcq', text: "أي مما يلي يندرج ضمن مرحلة التقويم ضمن مراحل تصميم اللعبة؟", options: ["توزيع الأدوار على اللاعبين", "تحديد قوانين اللعبة", "تحديد الأهداف", "إمكانية إضافة التعديلات"], answer: 3 },
+            { type: 'mcq', text: "أي مما يلي من عوامل فشل اللعبة التعليمية:", options: ["غير مرتبطة بالبيئة", "مناسبة من حيث المكان", "غير خطيرة", "تحقق الأهداف التعليمية"], answer: 0 },
+            { type: 'mcq', text: "أول جهاز ألعاب والأشهر في الثمانينات هو:", options: ["Sega", "Play Station", "Atari", "Nintendo"], answer: 2 },
+            { type: 'mcq', text: "من خصائص الألعاب الإلكترونية وتعني أن يسير اللاعب في اللعبة وفق قدراته:", options: ["التشويق", "الفردية", "التحكم", "التعلم"], answer: 1 },
+            { type: 'mcq', text: "من خصائص الألعاب الإلكترونية الناتجة عن الاستخدام المفرط للوسائط المتعددة:", options: ["التعلم", "التحكم", "الفردية", "التشويق"], answer: 3 },
+            { type: 'mcq', text: "من خصائص الألعاب الإلكترونية التي تعني أن يبدأ اللاعب اللعبة وينهيها وقتما يشاء:", options: ["التحكم", "الفردية", "التشويق", "التعلم"], answer: 0 },
+            { type: 'mcq', text: "من أنماط اللاعبين ويهدف إلى البحث عن خبرات وتجارب جديدة:", options: ["اللاعب المقاتل", "اللاعب المستكشف", "اللاعب المدير", "اللاعب المشارك"], answer: 1 },
+            { type: 'mcq', text: "من أنماط اللاعبين ويهدف إلى عمل أنشطة جماعية:", options: ["اللاعب المستكشف", "اللاعب المقاتل", "اللاعب المشارك", "اللاعب المدير"], answer: 2 },
+            { type: 'mcq', text: "من أنماط اللاعبين ويهدف إلى منافسة الآخرين والانتصار عليهم:", options: ["اللاعب المدير", "اللاعب المستكشف", "اللاعب المشارك", "اللاعب المقاتل"], answer: 3 },
+            { type: 'mcq', text: "أي من المميزات التربوية التالية للألعاب الإلكترونية ناتج عن الوسائط المتعددة؟", options: ["التعلم في أي وقت", "التعلم من الخطأ", "تحقيق الأهداف التعليمية", "الانغماس في التعليم"], answer: 3 },
+            { type: 'mcq', text: "أي من التالي يميز الألعاب الإلكترونية التعليمية عن غير التعليمية؟", options: ["الفردية في الاستخدام", "التحكم في الاستخدام", "لها أهداف تعليمية", "استخدام الوسائط المتعددة"], answer: 2 },
+            { type: 'mcq', text: "أي مما يلي من خصائص تطبيق Unity لإنتاج الألعاب الإلكترونية؟", options: ["لا ينتج ألعاب ثلاثية الأبعاد", "تطبيق مجاني", "الأنسب لاستخدام الأطفال", "يستخدم لغة #C"], answer: 3 },
+            { type: 'mcq', text: "أي مما يلي من خصائص تطبيق Scratch؟", options: ["الأنسب لاستخدام الأطفال ومجاني", "ينتج ألعاب ثلاثية الأبعاد", "تطبيق تجاري", "يستخدم لغة #C"], answer: 0 },
+            { type: 'mcq', text: "أي مما يلي من خصائص تطبيق Adobe Animate لإنتاج الألعاب الإلكترونية؟", options: ["ينتج ألعاب ثلاثية الأبعاد", "يستخدم لغة #C", "يحتوي على لغة برمجة داخلية Action Script", "تطبيق مجاني"], answer: 2 },
+            { type: 'mcq', text: "مرحلة يتم فيها توزيع الأدوار على اللاعبين:", options: ["الإعداد", "التجريب", "التقويم", "التعديل"], answer: 1 },
+            { type: 'mcq', text: "تطبيق يحتوي على برمجة داخلية Action Script تستخدم في إنتاج الألعاب المعقدة:", options: ["Scratch", "Game Maker", "Unity", "Adobe Animate"], answer: 3 },
+
+            // ================= صح و غلط (33 سؤال) =================
+            { type: 'tf', text: "من مميزات اللعب إكساب الطفل المهارات الاجتماعية.", answer: true },
+            { type: 'tf', text: "لا تسهم الألعاب التعليمية في توضيح الفروق الفردية بين المتعلمين.", answer: false },
+            { type: 'tf', text: "ألعاب حل المشكلات تتطلب سلوكيات خاصة من المتعلم.", answer: true },
+            { type: 'tf', text: "جميع الألعاب التعليمية تتطلب أدوات مساعدة.", answer: false },
+            { type: 'tf', text: "الاستراتيجية التعليمية هي كل ما يتعلق بأسلوب توصيل المادة للطلاب من قبل المعلم.", answer: true },
+            { type: 'tf', text: "استراتيجية حل المشكلات عملية إجرائية منظمة وهادفة ومقصودة يحاول المتعلم أن يكتسب بنفسه أكبر قدر من المعرفة والمبادئ.", answer: false },
+            { type: 'tf', text: "استراتيجية المناقشة نشاط تفاعلي حيث يتحدث الطلاب مع بعضهم البعض حول موضوع أو مشكلة أو مفهوم مركزي.", answer: true },
+            { type: 'tf', text: "نظريات التعلم هي مجموعة من القواعد التي تهتم بتفسير كيفية حدوث عملية التعلم.", answer: true },
+            { type: 'tf', text: "ترى المدرسة البنائية أن التعلم عبارة عن تغيير شبه دائم في سلوك الفرد.", answer: false },
+            { type: 'tf', text: "ترى المدرسة المعرفية أن التعلم عبارة عن عملية تحدث داخليًا في عقل المتعلم.", answer: true },
+            { type: 'tf', text: "ترى المدرسة السلوكية أن التعلم عبارة عن تفاعل المتعلم مع ما حوله من أشياء وأشخاص.", answer: false },
+            { type: 'tf', text: "تميز المرحلة العمرية من سنة إلى خمس سنوات بالتركيز على الذات واكتشاف البيئة المحيطة.", answer: true },
+            { type: 'tf', text: "تتميز المرحلة العمرية من 8 إلى 12 سنة بالرغبة في التنافس مع الأقران.", answer: true },
+            { type: 'tf', text: "في مراحل اللعب من 5 إلى 8 سنوات يتنوع اللعب ما بين التقليد والتوقع.", answer: true },
+            { type: 'tf', text: "في تصميم الألعاب يتم شرح أهداف اللعبة للمتعلمين ضمن مرحلة التجريب.", answer: true },
+            { type: 'tf', text: "الألعاب الإلكترونية تجمع بين خصائص الألعاب التقليدية وبرامج الكمبيوتر.", answer: true },
+            { type: 'tf', text: "الألعاب الإلكترونية تتصف بعنصر التشويق.", answer: true },
+            { type: 'tf', text: "اللاعب المستكشف يهدف إلى البحث عن خبرات وتجارب جديدة.", answer: true },
+            { type: 'tf', text: "اللاعب المشارك يهدف إلى منافسة الآخرين والقضاء عليهم.", answer: false },
+            { type: 'tf', text: "الألعاب الإلكترونية تعطي انغماسا أعلى في الموقف التعليمي.", answer: true },
+            { type: 'tf', text: "تتميز الألعاب الإلكترونية بإمكانية التعلم من التكرار والخطأ.", answer: true },
+            { type: 'tf', text: "تطبيق Unity يمكنه إنتاج ألعاب ثلاثية الأبعاد.", answer: true },
+            { type: 'tf', text: "من عوامل نجاح توظيف الألعاب توزيع الأدوار وفق قدرات المتعلمين.", answer: true },
+            { type: 'tf', text: "الألعاب التعليمية نشاط غير موجه وغير مقصود.", answer: false },
+            { type: 'tf', text: "استراتيجية التعليم المصغر عبارة عن نشاط تفاعلي حيث يتحدث الطلاب مع بعضهم البعض حول موضوع أو مشكلة.", answer: false },
+            { type: 'tf', text: "الألعاب التعليمية يمكن أن تكون جماعية فقط.", answer: false },
+            { type: 'tf', text: "بعض الألعاب التعليمية تعرض على المتعلم تحديات تجعله يفكر في الحلول حتى يتجاوز هذا العائق أو التحدي من اللعبة.", answer: true },
+            { type: 'tf', text: "في تصميم الألعاب يتم تحديد النشاط التنافسي والحركة والأداء المطلوب من اللاعبين ضمن مرحلة التجريب.", answer: false },
+            { type: 'tf', text: "يجب أن يكون تصميم الألعاب بشكل يخلو من الأخطار في حالة استخدامها بشكل غير صحيح.", answer: true },
+            { type: 'tf', text: "في تصميم الألعاب التعليمية يتم تحديد عدد اللاعبين المطلوبين ضمن مرحلة التقويم.", answer: false },
+            { type: 'tf', text: "تطبيق scratch تم تصميمه لهدف تسهيل تعلم البرمجة وخاصة في فئة الأطفال والمبتدئين.", answer: true },
+            { type: 'tf', text: "تطبيق adobe animate يستخدم في إنتاج كافة الوسائط المتعددة كالرسومات المتحركة ومواقع الويب والبرامج التعليمية.", answer: true },
+            { type: 'tf', text: "مرت الألعاب الإلكترونية بالعديد من مراحل التطور، وسميت أول لعبة بصندوق الألعاب.", answer: true },
+            { type: 'tf', text: "من التقنيات التقليدية القديمة في مجال الألعاب استخدام الواقع الافتراضي.", answer: false },
+            { type: 'tf', text: "توفر الألعاب التقليدية أقصى درجات التحكم للاعب في ممارسة اللعبة.", answer: false },
+
+            // ================= أكمل الفراغ (21 سؤال) =================
+            { type: 'complete', text: "اللعب هو نشاط حر أو موجه يقوم به الإنسان بدافع المتعة أو التعلم.", answer: ["نشاط حر أو موجه يقوم به الإنسان بدافع المتعة أو التعلم"] },
+            { type: 'complete', text: "اللعبة التعليمية هو نشاط منظم ومقصود يهدف إلى تحقيق أهداف تعليمية محددة.", answer: ["نشاط منظم ومقصود يهدف إلى تحقيق أهداف تعليمية محددة"] },
+            { type: 'complete', text: "تصنيف الألعاب التعليمية: حسب الهدف إلى أهداف معرفي، وجداني، مهاري.", answer: ["أهداف معرفي وجداني مهاري"] },
+            { type: 'complete', text: "ألعاب تمثيل الأدوار يقوم المتعلم فيها بمحاكاة مواقف أو شخصيات تعليمية.", answer: ["بمحاكاة مواقف أو شخصيات تعليمية"] },
+            { type: 'complete', text: "ألعاب إلكترونية تعتمد على استخدام الوسائط التقنية والحاسوب.", answer: ["على استخدام الوسائط التقنية والحاسوب"] },
+            { type: 'complete', text: "الاستراتيجية التعلمية هو أسلوب منظم لتوصيل المادة التعليمية للطلاب بطريقة فعالة.", answer: ["أسلوب منظم لتوصيل المادة التعليمية للطلاب بطريقة فعالة"] },
+            { type: 'complete', text: "استراتيجية التعليم الفردي تتيح للمتعلم التعلم وفق قدراته وسرعته الخاصة.", answer: ["ووفق قدراته وسرعته الخاصة"] },
+            { type: 'complete', text: "استراتيجية التعليم المصغر تقديم المحتوى في شكل وحدات صغيرة ومركزة.", answer: ["تقديم المحتوى في شكل وحدات صغيرة ومركزة"] },
+            { type: 'complete', text: "نظرية التعلم السلوكية ترى أن التعلم هو تغيير في السلوك نتيجة للمثيرات.", answer: ["هو تغيير في السلوك نتيجة للمثيرات"] },
+            { type: 'complete', text: "نظرية التعلم المعرفية ترى أن التعلم يحدث داخل العقل من خلال التفكير والفهم.", answer: ["يحدث داخل العقل من خلال التفكير والفهم"] },
+            { type: 'complete', text: "نظرية التعلم البنائية تؤكد على أن التعلم يتم من خلال تفاعل المتعلم مع بيئته.", answer: ["يتم من خلال تفاعل المتعلم مع بيئته"] },
+            { type: 'complete', text: "المرحلة العمرية فترة زمنية محددة تتصف بخصائص نمائية وسلوكية.", answer: ["فترة زمنية محددة تتصف بخصائص نمائية وسلوكية"] },
+            { type: 'complete', text: "من عوامل نجاح اللعبة التعليمية وضوح الأهداف الفئة المستهدفة.", answer: ["وضوح الأهداف الفئة المستهدفة"] },
+            { type: 'complete', text: "اللعب التعاوني يهدف إلى التعاون مع الزملاء لتحقيق هدف مشترك.", answer: ["إلى التعاون مع الزملاء لتحقيق هدف مشترك"] },
+            { type: 'complete', text: "مراحل تصميم اللعبة التعليمية الإعداد، التجريب، التقييم.", answer: ["الإعداد التجريب التقييم"] },
+            { type: 'complete', text: "التحكم هي قدرة اللاعب على بدء اللعبة أو إنهائها أو التحكم في مجرياتها.", answer: ["على بدء اللعبة أو إنهائها أو التحكم في مجرياتها"] },
+            { type: 'complete', text: "التعلم من الخطأ هو مبدأ تربوي يقوم على تعديل السلوك عبر التجربة.", answer: ["يقوم على تعديل السلوك عبر التجربة"] },
+            { type: 'complete', text: "الانغماس التعليمي هو تفاعل المتعلم الكامل مع بيئة اللعبة.", answer: ["هو تفاعل المتعلم الكامل مع بيئة اللعبة"] },
+            { type: 'complete', text: "التعلم القائم على الوسائط المتعددة هو الدمج بين النص والصوت والصورة لتحقيق التعلم.", answer: ["هو الدمج بين النص والصوت والصورة لتحقيق التعلم"] },
+            { type: 'complete', text: "Scratch من تطبيقات تصميم الألعاب وهو مجاني ومناسب للأطفال للتعلم.", answer: ["مجاني ومناسب للأطفال للتعلم"] },
+            { type: 'complete', text: "نمط اللاعب المقاتل يهدف إلى منافسة الآخرين والانتصار عليهم بينما يهدف نمط المدير إلى تطوير مهارات محددة للوصول لدرجة الإتقان، وفي نمط المستكشف يبحث اللاعبون عن خبرات وتجارب جديدة، وفي الأخير يهدف نمط المشارك إلى التفاعل مع الآخرين.", answer: ["نمط المقاتل منافسة الآخرين والانتصار نمط المدير تطوير مهارات محددة للوصول لدرجة الإتقان نمط المستكشف يبحث اللاعبون عن خبرات وتجارب جديدة نمط المشارك التفاعل مع الآخرين"] }
         ];
 
-        // أسئلة صح/خطأ (65 سؤال)
-        const tfQuestions = [
-            { question: "النظام التعليمي يعمل في معزل عن نظم المجتمع السياسية والاقتصادية.", answer: false },
-            { question: "يهدف اقتصاديات التعليم إلى ترشيد الإنفاق وإعداد كوادر بجودة عالية بأقل كلفة.", answer: true },
-            { question: "العائد من التعليم هو المفهوم المقابل لتكلفة التعليم.", answer: true },
-            { question: "تحسن الإنتاجية الاقتصادية للأفراد يعتبر عائداً غير مباشر.", answer: false },
-            { question: "زيادة خيارات الفرد الشخصية وقدرته على الاستمتاع بوقت الفراغ عائد مباشر للفرد.", answer: false },
-            { question: "تخفيض الضغوط الاجتماعية والجرائم يعتبر عائداً اجتماعياً غير مرتبط بالسوق.", answer: true },
-            { question: "تدريب المعلمين والموظفين لا يعتبر ضمن التكاليف المادية لتنفيذ التكنولوجيا.", answer: false },
-            { question: "تقييم التكلفة مقابل الفوائد هو عملية تقدير التأثيرات المالية لمشروع معين.", answer: true },
-            { question: "في حال كانت التكاليف أكبر من الفوائد، يوصى دائماً بتنفيذ المشروع.", answer: false },
-            { question: "اقتصاديات النطاق تعني تقديم خدمات متعددة باستخدام نفس البنية التحتية بكلفة أقل.", answer: true },
-            { question: "نقطة التعادل بالنسبة للتعليم الإلكتروني تختلف عن التعليم التقليدي.", answer: true },
-            { question: "المعرفة والمعلومات في الاقتصاد الجديد تنضب مع كثرة الاستعمال.", answer: false },
-            { question: "الاقتصاد القديم يعتمد على الجهد العضلي والآلة.", answer: true },
-            { question: "تعتمد قيمة المعرفة وتسعيرها على المحيط والشخص والزمن.", answer: true },
-            { question: "توليد المعرفة يتم في المؤسسات والشركات التجارية فقط.", answer: false },
-            { question: "الطباعة ثلاثية الأبعاد لا تحتاج لعمليات تجميع لأنها تنتج قطاعات متداخلة ومتطابقة.", answer: true },
-            { question: "تعتبر الطابعة ثلاثية الأبعاد غير صديقة للبيئة بسبب مخلفاتها الكثيرة.", answer: false },
-            { question: "تطبيقات الطباعة ثلاثية الأبعاد تشمل مجالات السيارات والمجوهرات والطب.", answer: true },
-            { question: "التحول الرقمي هو مجرد شراء أجهزة كمبيوتر للمؤسسة.", answer: false },
-            { question: "آخر خطوة في التحول الرقمي هي تحليل الاحتياجات والاستراتيجية.", answer: false },
-            { question: "قياس الأثر وتقييم الجودة ضروري لمعرفة تأثير التحول الرقمي على أداء الطلاب.", answer: true },
-            { question: "شركة أمازون بدأت كشركة لبيع السيارات عبر الإنترنت.", answer: false },
-            { question: "منصة edX تمكن الطلاب من الوصول للتعليم بسهولة وبتكلفة منخفضة.", answer: true },
-            { question: "النمو الاقتصادي مفهوم أوسع من التنمية الاقتصادية.", answer: false },
-            { question: "التنمية الاقتصادية ظاهرة متعددة الاتجاهات لأنها تركز على الدخل ومستوى المعيشة.", answer: true },
-            { question: "النمو الاقتصادي متعلق بالدول المتطورة فقط.", answer: true},
-            { question: "مؤشرات التنمية الاقتصادية تشمل مؤشر التنمية البشرية ووفيات الأطفال ومحو الأمية.", answer: true },
-            { question: "الاستثمار في التعليم الابتدائي لا يساهم في التنمية الاقتصادية.", answer: false },
-            { question: "التعليم الرقمي يعتمد فقط على الاتصال المتزامن.", answer: false },
-            { question: "دور المعلم المشجع على التفاعل يتم من خلال تشجيع طرح الأسئلة.", answer: true },
-            { question: "التواصل الاجتماعي الزائد يعتبر من فوائد تكنولوجيا التعليم.", answer: false },
-            { question: "الهجرة للخارج (هجرة العقول) تعتبر فقداً اقتصادياً للدولة التي علمتهم.", answer: true },
-            { question: "جودة التعليم مرتبطة فقط بعدد الفصول الدراسية.", answer: false },
-            { question: "المعرفة تراكمية وتعطي رؤية للأمام لاكتشاف معرفة جديدة.", answer: true },
-            { question: "الطباعة ثلاثية الأبعاد تنتج حسب الطلب مما يلغي تكلفة فترة التخزين.", answer: true },
-            { question: "تدريب المعلمين خطوة ثانوية يمكن الاستغناء عنها في التحول الرقمي.", answer: false },
-            { question: "تعتبر جامعة ستانفورد رائدة في التحول الرقمي عالمياً.", answer: true },
-            { question: "النمو الاقتصادي عملية طويلة المدى مستمرة.", answer: false },
-            { question: "التعليم الرقمي يهدف لإحداث التعلم وتحقيق الأهداف المنشودة إلكترونياً.", answer: true },
-            { question: "التباين في الوصول للتكنولوجيا لا يؤثر على عدالة التعليم.", answer: false },
-            // أسئلة التكميلية صح/خطأ
-            { question: "تعتبر الحواسيب والشبكات من البنية التحتية التكنولوجية.", answer: true },
-            { question: "التعلم الآلي والذكاء الاصطناعي من تقنيات التحول الرقمي.", answer: true },
-            { question: "استثمارات التعليم العالي تشمل تمويل البحث العلمي.", answer: true },
-            { question: "التنمية البشرية المستدامة تضع الإنسان كغاية وهدف.", answer: true },
-            { question: "تكاليف الإدارة والدعم الفني تندرج تحت التكاليف المادية.", answer: true },
-            { question: "في اقتصاد المعرفة، رأس المال المادي هو المحرك الوحيد للنمو.", answer: false },
-            { question: "تعد الطباعة ثلاثية الأبعاد وسيلة لإنتاج قطع غيار الطائرات والسيارات.", answer: true },
-            { question: "التعليم يقلل من قدرة الفرد على التكيف مع التغيرات الاقتصادية.", answer: false },
-            { question: "تعتمد منصة edX على مبدأ 'المساقات الهائلة المفتوحة عبر الإنترنت' (MOOCs).", answer: true },
-            { question: "التحول الرقمي يتطلب تحديث المناهج لتناسب التكنولوجيا.", answer: true },
-            { question: "الاستثمار في ذوي الاحتياجات الخاصة يهدف لتوفير فرص تعليمية عادلة.", answer: true },
-            { question: "اقتصاديات التعليم تدرس العلاقة بين العائد المادي والاجتماعي للتعليم.", answer: true }
-        ];
-
-        // دمج الأسئلة: أول 48 اختيارية ثم 52 صح/خطأ
-        const allQuestions = [...mcqQuestions, ...tfQuestions.map(q => ({
-            question: q.question,
-            options: ["صح", "خطأ"],
-            correctAnswer: q.answer ? 0 : 1,
-            isTF: true
-        }))];
-
-        // العناصر الأساسية في الصفحة
-        const quizContainer = document.getElementById('quizContainer');
-        const resultsContainer = document.getElementById('resultsContainer');
-        const questionType = document.getElementById('questionType');
-        const questionNumber = document.getElementById('questionNumber');
-        const questionText = document.getElementById('questionText');
-        const optionsArea = document.getElementById('optionsArea');
-        const nextBtn = document.getElementById('nextBtn');
-        const progressBar = document.getElementById('progressBar');
-        const finalScore = document.getElementById('finalScore');
-        const finalGrade = document.getElementById('finalGrade');
-        const funnyMessage = document.getElementById('funnyMessage');
-        const mistakesList = document.getElementById('mistakesList');
-        const restartBtn = document.getElementById('restartBtn');
-        const totalQuestionsEl = document.getElementById('totalQuestions');
-        const remainingQuestionsEl = document.getElementById('remainingQuestions');
-        const correctCountEl = document.getElementById('correctCount');
-        
-        // متغيرات حالة الاختبار
-        let currentQuestion = 0;
+        // ==========================================
+        // 2. متغيرات الحالة
+        // ==========================================
+        let currentQuestionIndex = 0;
         let score = 0;
-        let userAnswers = [];
-        let quizFinished = false;
-        
-        // تهيئة الاختبار
-        function initQuiz() {
-            currentQuestion = 0;
-            score = 0;
-            userAnswers = [];
-            quizFinished = false;
-            
-            quizContainer.style.display = 'block';
-            resultsContainer.style.display = 'none';
-            
-            totalQuestionsEl.textContent = allQuestions.length;
-            remainingQuestionsEl.textContent = allQuestions.length;
-            correctCountEl.textContent = '0';
-            
-            showQuestion();
+        let userAnswered = false;
+        let selectedOptionValue = null;
+        let userHistory = [];
+
+        // ==========================================
+        // 3. دوال المنطق الذكي (Normalization & Similarity)
+        // ==========================================
+
+        // تطبيع النصوص العربية
+        function normalizeArabic(text) {
+            return text
+                .trim()
+                .toLowerCase()
+                .replace(/[أآإ]/g, 'ا')          // توحيد الألف
+                .replace(/ة/g, 'ه')             // التاء المربوطة -> هاء
+                .replace(/ى/g, 'ي')             // الألف المقصورة -> ياء
+                .replace(/ال/g, '')             // إزالة أل التعريف
+                .replace(/\s+/g, '')            // إزالة المسافات
+                .replace(/[^\w\u0600-\u06FF]/g, ''); // إزالة الترقيم
         }
-        
-        // عرض السؤال الحالي
-        function showQuestion() {
-            const question = allQuestions[currentQuestion];
-            
-            // تحديد نوع السؤال
-            if (question.isTF) {
-                questionType.textContent = "صح أم خطأ";
-                questionType.style.background = "#e74c3c";
-            } else {
-                questionType.textContent = "اختياري";
-                questionType.style.background = "#2ECC71";
+
+        // حساب مسافة Levenshtein (للتشابه)
+        function levenshteinDistance(a, b) {
+            const matrix = [];
+            for (let i = 0; i <= b.length; i++) {
+                matrix[i] = [i];
             }
-            
-            questionNumber.textContent = `السؤال ${currentQuestion + 1} من ${allQuestions.length}`;
-            questionText.textContent = question.question;
-            
-            // تحديث شريط التقدم
-            const progress = ((currentQuestion) / allQuestions.length) * 100;
-            progressBar.style.width = `${progress}%`;
-            
-            // تحديث معلومات الاختبار
-            remainingQuestionsEl.textContent = allQuestions.length - currentQuestion;
-            correctCountEl.textContent = score;
-            
-            // إنشاء الخيارات حسب نوع السؤال
-            optionsArea.innerHTML = '';
-            
-            if (question.isTF) {
-                const container = document.createElement('div');
-                container.classList.add('true-false-container');
-                
-                question.options.forEach((option, index) => {
-                    const optionElement = document.createElement('div');
-                    optionElement.classList.add('option');
-                    optionElement.textContent = option;
-                    
-                    // إذا كانت هناك إجابة سابقة، عرضها
-                    if (userAnswers[currentQuestion] !== undefined) {
-                        if (userAnswers[currentQuestion] === index) {
-                            optionElement.classList.add('selected');
-                            if (index === question.correctAnswer) {
-                                optionElement.classList.add('correct');
-                            } else {
-                                optionElement.classList.add('incorrect');
-                            }
-                        } else if (index === question.correctAnswer) {
-                            optionElement.classList.add('correct');
-                        }
-                    }
-                    
-                    optionElement.addEventListener('click', () => selectOption(index));
-                    container.appendChild(optionElement);
-                });
-                
-                optionsArea.appendChild(container);
-            } else {
-                const container = document.createElement('div');
-                container.classList.add('options-container');
-                
-                question.options.forEach((option, index) => {
-                    const optionElement = document.createElement('div');
-                    optionElement.classList.add('option');
-                    optionElement.textContent = option;
-                    
-                    // إذا كانت هناك إجابة سابقة، عرضها
-                    if (userAnswers[currentQuestion] !== undefined) {
-                        if (userAnswers[currentQuestion] === index) {
-                            optionElement.classList.add('selected');
-                            if (index === question.correctAnswer) {
-                                optionElement.classList.add('correct');
-                            } else {
-                                optionElement.classList.add('incorrect');
-                            }
-                        } else if (index === question.correctAnswer) {
-                            optionElement.classList.add('correct');
-                        }
-                    }
-                    
-                    optionElement.addEventListener('click', () => selectOption(index));
-                    container.appendChild(optionElement);
-                });
-                
-                optionsArea.appendChild(container);
+            for (let j = 0; j <= a.length; j++) {
+                matrix[0][j] = j;
             }
-            
-            // تعطيل زر التالي حتى يتم اختيار إجابة
-            nextBtn.disabled = true;
-        }
-        
-        // اختيار إجابة
-        function selectOption(optionIndex) {
-            // إذا انتهى السؤال بالفعل، لا تفعل شيئاً
-            if (userAnswers[currentQuestion] !== undefined) return;
-            
-            const options = document.querySelectorAll('.option');
-            options.forEach(option => option.classList.remove('selected'));
-            
-            options[optionIndex].classList.add('selected');
-            nextBtn.disabled = false;
-            
-            // حفظ الإجابة
-            userAnswers[currentQuestion] = optionIndex;
-            
-            // التحقق من الإجابة
-            const question = allQuestions[currentQuestion];
-            if (optionIndex === question.correctAnswer) {
-                options[optionIndex].classList.add('correct');
-                score++;
-                correctCountEl.textContent = score;
-            } else {
-                options[optionIndex].classList.add('incorrect');
-                options[question.correctAnswer].classList.add('correct');
-            }
-        }
-        
-        // الانتقال إلى السؤال التالي
-        function nextQuestion() {
-            currentQuestion++;
-            
-            if (currentQuestion < allQuestions.length) {
-                showQuestion();
-            } else {
-                finishQuiz();
-            }
-        }
-        
-        // إنهاء الاختبار وعرض النتائج
-        function finishQuiz() {
-            quizFinished = true;
-            quizContainer.style.display = 'none';
-            resultsContainer.style.display = 'block';
-            
-            // حساب النتيجة
-            const percentage = Math.round((score / allQuestions.length) * 100);
-            finalScore.textContent = `${score}/${allQuestions.length}`;
-            
-            // تحديد النجاح أو الرسوب (60% للنجاح)
-            const isPass = percentage >= 60;
-            
-            if (isPass) {
-                finalScore.classList.add('pass');
-                finalGrade.textContent = "ناجح";
-                finalGrade.style.color = "#27ae60";
-                funnyMessage.textContent = "ناجح دحيح الدفعة 🙂";
-                funnyMessage.className = "funny-message pass-message";
-            } else {
-                finalScore.classList.remove('pass');
-                finalGrade.textContent = "ساقط";
-                finalGrade.style.color = "#e74c3c";
-                funnyMessage.textContent = "يخربيتك هتودينا في داهيه يا ساقط 😂";
-                funnyMessage.className = "funny-message fail-message";
-            }
-            
-            // عرض الأسئلة الخاطئة
-            mistakesList.innerHTML = '';
-            allQuestions.forEach((question, index) => {
-                if (userAnswers[index] !== question.correctAnswer) {
-                    const mistakeItem = document.createElement('div');
-                    mistakeItem.classList.add('mistake-item');
-                    
-                    const mistakeQuestion = document.createElement('div');
-                    mistakeQuestion.classList.add('mistake-question');
-                    mistakeQuestion.textContent = `${index + 1}. ${question.question}`;
-                    
-                    const userAnswer = document.createElement('div');
-                    userAnswer.classList.add('incorrect-answer');
-                    
-                    if (question.isTF) {
-                        userAnswer.textContent = `إجابتك: ${userAnswers[index] === 0 ? "صح" : "خطأ"}`;
+            for (let i = 1; i <= b.length; i++) {
+                for (let j = 1; j <= a.length; j++) {
+                    if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
                     } else {
-                        userAnswer.textContent = `إجابتك: ${question.options[userAnswers[index]]}`;
+                        matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
                     }
-                    
-                    const correctAnswer = document.createElement('div');
-                    correctAnswer.classList.add('correct-answer');
-                    
-                    if (question.isTF) {
-                        correctAnswer.textContent = `الإجابة الصحيحة: ${question.correctAnswer === 0 ? "صح" : "خطأ"}`;
-                    } else {
-                        correctAnswer.textContent = `الإجابة الصحيحة: ${question.options[question.correctAnswer]}`;
-                    }
-                    
-                    mistakeItem.appendChild(mistakeQuestion);
-                    mistakeItem.appendChild(userAnswer);
-                    mistakeItem.appendChild(correctAnswer);
-                    mistakesList.appendChild(mistakeItem);
                 }
-            });
+            }
+            return matrix[b.length][a.length];
+        }
+
+        // حساب نسبة التشابه
+        function calculateSimilarity(str1, str2) {
+            if (str1 === str2) return 100;
+            const distance = levenshteinDistance(str1, str2);
+            const maxLen = Math.max(str1.length, str2.length);
+            if (maxLen === 0) return 100;
+            return Math.round(((maxLen - distance) / maxLen) * 100);
+        }
+
+        // التحقق من الإجابة (أكمل) باستخدام التطبيع والتشابه
+        function checkFillInAnswer(userVal, correctArray) {
+            const normalizedUser = normalizeArabic(userVal);
             
-            // إذا لم تكن هناك أخطاء
-            if (mistakesList.innerHTML === '') {
-                const noMistakes = document.createElement('div');
-                noMistakes.classList.add('mistake-item');
-                noMistakes.textContent = 'لا توجد أخطاء! جميع إجاباتك صحيحة. أنت خبير اقتصاديات التكنولوجيا! 🏆';
-                noMistakes.style.textAlign = 'center';
-                noMistakes.style.fontWeight = 'bold';
-                noMistakes.style.color = '#27ae60';
-                mistakesList.appendChild(noMistakes);
+            // تحقق من أي إجابة صحيحة محتملة
+            for (let part of correctArray) {
+                const normalizedPart = normalizeArabic(part);
+                
+                // 1. التطابق التام بعد التطبيع
+                if (normalizedUser === normalizedPart) return true;
+                
+                // 2. التشابه المعنوي (>= 70%)
+                const similarity = calculateSimilarity(normalizedUser, normalizedPart);
+                if (similarity >= 70) return true;
+            }
+            return false;
+        }
+
+        // ==========================================
+        // 4. دوال التحكم
+        // ==========================================
+        function startExam() {
+            document.getElementById('start-screen').classList.remove('active');
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            document.getElementById('quiz-screen').classList.add('active');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = questionsDB[currentQuestionIndex];
+            document.getElementById('question-counter').innerText = `سؤال ${currentQuestionIndex + 1} من ${questionsDB.length}`;
+            document.getElementById('progress-bar').style.width = `${((currentQuestionIndex) / questionsDB.length) * 100}%`;
+            
+            let sectionName = q.type === 'complete' ? "أكمل الفراغ" : (q.type === 'mcq' ? "اختر الإجابة الصحيحة" : "صح أم خطأ");
+            document.getElementById('section-name').innerText = `قسم: ${sectionName}`;
+
+            document.getElementById('question-text').innerText = q.text;
+
+            document.getElementById('submit-btn').classList.remove('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+            document.getElementById('feedback-area').style.display = 'none';
+            userAnswered = false;
+            selectedOptionValue = null;
+
+            const interactionArea = document.getElementById('interaction-area');
+            interactionArea.innerHTML = '';
+
+            if (q.type === 'complete') {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'text-input';
+                input.placeholder = 'اكتب الإجابة هنا...';
+                input.id = 'user-input';
+                interactionArea.appendChild(input);
+                input.addEventListener("keypress", function(event) {
+                    if (event.key === "Enter") submitAnswer();
+                });
+            } else if (q.type === 'mcq') {
+                const grid = document.createElement('div');
+                grid.className = 'options-grid';
+                q.options.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.innerText = opt;
+                    btn.onclick = () => selectOption(idx, btn);
+                    btn.id = `opt-${idx}`;
+                    grid.appendChild(btn);
+                });
+                interactionArea.appendChild(grid);
+            } else if (q.type === 'tf') {
+                const grid = document.createElement('div');
+                grid.className = 'options-grid';
+                const opts = ["صح", "خطأ"];
+                opts.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    btn.innerText = opt;
+                    btn.onclick = () => selectOption(idx === 0 ? true : false, btn);
+                    btn.id = `opt-${idx}`;
+                    grid.appendChild(btn);
+                });
+                interactionArea.appendChild(grid);
             }
         }
-        
-        // إضافة المستمعين للأزرار
-        nextBtn.addEventListener('click', nextQuestion);
-        restartBtn.addEventListener('click', initQuiz);
-        
-        // بدء الاختبار
-        initQuiz();
+
+        function selectOption(value, btnElement) {
+            if (userAnswered) return;
+            selectedOptionValue = value;
+            document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+            btnElement.classList.add('selected');
+        }
+
+        function getCorrectAnswerString(q) {
+            if (q.type === 'mcq') return q.options[q.answer];
+            if (q.type === 'tf') return q.answer ? "صح" : "خطأ";
+            if (q.type === 'complete') return q.answer.join(" / ");
+            return "";
+        }
+
+        function submitAnswer() {
+            if (userAnswered) return;
+            const q = questionsDB[currentQuestionIndex];
+            
+            let isCorrect = false;
+            let userAnswerStr = "";
+            let correctAnswerStr = getCorrectAnswerString(q);
+
+            if (q.type === 'complete') {
+                const val = document.getElementById('user-input').value;
+                if (!val.trim()) return;
+                userAnswerStr = val;
+                isCorrect = checkFillInAnswer(val, q.answer);
+            } else if (q.type === 'mcq' || q.type === 'tf') {
+                if (selectedOptionValue === null) return;
+                userAnswerStr = (q.type === 'tf') ? (selectedOptionValue ? "صح" : "خطأ") : q.options[selectedOptionValue];
+                isCorrect = (selectedOptionValue === q.answer);
+            }
+
+            userAnswered = true;
+            if (isCorrect) score++;
+
+            userHistory.push({
+                qIndex: currentQuestionIndex,
+                qText: q.text,
+                userAns: userAnswerStr,
+                correctAns: correctAnswerStr,
+                isCorrect: isCorrect
+            });
+
+            // منطق عرض النتيجة (Critical)
+            const feedbackArea = document.getElementById('feedback-area');
+            feedbackArea.style.display = 'block';
+            
+            if (isCorrect) {
+                feedbackArea.className = 'feedback-area feedback-correct';
+                feedbackArea.innerHTML = `✔️ الإجابة الصحيحة: ${correctAnswerStr}`;
+            } else {
+                feedbackArea.className = 'feedback-area feedback-wrong';
+                feedbackArea.innerHTML = `❌ إجابتك: ${userAnswerStr}<br>✔️ التصحيح: ${correctAnswerStr}`;
+            }
+
+            document.getElementById('submit-btn').classList.add('hidden');
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questionsDB.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quiz-screen').classList.remove('active');
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+            document.getElementById('result-screen').classList.add('active');
+
+            document.getElementById('final-score').innerText = score;
+            
+            const percent = Math.round((score / questionsDB.length) * 100);
+            document.getElementById('accuracy-percent').innerText = percent;
+
+            const statusBadge = document.getElementById('status-badge');
+            const resultMessage = document.getElementById('result-message');
+            const reviewContainer = document.getElementById('review-container');
+            const reviewList = document.getElementById('review-list');
+
+            const isPassed = percent >= 60;
+
+            if (isPassed) {
+                statusBadge.className = "status-badge status-pass";
+                statusBadge.innerText = "ناجح ✅";
+                resultMessage.innerHTML = "مبروك النجاح! <br> غششني بكره يسطا 😂";
+            } else {
+                statusBadge.className = "status-badge status-fail";
+                statusBadge.innerText = "ساقط ❌";
+                resultMessage.innerHTML = "للأسف... <br> ساقط، حاول تاني بكرة يا صاحبي 🤣";
+            }
+
+            // مراجعة الأسئلة (Modified Logic)
+            reviewList.innerHTML = "";
+            // عرض كل الأسئلة في المراجعة ليس فقط الأخطاء حسب الطلب "عرض للمستخدم الاجابات الغلط" 
+            // ولكن سأعرض الأخطاء فقط لتجنب الازدحام كما في التصميم السابق، ولكن باستخدام المنطق الجديد.
+            const wrongAnswers = userHistory.filter(item => !item.isCorrect);
+
+            if (wrongAnswers.length > 0) {
+                reviewContainer.classList.remove('hidden');
+                wrongAnswers.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'review-item';
+                    div.innerHTML = `
+                        <div class="review-q-text">${item.qText}</div>
+                        <div class="review-ans-box">
+                            <span class="ans-wrong">❌ إجابتك: ${item.userAns}</span>
+                            <span class="ans-correct">✔️ التصحيح: ${item.correctAns}</span>
+                        </div>
+                    `;
+                    reviewList.appendChild(div);
+                });
+            } else {
+                reviewContainer.classList.add('hidden');
+            }
+        }
+
+        function restartExam() {
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswered = false;
+            selectedOptionValue = null;
+            userHistory = [];
+
+            document.getElementById('result-screen').classList.remove('active');
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('start-screen').classList.remove('hidden');
+            document.getElementById('start-screen').classList.add('active');
+        }
     </script>
 </body>
 </html>
