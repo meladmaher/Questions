@@ -3,719 +3,2704 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار أخلاقيات المهنة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <title>امتحان تطبيقات النظم السحابية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         :root {
-            --primary-color: #2563eb;
-            --primary-dark: #1e40af;
-            --secondary-color: #f8fafc;
-            --text-color: #1e293b;
-            --success-color: #10b981;
-            --error-color: #ef4444;
-            --accent-color: #64748b;
-            --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
-            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            --bg-deep: #0B0F1D;
+            --bg-mid: #141B33;
+            --paper: rgba(255, 255, 255, 0.055);
+            --paper-solid: #1A2140;
+            --ink: #F4F6FC;
+            --muted: #9BA6C4;
+            --line: rgba(255, 255, 255, 0.10);
+
+            --violet: #8B5CF6;
+            --azure: #4F8CFF;
+            --pink: #F45CA6;
+            --gold: #F5B94D;
+            --mint: #35D0A8;
+            --rose: #FF5C7A;
+
+            --grad-brand: linear-gradient(120deg, var(--azure) 0%, var(--violet) 55%, var(--pink) 100%);
+            --shadow-card: 0 20px 50px rgba(3, 6, 20, 0.45);
+            --shadow-btn: 0 10px 24px rgba(79, 140, 255, 0.28);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
+
+        html, body { height: 100%; }
 
         body {
-            font-family: 'Tajawal', sans-serif;
-            background: var(--bg-gradient);
-            color: var(--text-color);
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg-deep);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .exam-container {
-            background: rgba(255, 255, 255, 0.98);
-            width: 100%;
-            max-width: 850px;
-            border-radius: 20px;
-            box-shadow: var(--card-shadow);
-            overflow: hidden;
+            color: var(--ink);
+            overflow-x: hidden;
             position: relative;
             display: flex;
             flex-direction: column;
-            max-height: 95vh;
         }
 
-        header {
-            background: var(--primary-color);
-            color: white;
-            padding: 20px 30px;
-            text-align: center;
-            flex-shrink: 0;
-        }
-
-        header h1 {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-        }
-
-        header p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .screen {
-            padding: 40px;
-            text-align: center;
-            display: none;
-            animation: fadeIn 0.5s ease-in-out;
-            flex-grow: 1;
-            overflow-y: auto;
-        }
-
-        .screen.active {
-            display: block;
-        }
-
-        .start-img {
-            width: 120px;
-            height: 120px;
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            width: 620px;
+            height: 620px;
             border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
-            border: 4px solid var(--primary-color);
+            filter: blur(120px);
+            opacity: 0.35;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        h2.section-title {
-            color: var(--primary-dark);
-            margin-bottom: 20px;
-            font-size: 1.8rem;
+        body::before {
+            top: -180px;
+            inset-inline-start: -160px;
+            background: var(--azure);
+            animation: drift1 22s ease-in-out infinite alternate;
         }
 
-        .btn {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 1.1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-family: 'Tajawal', sans-serif;
-            font-weight: 700;
-            margin-top: 20px;
+        body::after {
+            bottom: -220px;
+            inset-inline-end: -180px;
+            background: var(--violet);
+            animation: drift2 26s ease-in-out infinite alternate;
         }
 
-        .btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-        }
+        @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(40px,60px) scale(1.15); } }
+        @keyframes drift2 { from { transform: translate(0,0) scale(1); } to { transform: translate(-50px,-40px) scale(1.1); } }
 
-        /* Quiz Screen Styles */
-        .quiz-screen {
-            padding: 30px;
-            text-align: right;
-        }
-
-        .progress-bar-container {
+        .container {
+            max-width: 760px;
             width: 100%;
-            background: #e2e8f0;
-            height: 10px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            overflow: hidden;
+            margin: 0 auto;
+            padding: 32px 20px 20px;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+
+        /* ===== Screen system: exactly one screen visible at a time ===== */
+        .screen { display: none; }
+        .screen.active { display: block; animation: fadeIn 0.35s ease-out; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden { display: none !important; }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 6px 10px 30px;
+            margin-bottom: 22px;
+        }
+
+        .header .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.82em;
+            font-weight: 700;
+            color: var(--ink);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--line);
+            padding: 6px 18px;
+            border-radius: 999px;
+            margin-bottom: 18px;
+            backdrop-filter: blur(6px);
+        }
+
+        .header h1 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2.3em;
+            font-weight: 900;
+            background: var(--grad-brand);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+
+        .header p { font-size: 1em; color: var(--muted); font-weight: 400; }
+
+        /* Progress */
+        .progress-container {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 16px 18px;
+            margin-bottom: 16px;
+            backdrop-filter: blur(16px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+            font-size: 0.92em;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .progress-info span:last-child {
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 800;
+            background: var(--grad-brand);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .progress-bar {
-            height: 100%;
-            background: var(--success-color);
-            width: 0%;
-            transition: width 0.5s ease;
+            position: relative;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            height: 10px;
+            overflow: visible;
         }
 
-        .question-meta {
+        .progress-fill {
+            position: relative;
+            height: 100%;
+            background: var(--grad-brand);
+            border-radius: 999px;
+            transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            min-width: 10px;
+            box-shadow: 0 0 16px rgba(139, 92, 246, 0.55);
+        }
+
+        .progress-fill::after {
+            content: '☁';
+            position: absolute;
+            inset-inline-end: -14px;
+            top: 50%;
+            transform: translateY(-58%);
+            font-size: 1.25em;
+            filter: drop-shadow(0 2px 6px rgba(79, 140, 255, 0.6));
+        }
+
+        /* Live Statistics */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .stat-card {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 15px 8px;
+            text-align: center;
+            backdrop-filter: blur(16px);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .stat-card:hover { transform: translateY(-3px); border-color: rgba(255, 255, 255, 0.22); }
+        .stat-icon { font-size: 1.15em; margin-bottom: 4px; opacity: 0.9; }
+        .stat-label { font-size: 0.7em; color: var(--muted); margin-bottom: 5px; font-weight: 600; line-height: 1.3; }
+        .stat-value { font-family: 'Tajawal', sans-serif; font-size: 1.55em; font-weight: 800; color: var(--ink); transition: color 0.3s ease; }
+        .stat-value.updated { animation: pulse 0.45s ease; }
+
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.22); color: var(--azure); } }
+
+        /* Question Card */
+        .question-card {
+            background: var(--paper-solid);
+            border-radius: 22px;
+            padding: 30px 26px;
+            margin-bottom: 22px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--line);
+            animation: slideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .question-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            inset-inline-start: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--type-color, var(--azure));
+            box-shadow: 0 0 16px var(--type-color, var(--azure));
+        }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+        .question-top-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 20px; }
+
+        .question-type {
+            display: inline-block;
+            background: color-mix(in srgb, var(--type-color, var(--azure)) 18%, transparent);
+            color: var(--type-color, var(--azure));
+            padding: 6px 16px;
+            border-radius: 999px;
+            font-size: 0.82em;
+            font-weight: 700;
+            border: 1px solid color-mix(in srgb, var(--type-color, var(--azure)) 45%, transparent);
+        }
+
+        .star-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1.5px solid var(--line);
+            color: var(--muted);
+            font-size: 1.2em;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
             display: flex;
-            justify-content: space-between;
-            color: var(--accent-color);
-            margin-bottom: 15px;
-            font-size: 0.9rem;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .star-btn:hover { border-color: var(--gold); transform: translateY(-1px); }
+        .star-btn.active {
+            background: rgba(245, 185, 77, 0.16);
+            border-color: var(--gold);
+            color: var(--gold);
+            box-shadow: 0 0 14px rgba(245, 185, 77, 0.3);
         }
 
         .question-text {
-            font-size: 1.3rem;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            color: #0f172a;
-            font-weight: 600;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.22em;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.7;
+            color: var(--ink);
         }
 
-        .input-area {
-            margin-bottom: 20px;
-        }
-
-        .text-input {
+        .fill-input {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #cbd5e1;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-family: 'Tajawal', sans-serif;
-            transition: border-color 0.3s;
-            text-align: center;
+            padding: 15px 18px;
+            font-size: 1.05em;
+            border: 2px solid var(--line);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--ink);
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            margin-bottom: 15px;
         }
 
-        .text-input:focus {
+        .fill-input::placeholder { color: var(--muted); font-weight: 400; }
+        .fill-input:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            border-color: var(--azure);
+            background: rgba(79, 140, 255, 0.08);
+            box-shadow: 0 0 0 4px rgba(79, 140, 255, 0.15);
         }
 
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
-        @media(min-width: 600px) {
-            .options-grid { grid-template-columns: 1fr 1fr; }
-            .tf-container { grid-template-columns: 1fr 1fr; }
-        }
+        .options { display: grid; gap: 12px; }
 
-        .option-btn {
-            background: white;
-            border: 2px solid #e2e8f0;
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 1rem;
+        .option {
+            background: rgba(255, 255, 255, 0.045);
+            padding: 16px 20px;
+            border-radius: 14px;
             cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'Tajawal', sans-serif;
-            text-align: right;
-            color: var(--text-color);
+            transition: all 0.2s ease;
+            border: 2px solid var(--line);
+            font-size: 1.02em;
+            font-weight: 600;
+            color: var(--ink);
+            position: relative;
         }
 
-        .option-btn:hover {
-            border-color: var(--primary-color);
-            background: #f0f9ff;
+        .option:hover { background: rgba(255, 255, 255, 0.09); border-color: var(--gold); }
+        .option.selected {
+            background: rgba(53, 208, 168, 0.14);
+            border-color: var(--mint);
+            color: var(--mint);
+            box-shadow: 0 0 18px rgba(53, 208, 168, 0.28);
         }
 
-        .option-btn.selected {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
-        /* T/F Buttons */
-        .tf-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
+        .tf-buttons { display: flex; gap: 14px; justify-content: center; }
 
         .tf-btn {
-            padding: 20px;
-            font-size: 1.3rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 15px;
-            background: white;
+            flex: 1;
+            padding: 18px;
+            font-size: 1.15em;
+            font-weight: 700;
+            border: 2px solid var(--line);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.045);
+            color: var(--ink);
             cursor: pointer;
-            font-family: 'Tajawal', sans-serif;
-            font-weight: 800;
-            transition: all 0.2s;
-            color: var(--text-color);
+            transition: all 0.2s ease;
+            font-family: 'Cairo', sans-serif;
         }
 
-        .tf-btn:hover { border-color: var(--primary-color); background: #f0f9ff; }
-        .tf-btn.selected-true { background: var(--success-color); color: white; border-color: var(--success-color); }
-        .tf-btn.selected-false { background: var(--error-color); color: white; border-color: var(--error-color); }
+        .tf-btn:hover { background: rgba(255, 255, 255, 0.09); border-color: var(--gold); }
+        .tf-btn.selected {
+            background: rgba(53, 208, 168, 0.14);
+            border-color: var(--mint);
+            color: var(--mint);
+            box-shadow: 0 0 18px rgba(53, 208, 168, 0.28);
+        }
 
-        /* Feedback Area */
-        .feedback-area {
-            margin-top: 25px;
-            padding: 15px;
-            border-radius: 10px;
+        .feedback {
+            margin-top: 18px;
+            padding: 14px 18px;
+            border-radius: 14px;
+            font-size: 1em;
+            font-weight: 600;
+            line-height: 1.6;
+            animation: popIn 0.25s ease-out;
             display: none;
-            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes popIn { 0% { opacity: 0; transform: translateY(4px); } 100% { opacity: 1; transform: translateY(0); } }
+
+        .feedback.correct { background: rgba(53, 208, 168, 0.12); border: 1.5px solid var(--mint); color: var(--mint); }
+        .feedback.incorrect { background: rgba(255, 92, 122, 0.10); border: 1.5px solid var(--rose); color: var(--rose); }
+        .feedback.show { display: block; }
+
+        .nav-buttons { display: flex; gap: 14px; margin-top: 26px; }
+
+        .nav-btn {
+            flex: 1;
+            padding: 16px 24px;
+            font-size: 1.05em;
+            font-weight: 700;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Cairo', sans-serif;
+            color: white;
+        }
+
+        .next-btn { background: rgba(255, 255, 255, 0.08); border: 1px solid var(--line); }
+        .next-btn:hover:not(:disabled) { background: rgba(255, 255, 255, 0.14); transform: translateY(-2px); }
+        .next-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        .check-btn { background: var(--grad-brand); box-shadow: var(--shadow-btn); }
+        .check-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(139, 92, 246, 0.38); }
+        .check-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+        /* Resume banner */
+        .resume-banner {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--paper-solid);
+            border: 1.5px solid var(--gold);
+            border-radius: 20px;
+            padding: 20px 22px;
+            margin-bottom: 22px;
+            box-shadow: 0 0 26px rgba(245, 185, 77, 0.15), var(--shadow-card);
+            flex-wrap: wrap;
+        }
+
+        .resume-icon { font-size: 2em; flex-shrink: 0; }
+        .resume-text { flex: 1; min-width: 160px; }
+        .resume-text h3 { font-family: 'Tajawal', sans-serif; font-size: 1.05em; font-weight: 800; margin-bottom: 4px; color: var(--ink); }
+        .resume-text p { color: var(--muted); font-size: 0.9em; font-weight: 500; }
+        .resume-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        .mode-btn {
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: none;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .mode-btn.primary { background: var(--grad-brand); color: white; box-shadow: var(--shadow-btn); }
+        .mode-btn.primary:hover { transform: translateY(-2px); }
+        .mode-btn.ghost { background: rgba(255, 255, 255, 0.06); color: var(--ink); border: 1.5px solid var(--line); }
+        .mode-btn.ghost:hover { background: rgba(255, 255, 255, 0.12); }
+
+        .mode-intro { text-align: center; margin-bottom: 26px; }
+        .mode-intro h2 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.5em;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: var(--grad-brand);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .mode-intro p { color: var(--muted); font-size: 0.95em; }
+
+        .mode-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 18px; }
+
+        .mode-card {
+            background: var(--paper-solid);
+            border: 1.5px solid var(--line);
+            border-radius: 18px;
+            padding: 22px 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Cairo', sans-serif;
+            color: var(--ink);
+        }
+
+        .mode-card:hover { transform: translateY(-3px); border-color: var(--azure); box-shadow: 0 14px 30px rgba(79, 140, 255, 0.18); }
+        .mode-card-icon { font-size: 1.8em; }
+        .mode-card-title { font-family: 'Tajawal', sans-serif; font-weight: 800; font-size: 1.05em; }
+        .mode-card-count { color: var(--muted); font-size: 0.85em; font-weight: 600; }
+
+        .mode-card.starred-card { border-color: rgba(245, 185, 77, 0.4); }
+        .mode-card.starred-card .mode-card-title { color: var(--gold); }
+        .mode-card.wrong-card { border-color: rgba(255, 92, 122, 0.4); }
+        .mode-card.wrong-card .mode-card-title { color: var(--rose); }
+
+        .exam-top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+
+        .menu-link {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--line);
+            color: var(--ink);
+            padding: 9px 16px;
+            border-radius: 999px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 0.88em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .menu-link:hover { background: rgba(255, 255, 255, 0.12); }
+
+        .mode-label {
+            font-weight: 700;
+            font-size: 0.9em;
+            color: var(--muted);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--line);
+            padding: 8px 16px;
+            border-radius: 999px;
+        }
+
+        /* Results Screen */
+        .results-screen {
+            text-align: center;
+            padding: 38px 26px;
+            background: var(--paper-solid);
+            border-radius: 24px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--line);
+        }
+
+        .pass-fail-status {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2.3em;
+            font-weight: 900;
+            margin-bottom: 8px;
+            padding: 16px;
+            border-radius: 16px;
+        }
+
+        .pass-fail-status.passed { background: rgba(53, 208, 168, 0.12); color: var(--mint); box-shadow: 0 0 30px rgba(53, 208, 168, 0.22); }
+        .pass-fail-status.failed { background: rgba(255, 92, 122, 0.10); color: var(--rose); box-shadow: 0 0 30px rgba(255, 92, 122, 0.20); }
+
+        .results-screen h2 { font-family: 'Tajawal', sans-serif; font-size: 1.5em; font-weight: 800; margin-bottom: 22px; color: var(--muted); }
+
+        .score-display {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 4.2em;
+            font-weight: 900;
+            margin: 10px 0 28px;
+            background: var(--grad-brand);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .score-breakdown { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 0 0 38px; }
+
+        .score-item { background: rgba(255, 255, 255, 0.05); padding: 18px 10px; border-radius: 16px; border: 1px solid var(--line); }
+        .score-item h3 { font-size: 0.8em; color: var(--muted); margin-bottom: 8px; font-weight: 600; }
+        .score-item p { font-family: 'Tajawal', sans-serif; font-size: 1.9em; font-weight: 800; color: var(--ink); }
+
+        .wrong-answers-section { margin: 10px 0 22px; text-align: right; }
+
+        .review-title { font-family: 'Tajawal', sans-serif; font-size: 1.3em; font-weight: 800; margin-bottom: 18px; color: var(--ink); text-align: center; }
+
+        .wrong-answers-list { max-height: 560px; overflow-y: auto; padding: 4px 4px 4px 10px; }
+        .wrong-answers-list::-webkit-scrollbar { width: 8px; }
+        .wrong-answers-list::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 10px; }
+        .wrong-answers-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.16); border-radius: 10px; }
+        .wrong-answers-list::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.28); }
+
+        .wrong-answer-item {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--line);
+            border-inline-start: 4px solid var(--rose);
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 14px;
             text-align: right;
         }
 
-        .feedback-correct { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
-        .feedback-wrong { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
-
-        .result-header { margin-bottom: 20px; text-align: center; }
-        .score-display { font-size: 3rem; font-weight: 800; color: var(--primary-color); margin: 10px 0; }
-        
-        .status-badge {
-            display: inline-block; padding: 10px 20px; border-radius: 50px; font-weight: bold; font-size: 1.5rem; color: white;
+        .wrong-answer-number {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--muted);
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 0.82em;
         }
-        .status-pass { background: var(--success-color); }
-        .status-fail { background: var(--error-color); }
-        .result-message { font-size: 1.2rem; color: #334155; margin-bottom: 20px; }
 
-        .review-section {
-            background: #f1f5f9; border-radius: 15px; padding: 20px; margin-top: 20px; text-align: right; max-height: 300px; overflow-y: auto; border: 1px solid #cbd5e1;
+        .wrong-answer-question { font-size: 1.05em; font-weight: 700; margin-bottom: 12px; color: var(--ink); line-height: 1.6; }
+        .wrong-answer-details { background: rgba(255, 255, 255, 0.04); padding: 13px 15px; border-radius: 12px; margin-top: 8px; }
+        .wrong-answer-label { color: var(--muted); font-size: 0.82em; margin-bottom: 4px; font-weight: 600; }
+        .wrong-answer-text { font-size: 1.02em; font-weight: 700; margin-bottom: 8px; }
+        .user-answer { color: var(--rose); }
+        .correct-answer { color: var(--mint); margin-bottom: 0; }
+
+        .no-wrong-answers {
+            text-align: center;
+            padding: 38px 20px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--mint);
+            background: rgba(53, 208, 168, 0.10);
+            border: 1px solid var(--mint);
+            border-radius: 16px;
         }
-        .review-title { font-weight: bold; margin-bottom: 15px; color: var(--error-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
-        .review-item { background: white; padding: 12px; margin-bottom: 10px; border-radius: 8px; border-right: 4px solid var(--error-color); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .review-q-text { font-size: 0.95rem; color: #475569; margin-bottom: 5px; font-weight: bold; }
-        .review-ans-box { font-size: 0.85rem; display: flex; flex-direction: column; gap: 2px; }
-        .ans-wrong { color: var(--error-color); }
-        .ans-correct { color: var(--success-color); }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        .hidden { display: none !important; }
+        .restart-btn {
+            background: var(--grad-brand);
+            color: white;
+            border: none;
+            padding: 17px 48px;
+            font-size: 1.1em;
+            font-weight: 700;
+            border-radius: 999px;
+            cursor: pointer;
+            margin-top: 6px;
+            box-shadow: var(--shadow-btn);
+            transition: all 0.2s ease;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .restart-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(139, 92, 246, 0.4); }
+
+        .review-link {
+            display: inline-block;
+            margin-top: 14px;
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 0.9em;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+        .review-link:hover { color: var(--ink); }
+
+        /* Footer credit */
+        .site-footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 18px 10px 22px;
+            font-size: 0.75em;
+            color: var(--muted);
+            opacity: 0.6;
+            font-weight: 400;
+        }
+
+        @media (max-width: 640px) {
+            .container { padding: 22px 14px 10px; }
+            .header h1 { font-size: 1.7em; }
+            .question-card { padding: 22px 18px; }
+            .question-text { font-size: 1.1em; }
+            .score-display { font-size: 2.9em; }
+            .tf-buttons { flex-direction: column; }
+            .stats-container { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .stat-value { font-size: 1.3em; }
+            .score-breakdown { grid-template-columns: 1fr; }
+            .pass-fail-status { font-size: 1.6em; }
+            .wrong-answer-item { padding: 14px; }
+            .wrong-answer-question { font-size: 1em; }
+            .wrong-answers-list { max-height: 400px; }
+            .mode-grid { grid-template-columns: 1fr; }
+            .resume-banner { flex-direction: column; align-items: stretch; text-align: center; }
+            .resume-actions { justify-content: center; }
+        }
     </style>
 </head>
 <body>
-
-    <div class="exam-container">
-        <header>
-            <h1>اختبار أخلاقيات المهنة</h1>
-            <p>اختبار شامل (أكمل - اختر - صح وخطأ)</p>
-        </header>
-
-        <!-- Start Screen -->
-        <div id="start-screen" class="screen active">
-            <img src="https://picsum.photos/seed/ethics/200/200" alt="Logo" class="start-img">
-            <h2 class="section-title">أهلاً بك</h2>
-            <p style="margin-bottom: 20px; line-height: 1.6;">اختبار تفاعلي لمادة أخلاقيات المهنة.</p>
-            <button class="btn" onclick="startExam()">بدء الاختبار</button>
+    <div class="container">
+        <div class="header">
+            <span class="eyebrow">☁️ بنك أسئلة المراجعة</span>
+            <h1>تطبيقات النظم السحابية</h1>
+            <p>اختبر معلوماتك في تطبيقات النظم السحابية</p>
         </div>
 
-        <!-- Quiz Screen -->
-        <div id="quiz-screen" class="screen quiz-screen hidden">
-            <div class="progress-bar-container">
-                <div id="progress-bar" class="progress-bar"></div>
-            </div>
-            
-            <div class="question-meta">
-                <span id="section-name">القسم</span>
-                <span id="question-counter">سؤال 1 من --</span>
-            </div>
-
-            <div id="question-text" class="question-text"></div>
-
-            <!-- Interaction Area -->
-            <div id="interaction-area" class="input-area"></div>
-
-            <div style="text-align: center; margin-top: 30px;">
-                <button id="submit-btn" class="btn" onclick="submitAnswer()">تحقق</button>
-                <button id="next-btn" class="btn hidden" onclick="nextQuestion()">التالي</button>
+        <!-- ===================== SCREEN: HOME (resume + choose exam) ===================== -->
+        <section id="screen-home" class="screen">
+            <div id="resumeBanner" class="resume-banner hidden">
+                <div class="resume-icon">⏳</div>
+                <div class="resume-text">
+                    <h3>عندك امتحان شغال</h3>
+                    <p id="resumeInfo">لسه واقف عند سؤال معين</p>
+                </div>
+                <div class="resume-actions">
+                    <button class="mode-btn primary" id="btnResume">استكمل من هنا</button>
+                    <button class="mode-btn ghost" id="btnDiscard">ابدأ امتحان جديد</button>
+                </div>
             </div>
 
-            <!-- Feedback -->
-            <div id="feedback-area" class="feedback-area"></div>
-        </div>
+            <div class="mode-intro">
+                <h2>اختار نوع الامتحان</h2>
+                <p>اختار الأسئلة اللي عايز تتمرن عليها دلوقتي</p>
+            </div>
+            <div class="mode-grid">
+                <button class="mode-card" data-mode="full">
+                    <span class="mode-card-icon">🌐</span>
+                    <span class="mode-card-title">امتحان شامل</span>
+                    <span class="mode-card-count" id="countFull">0 سؤال</span>
+                </button>
+                <button class="mode-card" data-mode="fill">
+                    <span class="mode-card-icon">📝</span>
+                    <span class="mode-card-title">أكمل فقط</span>
+                    <span class="mode-card-count" id="countFill">0 سؤال</span>
+                </button>
+                <button class="mode-card" data-mode="mcq">
+                    <span class="mode-card-icon">🔘</span>
+                    <span class="mode-card-title">اختيار من متعدد</span>
+                    <span class="mode-card-count" id="countMcq">0 سؤال</span>
+                </button>
+                <button class="mode-card" data-mode="tf">
+                    <span class="mode-card-icon">✓✗</span>
+                    <span class="mode-card-title">صح وخطأ</span>
+                    <span class="mode-card-count" id="countTf">0 سؤال</span>
+                </button>
+                <button class="mode-card starred-card hidden" id="starredCard" data-mode="starred">
+                    <span class="mode-card-icon">⭐</span>
+                    <span class="mode-card-title">مراجعتي</span>
+                    <span class="mode-card-count" id="countStarred">0 سؤال</span>
+                </button>
+                <button class="mode-card wrong-card hidden" id="wrongCard" data-mode="wrongHistory">
+                    <span class="mode-card-icon">🔁</span>
+                    <span class="mode-card-title">أخطائي السابقة</span>
+                    <span class="mode-card-count" id="countWrong">0 سؤال</span>
+                </button>
+            </div>
+        </section>
 
-        <!-- Result Screen -->
-        <div id="result-screen" class="screen hidden">
-            <div class="result-header">
-                <h2 class="section-title">النتيجة النهائية</h2>
-                <div id="status-badge" class="status-badge status-pass">ناجح</div>
-                <div class="score-display"><span id="final-score">0</span> / <span id="total-questions">0</span></div>
-                <div class="result-message" id="result-message"></div>
-                <p style="color: var(--accent-color); font-size: 0.9rem;">الدقة: <span id="accuracy-percent">0</span>%</p>
+        <!-- ===================== SCREEN: EXAM ===================== -->
+        <section id="screen-exam" class="screen">
+            <div class="exam-top-bar">
+                <button class="menu-link" id="btnBackHome">🏠 القائمة الرئيسية</button>
+                <span id="modeLabel" class="mode-label"></span>
             </div>
 
-            <div id="review-container" class="review-section hidden">
-                <div class="review-title">📝 مراجعة الأخطاء:</div>
-                <div id="review-list"></div>
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span>السؤال <span id="currentQ">1</span> من <span id="totalQ">0</span></span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
             </div>
 
-            <button class="btn" onclick="restartExam()">إعادة الاختبار</button>
-        </div>
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon">✓</div>
+                    <div class="stat-label">إجابات صحيحة</div>
+                    <div class="stat-value" id="correctLive">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✗</div>
+                    <div class="stat-label">إجابات خاطئة</div>
+                    <div class="stat-value" id="incorrectLive">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-label">الأسئلة المتبقية</div>
+                    <div class="stat-value" id="remainingLive">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">%</div>
+                    <div class="stat-label">نسبة النجاح حتى الآن</div>
+                    <div class="stat-value" id="percentageLive">0%</div>
+                </div>
+            </div>
+
+            <div id="questionContainer"></div>
+        </section>
+
+        <!-- ===================== SCREEN: RESULTS ===================== -->
+        <section id="screen-results" class="screen">
+            <div class="results-screen">
+                <div id="passFailStatus" class="pass-fail-status"></div>
+                <h2>🎉 انتهى الامتحان!</h2>
+                <div class="score-display" id="finalScore">0%</div>
+                <div class="score-breakdown">
+                    <div class="score-item">
+                        <h3>إجابات صحيحة</h3>
+                        <p id="correctCount">0</p>
+                    </div>
+                    <div class="score-item">
+                        <h3>إجابات خاطئة</h3>
+                        <p id="incorrectCount">0</p>
+                    </div>
+                    <div class="score-item">
+                        <h3>النسبة المئوية</h3>
+                        <p id="percentageScore">0%</p>
+                    </div>
+                </div>
+
+                <div id="wrongAnswersSection" class="wrong-answers-section hidden">
+                    <h3 class="review-title">📝 مراجعة الإجابات الخاطئة</h3>
+                    <div id="wrongAnswersList" class="wrong-answers-list"></div>
+                </div>
+
+                <button class="review-link hidden" id="btnToggleReview">إظهار مراجعة الإجابات الخاطئة</button>
+                <br>
+                <button class="restart-btn" id="btnHomeFromResults">🏠 القائمة الرئيسية</button>
+            </div>
+        </section>
     </div>
 
+    <footer class="site-footer">برمجة: ميلاد ماهر</footer>
+
     <script>
-        // ==========================================
-        // DATA: Questions (Professional Ethics)
-        // ==========================================
-        const questionsDB = [
-            // MCQ Questions
-            { type: 'mcq', text: "مفهوم الأخلاق هو:", options: ["مجموعة من القيم والمبادئ التي تحدد سلوك الفرد وتوجهه", "قواعد سياسية لضبط سلوك الدولة", "قوانين مهنية تنظم العلاقة بين أصحاب المهن"], answer: 0 },
-            { type: 'mcq', text: "النظرية الفطرية الطبيعية ترى أن:", options: ["الأخلاق مكتسبة بالتجربة", "الأخلاق ثابتة نابعة من ذات الإنسان وفطرته", "الأخلاق لا علاقة لها بالتربية"], answer: 1 },
-            { type: 'mcq', text: "يشترط بالفعل الخلقي حتى يكون دليلاً على الأخلاق أن:", options: ["يصدر بتكرار وبإرادة حرة", "يكون مرة واحدة فقط", "يصدر بالإكراه"], answer: 0 },
-            { type: 'mcq', text: "من وسائل اكتساب الأخلاق:", options: ["التعليم والخبرة الشخصية", "الاستسلام للوراثة فقط", "تجاهل القيم المجتمعية"], answer: 0 },
-            { type: 'mcq', text: "العلاقة بين الأخلاق العامة وأخلاقيات المهنة هي:", options: ["الأخلاق العامة جزء من أخلاقيات المهنة", "أخلاقيات المهنة جزء من الأخلاق العامة", "لا توجد علاقة بينهما"], answer: 1 },
-            { type: 'mcq', text: "النظرية الاكتسابية تعتبر أن الإنسان يولد:", options: ["ممتلئاً بالأخلاق الفاضلة", "ممتلئاً بالأخلاق السيئة", "صفحة بيضاء يكتسب منها الأخلاق بالتربية والتجارب"], answer: 2 },
-            { type: 'mcq', text: "مجموعة من السمات الأساسية التي تتطلب مهارة عالية ومعرفة متخصصة:", options: ["المهنة", "الوظيفة", "العمل"], answer: 0 },
-            { type: 'mcq', text: "أن يستحضر الشخص النية الصالحة في العمل:", options: ["التواضع", "الصدق", "الاخلاص"], answer: 2 },
-            { type: 'mcq', text: "خلق يعف الإنسان عما ليس له به حق:", options: ["الصدق", "الأمانة", "الاخلاص"], answer: 1 },
-            { type: 'mcq', text: "من مصادر أخلاقيات المهنة:", options: ["المصدر الاقتصادي", "المصدر الديني", "جميع ما سبق"], answer: 2 },
-            { type: 'mcq', text: "تعمل على وقاية الفرد من الإنحراف وتدعم الثقة في النفس وثقته بالمنظمة والمجتمع:", options: ["أهمية أخلاقيات المهنة على مستوى الفرد", "أهمية أخلاقيات المهنة على مستوي المجتمع", "أهمية أخلاقيات المهنة على مستوي العمل"], answer: 0 },
-            { type: 'mcq', text: "يدعم الرضا والاستقرار الاجتماعي بين غالبية الناس حيث يحصل كل ذي حق علي حقة ويسود العدل:", options: ["أهمية أخلاقيات المهنة علي مستوي الفرد", "أهمية أخلاقيات المهنة على مستوى المجتمع", "أهمية أخلاقيات المهنة على مستوى العمل"], answer: 1 },
-            { type: 'mcq', text: "تساعد في فهم الواجبات المهنية والتذكير بنظام الثواب والعقاب كإحدي الوسائل الناجحة:", options: ["أهمية أخلاقيات المهنة علي مستوي الفرد", "أهمية أخلاقيات المهنة علي مستوي المجتمع", "أهمية أخلاقيات المهنة على مستوى العمل"], answer: 2 },
-            { type: 'mcq', text: "من وسائل ترسيخ أخلاقيات المهنة:", options: ["القدوة الحسنة", "استغلال المنصب", "الهدايا والضيافة"], answer: 0 },
-            { type: 'mcq', text: "الانفراد بالرأي أو التسلط من تحديات أخلاقيات المهنة:", options: ["التحديات الداخلية", "التحديات الخارجية", "التحديات العامة"], answer: 0 },
-            { type: 'mcq', text: "تعد مهنة التعليم مهنة سامية لأنها تقوم على:", options: ["نقل المعلومات فقط", "تحقيق الأرباح", "بناء الإنسان وتنمية القيم"], answer: 2 },
-            { type: 'mcq', text: "من أهم أخلاقيات مهنة التعليم:", options: ["التحيز لبعض الطلاب", "العدالة والإنصاف", "الغش"], answer: 1 },
-            { type: 'mcq', text: "احترام التنوع بين الطلاب يعني أن المعلم:", options: ["يفرق في المعاملة", "يتجاهل الفروق الفردية", "يعامل الطلاب بعدالة واحترام"], answer: 2 },
-            { type: 'mcq', text: "من صفات المعلم القدوة الأخلاقية:", options: ["العصبية الدائمة", "الصبر والعدل", "التهاون"], answer: 1 },
-            { type: 'mcq', text: "من واجبات المعلم تجاه طلابه:", options: ["كشف أسرارهم", "الستهزاء بهم", "احترام خصوصيتهم"], answer: 2 },
-            { type: 'mcq', text: "الصدق في تقييم الطلاب يعني أن المعلم:", options: ["يجامل الطلاب", "يقيمهم وفق معايير عادلة", "يعتمد على الحظ"], answer: 1 },
-            { type: 'mcq', text: "العدالة في التعليم تظهر عندما:", options: ["يفضل المعلم المتفوقين فقط", "يساوي بين جميع الطلاب", "يتعامل بحدة مع الجميع"], answer: 1 },
-            { type: 'mcq', text: "من الأخلاقيات الواجب تجنبها في مهنة التعليم:", options: ["الأمانة", "التحيز", "الصبر"], answer: 1 },
-            { type: 'mcq', text: "يجب على المعلم أن يكون نموذجاً:", options: ["في السلوك المهني والأخلاقي", "في التفوق الدراسي فقط", "في الحزم الشديد فقط"], answer: 0 },
-            { type: 'mcq', text: "ما المقصود بأخلاقيات الإدارة التعليمية:", options: ["القوانين المنظمة للعمل فقط", "القيم والمبادئ التي تحكم السلوك الإداري", "التعليمات الوزارية"], answer: 1 },
-            { type: 'mcq', text: "التعاون مع أولياء الأمور والمجتمع المحلي يهدف إلى:", options: ["تحسين صورة الإدارة أمام المجتمع", "دعم العملية التعليمية وتحقيق مصلحة الطلاب", "تخفيف العبء عن المدير"], answer: 1 },
-            { type: 'mcq', text: "من وسائل تعزيز الأخلاق في الإدارة:", options: ["تجاهل السلوكيات السلبية", "وضع مواثيق سلوك واضحة", "تقليل الاجتماعات"], answer: 1 },
-            { type: 'mcq', text: "من التحديات التي تواجه الإدارة الأخلاقية:", options: ["الفساد الإداري والمحاباة", "زيادة الوعي المهني", "وجود تدريب مهني فعال"], answer: 0 },
-            { type: 'mcq', text: "من الأخلاقيات التي يجب على المعلم الالتزام بها مع الإدارة:", options: ["تجاهل اللوائح والقوانين", "الالتزام باللوائح والتعليمات الرسمية", "الاعتماد على الزملاء"], answer: 1 },
-            { type: 'mcq', text: "من الاعتقادات الخاطئة حول أخلاقيات المهنة:", options: ["مسألة دينية فقط تخص علاقة العبد بربة", "أنها قضية إدارية بحته", "أنها نظام أخلاقي عام"], answer: 0 },
-            { type: 'mcq', text: "أخلاقيات المهنة ترتبط أساساً:", options: ["حقوق الآخرين", "التزامات المعلم", "العادات الاجتماعية"], answer: 1 },
-            { type: 'mcq', text: "دور المعلم في وضع أخلاقيات العمل:", options: ["المعلم شريك في وضعها وتطبيقها", "المدير هو صاحب القرار الوحيد", "لا علاقة للمعلم بها"], answer: 0 },
-            { type: 'mcq', text: "القوانين واللوائح لا تكفي وحدها لأنها:", options: ["لا تطبق دائماً", "عامة ولا تعالج التفاصيل الأخلاقية", "تتغير باستمرار"], answer: 1 },
-            { type: 'mcq', text: "من القيم التي كان يعتز بها العرب قبل الإسلام:", options: ["الصبر والزهد", "الكرم والشجاعة والوفاء", "العمل الجماعي"], answer: 1 },
-            { type: 'mcq', text: "السلوك المهني الجيد يظهر في:", options: ["احترام الأنظمة والتعليمات", "تجاهل القوانين", "التهاون في الوقت"], answer: 0 },
-
-            // TF Questions
-            { type: 'tf', text: "الأخلاقيات المهنية جزء منفصل تمامًا عن الأخلاق العامة.", answer: false },
-            { type: 'tf', text: "النظرية الاكتسابية ترى أن الأخلاق قابلة للتغيير من خلال التربية والتعليم.", answer: true },
-            { type: 'tf', text: "الفعل الخلقي يصح اعتباره أخلاقيًا حتى لو صدر بالإكراه أو التهديد.", answer: false },
-            { type: 'tf', text: "وسائل الإعلام قد تكون مصدرًا للقيم الأخلاقية.", answer: true },
-            { type: 'tf', text: "النظرية الفطرية تعتبر أن الأخلاق قابلة للتغيير باستمرار.", answer: false },
-            { type: 'tf', text: "الوظيفة لا تتطلب أي معرفة أو تعليم متخصص.", answer: true },
-            { type: 'tf', text: "ليس من الضروري المحافظة على وقت العمل.", answer: false },
-            { type: 'tf', text: "الهدف من أخلاقيات المهنة فهم السلوك الوظيفي.", answer: true },
-            { type: 'tf', text: "الاخلاص والأمانة والتواضع هي سلوكيات غير مطلوبة في العمل المهني.", answer: false },
-            { type: 'tf', text: "المصدر الإداري التنظيمي من مصادر أخلاقيات المهنة.", answer: true },
-            { type: 'tf', text: "من المرتكزات الاساسية لأخلاقيات المهنة الامتناع التام عن المساعدة في أعمال السوء أو التحريض عليها أو المشاركة فيها.", answer: true },
-            { type: 'tf', text: "يعد عدم إدلاء العاملين ببيانات او مطالبات مضللة ومزيفة بخصوص مؤهلاتهم المهنية او خبراتهم من أحدي الالتزامات تجاه المهنة.", answer: true },
-            { type: 'tf', text: "تكمن أهمية أخلاقيات المهنة في المستوي الفرد فقط.", answer: false },
-            { type: 'tf', text: "من إحدى وسائل ترسيخ أخلاقيات المهنة تنمية الرقابة الذاتية والقدوة الحسنة.", answer: true },
-            { type: 'tf', text: "تتمثل تحديات أخلاقيات المهنة في التحديات الخارجية فقط.", answer: false },
-            { type: 'tf', text: "أخلاقيات مهنة التعليم تقتصر على العلاقة بين المعلم والطلاب فقط.", answer: false },
-            { type: 'tf', text: "يجب على المعلم احترام جميع الطلاب بغض النظر عن خلفياتهم.", answer: true },
-            { type: 'tf', text: "من حق المعلم استخدام العقاب البدني مع الطلاب.", answer: false },
-            { type: 'tf', text: "الصدق والأمانة من أساسيات مهنة التعليم.", answer: true },
-            { type: 'tf', text: "لا يشترط في المعلم أن يكون قدوة للطلاب.", answer: false },
-            { type: 'tf', text: "العدالة من أهم المبادئ الأخلاقية في مهنة التعليم.", answer: true },
-            { type: 'tf', text: "التمييز بين الطلاب يعزز الثقة بينهم.", answer: false },
-            { type: 'tf', text: "على المعلم أن يتعلم باستمرار ويطور نفسه مهنيًا.", answer: true },
-            { type: 'tf', text: "المعلم القدوة يؤثر في سلوك طلابه بالإيجاب.", answer: true },
-            { type: 'tf', text: "يمكن للمعلم أن يتجاهل القواعد الأخلاقية في حالات الطوارئ.", answer: false },
-            { type: 'tf', text: "وجود ميثاق أخلاقي واضح في المدرسة يعزز الالتزام والانضباط.", answer: true },
-            { type: 'tf', text: "ضعف الرقابة الذاتية من التحديات التي تواجه الإدارة الأخلاقية.", answer: true },
-            { type: 'tf', text: "احترام الطلاب جزء من أخلاقيات المعلم المهنية.", answer: true },
-            { type: 'tf', text: "المعلم القدوة هو الذي يجسد القيم في أفعاله لا في أقواله فقط.", answer: true },
-            { type: 'tf', text: "القدوة الحسنة في الإدارة تُؤثر إيجابًا على سلوك العاملين.", answer: true },
-            { type: 'tf', text: "أخلاقيات المهنة قضية دينية فقط لا علاقة لها بالإدارة.", answer: false },
-            { type: 'tf', text: "المعلم مسؤول عن تطبيق القواعد الأخلاقية ومشارك في وضعها.", answer: true },
-            { type: 'tf', text: "القوانيين وحدها كافية لضبط السلوك المهني.", answer: false },
-            { type: 'tf', text: "يمكن اكتساب الأخلاق المهنية بالتدريب والممارسة.", answer: true },
-            { type: 'tf', text: "الاعتداء اللفظي على الطلاب مخالفة أخلاقية وجنائية.", answer: true },
-
-            // Fill in the Blank
-            { type: 'complete', text: "........ هي مجموعة من القواعد والأصول المتعارف عليها بين أصحاب المهنة.", answer: ["أخلاقيات المهنة"] },
-            { type: 'complete', text: "النظرية الفطرية ترى أن الأخلاق ........ وثابتة، بينما النظرية الاكتسابية ترى أنها ........ من خلال التربية والتعليم والتجارب.", answer: ["فطرية", "مكتسبة"] },
-            { type: 'complete', text: "الشروط اللازمة في الفعل الخلقي أن يصدر ........ , ........ حرة.", answer: ["بتكرار", "إرادة"] },
-            { type: 'complete', text: "المهنة تتمتع بوضع ........ و ........ أعلى من الوظيفة.", answer: ["اجتماعي", "اقتصادي"] },
-            { type: 'complete', text: "من مبادئ أخلاقيات المهنة ........ و ........", answer: ["المعاملة الحسنة", "الاستقامة"] },
-            { type: 'complete', text: "من مصادر أخلاقيات المهنة المصدر ........ و ........ و ", answer: ["الديني", "الاجتماعي", "السياسي"] },
-            { type: 'complete', text: "تستند أخلاقيات المهنة علي جملة من ........ و ........ .", answer: [  "المبادئ", "المرتكزات الأساسية"] },
-            { type: 'complete', text: "من وسائل ترسيخ أخلاقيات المهنة ........ و ........", answer: ["القدوة الحسنة", "تنمية الرقابة الذاتية"] },
-            { type: 'complete', text: "تشمل تحديات أخلاقيات المهنة تحديات ........ و ........", answer: ["داخلية", "خارجية"] },
-            { type: 'complete', text: "تعد مهنة التعليم من أسمى المهن لأنها ........", answer: ["تغرس القيم الأخلاقية"] },
-            { type: 'complete', text: "من القيم الأخلاقية التي يجب أن يتحلى بها المعلم ........", answer: ["الصدق والأمانة"] },
-            { type: 'complete', text: "دور المعلم في الصف لا يقتصر على التعليم بل يشمل ........", answer: ["التربية وغرس القيم"] },
-            { type: 'complete', text: "احترام خصوصية الطالب من مظاهر ........", answer: ["الأمانة المهنية"] },
-            { type: 'complete', text: "يجب أن يكون المعلم ........ في أدائه وسلوكه.", answer: ["قدوة"] },
-            { type: 'complete', text: "النزاهة في التعليم تعني أداء العمل بصدق ........", answer: ["دون تحيز أو غش"] },
-            { type: 'complete', text: "البيئة الصفية الأخلاقية تقوم على ........ و ........", answer: ["الاحترام", "الثقة المتبادلة"] },
-            { type: 'complete', text: "........ هي مجموعة القيم والمبادئ التي توجه سلوك المديرين والعاملين في المؤسسات التعليمية، وتضمن أداء المهام بروح العدالة والنزاهة والمسؤولية.", answer: ["أخلاقيات الإدارة التعليمية"] },
-            { type: 'complete', text: "........ هي أن يكون المدير والمعلم نموذجا يحتذى به في السلوك، والالتزام والاحترام والانضباط المهني داخل المدرسة.", answer: ["القدوة الحسنة"] },
-            { type: 'complete', text: "........ هي معاملة الطلاب أو الزملاء بطريقة غير عادلة على أساس الجنس أو الدين أو الأصل أو الحالة الاجتماعية.", answer: ["التمييز والتحيز"] },
-            { type: 'complete', text: "........ سلوك غير لائق كالتدخين أو التمييز ضد الطلاب.", answer: ["المخالفة الأخلاقية"] },
-            { type: 'complete', text: "تصرفات المعلم التي تعكس التزامه بالقيم المهنية ........", answer: ["السلوك المهني"] }
-        ];
-
-        // ==========================================
-        // LOGIC: Smart Arabic Matching
-        // ==========================================
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let userAnswered = false;
-        let selectedOptionValue = null;
-        let userHistory = [];
+        // ============ Subject / storage config ============
+        const SUBJECT_NAME = "تطبيقات النظم السحابية";
+        const STORAGE_PREFIX = "examApp_v2_CloudLMS_";
+        const KEY_STARRED = STORAGE_PREFIX + "starred";
+        const KEY_WRONG = STORAGE_PREFIX + "wrong";
+        const KEY_SESSION = STORAGE_PREFIX + "session";
 
         function normalizeArabic(text) {
-            if (!text) return "";
+            if (!text) return '';
             return text
-                .toLowerCase()
                 .trim()
-                .replace(/[أآإ]/g, 'ا') // Normalize Alef
-                .replace(/ة/g, 'ه')      // Normalize Ta Marbuta
-                .replace(/ى/g, 'ي')      // Normalize Ya
-                .replace(/ال/g, '')      // Remove Al (article)
-                .replace(/\s+/g, '')     // Remove all spaces
-                .replace(/[^\w\u0600-\u06FF]/g, ''); // Remove punctuation/symbols
+                .replace(/\s+/g, ' ')
+                .replace(/[أإآ]/g, 'ا')
+                .replace(/ة/g, 'ه')
+                .replace(/ى/g, 'ي')
+                .toLowerCase();
         }
 
-        function checkSimilarity(s1, s2) {
-            let longer = s1;
-            let shorter = s2;
-            if (s1.length < s2.length) { longer = s2; shorter = s1; }
-            const longerLength = longer.length;
-            if (longerLength === 0) return 1.0;
-            
-            // Calculate Levenshtein Distance
-            const costs = new Array();
-            for (let i = 0; i <= longer.length; i++) {
-                let lastValue = i;
-                for (let j = 0; j <= shorter.length; j++) {
-                    if (i == 0) costs[j] = j;
-                    else {
-                        if (j > 0) {
-                            let newValue = costs[j - 1];
-                            if (longer.charAt(i - 1) != shorter.charAt(j - 1))
-                                newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
-                            costs[j - 1] = lastValue;
-                            lastValue = newValue;
-                        }
-                    }
+        // Questions Data
+        const questions = [
+                {
+                                "type": "tf",
+                                "question": "نظم إدارة التعلم تستخدم فقط لحفظ ملفات المقررات الدراسية.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "من وظائف نظم إدارة التعلم متابعة أداء المتعلمين وإصدار التقارير.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "التوصيل يعني إتاحة المحتوى للمتعلمين بأكثر من طريقة.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "غرف المحادثة ومنتديات النقاش من أدوات الاتصال في نظم إدارة التعلم.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "الاختبارات الإلكترونية تقتصر على الاختبارات النهائية فقط.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "من مزايا نظم إدارة التعلم سهولة الاستخدام.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "جميع نظم إدارة التعلم مجانية ومفتوحة المصدر.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "نظام Blackboard مثال على نظم إدارة التعلم التجارية.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "نظام Moodle مثال على نظم إدارة التعلم مفتوحة المصدر.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "نظم إدارة التعلم السحابية تحتاج إلى تثبيت على أجهزة المستخدمين.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "يمكن الوصول إلى نظم إدارة التعلم السحابية من أي مكان عبر الإنترنت.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "النظم السحابية مناسبة للمؤسسات الصغيرة والمتوسطة.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "تسمح نظم إدارة التعلم مفتوحة المصدر للمستخدمين بالتعديل عليها بما يتناسب مع احتياجاتهم.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "تحتاج نظم إدارة التعلم مفتوحة المصدر إلى تكلفة أكبر من النظم التجارية.",
+                                "answer": false
+                },
+                {
+                                "type": "mcq",
+                                "question": "أي مما يلي يمثل وظيفة التسجيل في نظم إدارة التعلم؟",
+                                "options": [
+                                                "متابعة الأداء",
+                                                "تسجيل بيانات الطالب",
+                                                "إجراء الاختبارات",
+                                                "التواصل مع الطالب"
+                                ],
+                                "answer": 1
+                },
+                {
+                                "type": "mcq",
+                                "question": "المقصود بوظيفة التتبع هو؟",
+                                "options": [
+                                                "إعداد المحتوى",
+                                                "جدولة المقرر",
+                                                "متابعة أداء المتعلمين",
+                                                "تسجيل الطالب"
+                                ],
+                                "answer": 2
+                },
+                {
+                                "type": "mcq",
+                                "question": "أي مما يلي من أدوات الاتصال في نظم إدارة التعلم؟",
+                                "options": [
+                                                "البريد الإلكتروني",
+                                                "منتديات النقاش",
+                                                "غرف المحادثة",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "من مزايا نظم إدارة التعلم؟",
+                                "options": [
+                                                "صعوبة الاستخدام",
+                                                "ضعف الدعم الفني",
+                                                "سهولة الاستخدام",
+                                                "عدم توافقها مع المعايير العالمية"
+                                ],
+                                "answer": 2
+                },
+                {
+                                "type": "mcq",
+                                "question": "أي الأنظمة التالية يحتاج إلى تثبيت على خوادم المؤسسة؟",
+                                "options": [
+                                                "السحابية",
+                                                "مفتوحة المصدر فقط",
+                                                "التجارية",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 2
+                },
+                {
+                                "type": "mcq",
+                                "question": "مثال على نظم إدارة التعلم التجارية؟",
+                                "options": [
+                                                "Moodle",
+                                                "MoodleCloud",
+                                                "Litmos",
+                                                "Blackboard"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "من خصائص نظم إدارة التعلم مفتوحة المصدر؟",
+                                "options": [
+                                                "مرتفعة التكلفة",
+                                                "لا تسمح بالتعديل",
+                                                "توفر ترخيصاً مجانياً عاماً",
+                                                "تحتاج إلى بنية تحتية قوية"
+                                ],
+                                "answer": 2
+                },
+                {
+                                "type": "mcq",
+                                "question": "أي مما يلي يعد من مميزات نظم إدارة التعلم السحابية؟",
+                                "options": [
+                                                "تحتاج إلى صيانة من المستخدم",
+                                                "منخفضة التكلفة",
+                                                "تحتاج إلى خوادم محلية",
+                                                "تتطلب تثبيتاً دائماً"
+                                ],
+                                "answer": 1
+                },
+                {
+                                "type": "mcq",
+                                "question": "أحد أمثلة نظم إدارة التعلم السحابية:",
+                                "options": [
+                                                "Blackboard",
+                                                "MoodleCloud",
+                                                "Word",
+                                                "مفتوح المصدر Moodle"
+                                ],
+                                "answer": 1
+                },
+                {
+                                "type": "mcq",
+                                "question": "تمنح نظم إدارة التعلم نقطة دخول واحدة لجميع أجزاء النظام من خلال:",
+                                "options": [
+                                                "التتبع",
+                                                "التوصيل",
+                                                "التوثيق المركزي",
+                                                "الجدولة"
+                                ],
+                                "answer": 2
+                },
+                {
+                                "type": "fill",
+                                "question": "نظم إدارة التعلم هي نظم إلكترونية لإدارة وتوثيق وتتبع سير ....................",
+                                "answer": "المقررات الدراسية"
+                },
+                {
+                                "type": "fill",
+                                "question": "وظيفة .................... تعني تسجيل بيانات الطالب.",
+                                "answer": "التسجيل"
+                },
+                {
+                                "type": "fill",
+                                "question": "وظيفة .................... تعني وضع خطة للتعليم والتدريس.",
+                                "answer": "الجدولة"
+                },
+                {
+                                "type": "fill",
+                                "question": "وظيفة .................... تعني متابعة أداء المتعلمين.",
+                                "answer": "التتبع"
+                },
+                {
+                                "type": "fill",
+                                "question": "يتم التواصل مع المتعلمين من خلال وظيفة ....................",
+                                "answer": "الاتصال"
+                },
+                {
+                                "type": "fill",
+                                "question": "من أمثلة أدوات الاتصال .................... و ....................",
+                                "answer": "غرف المحادثة والبريد الإلكتروني"
+                },
+                {
+                                "type": "fill",
+                                "question": "من أمثلة نظم إدارة التعلم التجارية ....................",
+                                "answer": "Blackboard"
+                },
+                {
+                                "type": "fill",
+                                "question": "من أمثلة نظم إدارة التعلم مفتوحة المصدر ....................",
+                                "answer": "مفتوح المصدر Moodle"
+                },
+                {
+                                "type": "fill",
+                                "question": "من أمثلة نظم إدارة التعلم السحابية ....................",
+                                "answer": "MoodleCloud"
+                },
+                {
+                                "type": "fill",
+                                "question": "تتميز نظم إدارة التعلم السحابية بأنها منخفضة ....................",
+                                "answer": "التكلفة"
+                },
+                {
+                                "type": "fill",
+                                "question": "تسمح الأنظمة مفتوحة المصدر للمستخدم بـ .................... النظام ليتناسب مع احتياجاته.",
+                                "answer": "تعديل"
+                },
+                {
+                                "type": "fill",
+                                "question": "من مزايا نظم إدارة التعلم جودة .................... الفني.",
+                                "answer": "الدعم"
+                },
+                {
+                                "type": "tf",
+                                "question": "الحوسبة السحابية تتيح الوصول إلى الخدمات عبر الإنترنت.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "من خصائص الحوسبة السحابية الدفع مقابل الاستخدام.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "الخدمة في الحوسبة السحابية تقدم بغض النظر عن طلب المستخدم.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "الافتراضية من خصائص الحوسبة السحابية.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "تعددية الاستخدام ليست من خصائص الحوسبة السحابية.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "من فوائد الحوسبة السحابية تقليل مشكلات الصيانة.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "الحوسبة السحابية تؤدي إلى زيادة التكاليف.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "السحابة العامة متاحة لجميع المستخدمين.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "السحابة الخاصة تتميز بمرونة وإتاحة أكبر من السحابة العامة.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "السحابة الهجينة تجمع أكثر من نوع من أنواع السحب.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "البرمجيات كخدمة توفر للمستخدم المكونات المادية والشبكية ونظم التشغيل والبرامج.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "البنية التحتية كخدمة تتطلب من المستخدم تثبيت نظم التشغيل والبرامج.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "Google وMicrosoft وAmazon من مزودي الخدمات السحابية.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "ضعف البنية التحتية للشبكات من تحديات الحوسبة السحابية.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "التخزين المحلي يعتمد على خوادم خارج المؤسسة.",
+                                "answer": false
+                },
+                {
+                                "type": "mcq",
+                                "question": "أي مما يلي يعد من خصائص الحوسبة السحابية؟",
+                                "options": [
+                                                "العشوائية",
+                                                "الافتراضية",
+                                                "المركزية الورقية",
+                                                "التخزين المحلي"
+                                ],
+                                "answer": 1
+                },
+                {
+                                "type": "mcq",
+                                "question": "من فوائد الحوسبة السحابية:",
+                                "options": [
+                                                "زيادة الصيانة",
+                                                "صعوبة الوصول للبيانات",
+                                                "خفض التكاليف",
+                                                "تقليل الأمان"
+                                ],
+                                "answer": 2
+                },
+                {
+                                "type": "mcq",
+                                "question": "السحابة المتاحة لجميع المستخدمين تسمى:",
+                                "options": [
+                                                "الخاصة",
+                                                "المجتمعية",
+                                                "العامة",
+                                                "الهجينة"
+                                ],
+                                "answer": 2
+                },
+                {
+                                "type": "mcq",
+                                "question": "السحابة التي تخدم مجموعة من المؤسسات ذات الاهتمامات المشتركة:",
+                                "options": [
+                                                "العامة",
+                                                "الخاصة",
+                                                "المجتمعية",
+                                                "الهجينة"
+                                ],
+                                "answer": 2
+                },
+                {
+                                "type": "mcq",
+                                "question": "السحابة التي تجمع أكثر من نوع:",
+                                "options": [
+                                                "العامة",
+                                                "الهجينة",
+                                                "الخاصة",
+                                                "المجتمعية"
+                                ],
+                                "answer": 1
+                },
+                {
+                                "type": "mcq",
+                                "question": "المستوى الذي يقدم المكونات المادية والشبكية فقط:",
+                                "options": [
+                                                "البنية التحتية كخدمة",
+                                                "منصات العمل كخدمة",
+                                                "البرمجيات كخدمة",
+                                                "نظم إدارة التعلم"
+                                ],
+                                "answer": 0
+                },
+                {
+                                "type": "mcq",
+                                "question": "أي مما يلي من مزودي الخدمات السحابية؟",
+                                "options": [
+                                                "Amazon",
+                                                "Microsoft",
+                                                "Google",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "من تحديات الحوسبة السحابية:",
+                                "options": [
+                                                "ضعف البنية التحتية للشبكات",
+                                                "سهولة التنفيذ",
+                                                "التحديثات الفورية",
+                                                "العمل الجماعي"
+                                ],
+                                "answer": 0
+                },
+                {
+                                "type": "mcq",
+                                "question": "أي مما يلي يعد من مخاوف الحوسبة السحابية؟",
+                                "options": [
+                                                "فقدان البيانات",
+                                                "الأمان",
+                                                "التكاليف",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "التخزين السحابي يعتمد على:",
+                                "options": [
+                                                "خوادم خارجية",
+                                                "أجهزة المستخدم فقط",
+                                                "الأقراص المحلية فقط",
+                                                "الشبكة الداخلية فقط"
+                                ],
+                                "answer": 0
+                },
+                {
+                                "type": "mcq",
+                                "question": "التخزين المحلي يتم داخل:",
+                                "options": [
+                                                "مزود الخدمة",
+                                                "المؤسسة نفسها",
+                                                "الإنترنت فقط",
+                                                "السحابة العامة"
+                                ],
+                                "answer": 1
+                },
+                {
+                                "type": "mcq",
+                                "question": "من فوائد الحوسبة السحابية للمؤسسات التعليمية:",
+                                "options": [
+                                                "سهولة وصول الطالب",
+                                                "التخزين المنظم للبيانات",
+                                                "التوسع",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "fill",
+                                "question": "الخدمة في الحوسبة السحابية تقدم بناءً على __________.",
+                                "answer": "الطلب"
+                },
+                {
+                                "type": "fill",
+                                "question": "من خصائص الحوسبة السحابية __________ مقابل الاستخدام.",
+                                "answer": "الدفع"
+                },
+                {
+                                "type": "fill",
+                                "question": "السحابة __________ متاحة لجميع المستخدمين.",
+                                "answer": "العامة"
+                },
+                {
+                                "type": "fill",
+                                "question": "السحابة __________ متاحة لمجموعة محددة من المستخدمين داخل المؤسسة.",
+                                "answer": "الخاصة"
+                },
+                {
+                                "type": "fill",
+                                "question": "السحابة __________ تجمع أكثر من نوع من أنواع السحب.",
+                                "answer": "الهجينة"
+                },
+                {
+                                "type": "fill",
+                                "question": "البنية التحتية كخدمة يرمز لها __________",
+                                "answer": "IaaS"
+                },
+                {
+                                "type": "fill",
+                                "question": "منصات العمل كخدمة يرمز لها __________",
+                                "answer": "PaaS"
+                },
+                {
+                                "type": "fill",
+                                "question": "البرمجيات كخدمة يرمز لها __________",
+                                "answer": "SaaS"
+                },
+                {
+                                "type": "fill",
+                                "question": "من مزودي الخدمات السحابية شركة __________",
+                                "answer": "Google أو Amazon أو Microsoft"
+                },
+                {
+                                "type": "fill",
+                                "question": "من تحديات الحوسبة السحابية ضعف __________ للشبكات.",
+                                "answer": "البنية التحتية"
+                },
+                {
+                                "type": "tf",
+                                "question": "تجمع نظم إدارة التعلم السحابية بين وظائف LMS ومزايا الحوسبة السحابية.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "تحتاج نظم إدارة التعلم السحابية إلى أجهزة وخوادم مرتفعة التكلفة داخل المؤسسة.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "توفر نظم إدارة التعلم السحابية سعة تخزينية كبيرة.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "يحتاج المستخدم إلى تنفيذ التحديثات يدوياً دائماً.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "يمكن الوصول للحساب من أي مكان وباستخدام أي جهاز.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "تساعد نظم إدارة التعلم السحابية في تقليل التكاليف.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "من إحدى المزايا استخدام أحدث إصدار من النظام تلقائياً.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "لا توفر حماية للبيانات.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "سهولة الاستخدام من معايير تقييم المعلم للنظام.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "التوفر وقابلية التوسع من معايير الجانب التكنولوجي.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "توقع الأداء من معايير تقييم الطالب للنظام.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "Cloud Moodle مثال على نظم إدارة التعلم السحابية.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "Edmodo ليس من أمثلة نظم إدارة التعلم السحابية.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "ضعف الإنترنت من تحديات نظم إدارة التعلم السحابية.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "وضع معايير واضحة لاختيار الأنظمة يساعد في التغلب على التحديات.",
+                                "answer": true
+                },
+                {
+                                "type": "mcq",
+                                "question": "نظم إدارة التعلم السحابية تجمع بين:",
+                                "options": [
+                                                "قواعد البيانات فقط",
+                                                "نظم التشغيل فقط",
+                                                "نظم إدارة التعلم والحوسبة السحابية",
+                                                "البرمجة والشبكات"
+                                ],
+                                "answer": 2
+                },
+                {
+                                "type": "mcq",
+                                "question": "من العائد التربوي للنظام:",
+                                "options": [
+                                                "تقليل التكاليف",
+                                                "سعة تخزينية كبيرة",
+                                                "التحديثات التلقائية",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "أي معيار يتضمن الأمن والخصوصية؟",
+                                "options": [
+                                                "سياق التكنولوجيا والأداء",
+                                                "سياق الطالب",
+                                                "سياق المؤسسة",
+                                                "سياق المعلم"
+                                ],
+                                "answer": 2
+                },
+                {
+                                "type": "mcq",
+                                "question": "أي معيار يقيس مدى استفادة المعلم؟",
+                                "options": [
+                                                "الطالب",
+                                                "التكنولوجيا",
+                                                "المعلم",
+                                                "المؤسسة"
+                                ],
+                                "answer": 2
+                },
+                {
+                                "type": "mcq",
+                                "question": "من أمثلة نظم إدارة التعلم السحابية:",
+                                "options": [
+                                                "Moodle Cloud",
+                                                "Edmodo",
+                                                "Schoology",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "من مزايا Cloud Moodle:",
+                                "options": [
+                                                "منتدى النقاش",
+                                                "قابلية التخصيص",
+                                                "الدعم المستمر",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "من تحديات نظم إدارة التعلم السحابية:",
+                                "options": [
+                                                "أمن البيانات",
+                                                "ضعف الإنترنت",
+                                                "عدم وجود معايير واضحة",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "للتغلب على التحديات يجب:",
+                                "options": [
+                                                "الاعتماد على مزود موثوق",
+                                                "تحسين البنية التحتية",
+                                                "وضع معايير للاختيار",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "من مزايا النظام:",
+                                "options": [
+                                                "التحكم في سير المتعلمين",
+                                                "إلغاء التقييم",
+                                                "إلغاء التغذية الراجعة",
+                                                "منع التحديثات"
+                                ],
+                                "answer": 0
+                },
+                {
+                                "type": "mcq",
+                                "question": "أي مما يلي ليس من معايير الطالب؟",
+                                "options": [
+                                                "سهولة الاستخدام",
+                                                "تحليلات رسومية",
+                                                "توقع الأداء",
+                                                "مزود الخدمة"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "تعزيز حماية البيانات يتم عبر:",
+                                "options": [
+                                                "تخزينها في مركز بيانات واحد",
+                                                "حذفها دورياً",
+                                                "منع الوصول إليها",
+                                                "عدم نسخها"
+                                ],
+                                "answer": 2
+                },
+                {
+                                "type": "mcq",
+                                "question": "من مزايا Cloud Moodle:",
+                                "options": [
+                                                "التكامل مع Google Drive",
+                                                "الاختبارات المجدولة",
+                                                "الدرجات الفورية",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "من مشكلات الأنظمة التقليدية:",
+                                "options": [
+                                                "ارتفاع تكاليف الأجهزة",
+                                                "الصيانة",
+                                                "محدودية التخزين",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "يقيم مدى توافق التقنية مع توجه المؤسسة:",
+                                "options": [
+                                                "سياق المؤسسة",
+                                                "سياق الطالب",
+                                                "سياق المعلم",
+                                                "سياق التكنولوجيا"
+                                ],
+                                "answer": 0
+                },
+                {
+                                "type": "mcq",
+                                "question": "من مزايا نظم إدارة التعلم السحابية:",
+                                "options": [
+                                                "الوصول من أي مكان",
+                                                "التحديثات التلقائية",
+                                                "تقليل التكاليف",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "fill",
+                                "question": "توفر نظم إدارة التعلم السحابية سعة __________ كبيرة.",
+                                "answer": "تخزينية"
+                },
+                {
+                                "type": "fill",
+                                "question": "يتم الوصول إلى الحساب من أي __________.",
+                                "answer": "مكان"
+                },
+                {
+                                "type": "fill",
+                                "question": "تستخدم أحدث إصدار بسبب __________ التلقائية.",
+                                "answer": "التحديثات"
+                },
+                {
+                                "type": "fill",
+                                "question": "من معايير الاختيار سياق __________ والأداء.",
+                                "answer": "التكنولوجيا"
+                },
+                {
+                                "type": "fill",
+                                "question": "من معايير الاختيار سياق __________ (المؤسسة، الطالب، المعلم، التكنولوجيا).",
+                                "answer": "المؤسسة"
+                },
+                {
+                                "type": "fill",
+                                "question": "من أمثلة نظم إدارة التعلم السحابية __________",
+                                "answer": "Cloud Moodle"
+                },
+                {
+                                "type": "fill",
+                                "question": "يوفر Cloud Moodle منتدى __________.",
+                                "answer": "النقاش"
+                },
+                {
+                                "type": "fill",
+                                "question": "من تحديات النظام أمن __________.",
+                                "answer": "البيانات"
+                },
+                {
+                                "type": "fill",
+                                "question": "للتغلب على التحديات يجب إنشاء بنية تحتية قوية لـ __________.",
+                                "answer": "الإنترنت"
+                },
+                {
+                                "type": "fill",
+                                "question": "يجب وضع __________ محددة لاختيار النظام المناسب.",
+                                "answer": "معايير"
+                },
+                {
+                                "type": "tf",
+                                "question": "Moodle نظام إدارة تعلم إلكتروني مفتوح المصدر.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "تم تصميم Moodle باستخدام لغة PHP وقواعد بيانات MySQL.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "لا يمكن التعديل على Moodle لأنه نظام مغلق المصدر.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "Moodle مجاني بالكامل ولا توجد أي خدمات مدفوعة به.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "يستخدم Moodle في المؤسسات الأكاديمية والتجارية.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "يدعم Moodle المعيار العالمي SCORM.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "لا يمكن استخدام Moodle على الهواتف الذكية.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "يدعم Moodle أكثر من 45 لغة.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "يتيح Moodle إدارة درجات الطالب ومتابعتها.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "لا يوفر Moodle أدوات للتواصل بين الطالب والمعلمين.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "يمكن تصميم اختبارات إلكترونية متنوعة داخل Moodle.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "يسمح Moodle للطالب بالتسجيل الذاتي والانسحاب من المقرر.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "لا يمكن مشاركة الملفات بين الطالب والمعلمين داخل Moodle.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "يتيح Moodle إنشاء استطلاعات واستفتاءات إلكترونية.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "من عيوب Moodle الحاجة إلى الصيانة والدعم المستمر.",
+                                "answer": true
+                },
+                {
+                                "type": "mcq",
+                                "question": "يرمز الاختصار LMS إلى:",
+                                "options": [
+                                                "Learning Material System",
+                                                "Learning Management System",
+                                                "Learning Media System",
+                                                "Learning Method System"
+                                ],
+                                "answer": 1
+                },
+                {
+                                "type": "mcq",
+                                "question": "Moodle هو نظام:",
+                                "options": [
+                                                "تجاري",
+                                                "مغلق المصدر",
+                                                "مفتوح المصدر",
+                                                "سحابي فقط"
+                                ],
+                                "answer": 2
+                },
+                {
+                                "type": "mcq",
+                                "question": "تم تطوير Moodle باستخدام:",
+                                "options": [
+                                                "Java",
+                                                "PHP",
+                                                "Python",
+                                                "++C"
+                                ],
+                                "answer": 1
+                },
+                {
+                                "type": "mcq",
+                                "question": "من مميزات Moodle:",
+                                "options": [
+                                                "التكلفة المرتفعة",
+                                                "دعم SCORM",
+                                                "عدم دعم الهواتف",
+                                                "صعوبة الاستخدام"
+                                ],
+                                "answer": 1
+                },
+                {
+                                "type": "mcq",
+                                "question": "يتيح Moodle التواصل من خلال:",
+                                "options": [
+                                                "غرف الدردشة",
+                                                "المنتديات",
+                                                "الويكي",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "المعيار العالمي الذي يدعمه Moodle هو:",
+                                "options": [
+                                                "HTML",
+                                                "XML",
+                                                "SCORM",
+                                                "SQL"
+                                ],
+                                "answer": 2
+                },
+                {
+                                "type": "mcq",
+                                "question": "أي مما يلي من إمكانيات Moodle؟",
+                                "options": [
+                                                "إدارة الدرجات",
+                                                "تتبع المهارات",
+                                                "الاختبارات الإلكترونية",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "يسمح Moodle للطالب بـ:",
+                                "options": [
+                                                "التسجيل الذاتي",
+                                                "الانسحاب من المقرر",
+                                                "معرفة التحصيل الدراسي",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "أداة تستخدم لتسجيل الحضور والغياب:",
+                                "options": [
+                                                "Survey",
+                                                "Attendance",
+                                                "SCORM",
+                                                "Wiki"
+                                ],
+                                "answer": 1
+                },
+                {
+                                "type": "mcq",
+                                "question": "يتيح Moodle تصميم:",
+                                "options": [
+                                                "أسئلة اختيار من متعدد",
+                                                "أسئلة مقالية",
+                                                "صح وخطأ",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "من إمكانيات مدير النظام:",
+                                "options": [
+                                                "تعيين المدرسين",
+                                                "إدارة الصلاحيات",
+                                                "رفع بيانات الطالب",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "SCORM هو:",
+                                "options": [
+                                                "لغة برمجة",
+                                                "قاعدة بيانات",
+                                                "معيار لإنشاء المحتوى التعليمي",
+                                                "منصة تعلم"
+                                ],
+                                "answer": 2
+                },
+                {
+                                "type": "mcq",
+                                "question": "من عيوب Moodle:",
+                                "options": [
+                                                "ضعف الحماية",
+                                                "ارتفاع تكاليف الصيانة والدعم",
+                                                "عدم دعم اللغات",
+                                                "عدم دعم الاختبارات"
+                                ],
+                                "answer": 1
+                },
+                {
+                                "type": "mcq",
+                                "question": "يتيح Moodle مشاركة:",
+                                "options": [
+                                                "الملفات",
+                                                "الواجبات",
+                                                "الأبحاث",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "من خصائص Moodle:",
+                                "options": [
+                                                "مفتوح المصدر",
+                                                "قابل للتطوير",
+                                                "منخفض التكلفة",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "fill",
+                                "question": "Moodle هو نظام إدارة تعلم __________ المصدر.",
+                                "answer": "مفتوح"
+                },
+                {
+                                "type": "fill",
+                                "question": "صُمم Moodle باستخدام لغة __________.",
+                                "answer": "PHP"
+                },
+                {
+                                "type": "fill",
+                                "question": "يدعم Moodle المعيار العالمي __________.",
+                                "answer": "SCORM"
+                },
+                {
+                                "type": "fill",
+                                "question": "يستخدم برنامج __________ لإدارة الحضور والغياب.",
+                                "answer": "Attendance"
+                },
+                {
+                                "type": "fill",
+                                "question": "يمكن التواصل داخل Moodle من خلال منتديات __________.",
+                                "answer": "الحوار"
+                },
+                {
+                                "type": "fill",
+                                "question": "يتيح Moodle للطالب __________ الذاتي في المقررات.",
+                                "answer": "التسجيل"
+                },
+                {
+                                "type": "fill",
+                                "question": "يمكن للطالب معرفة مستوى __________ الدراسي.",
+                                "answer": "التحصيل"
+                },
+                {
+                                "type": "fill",
+                                "question": "يوفر Moodle نظام رسائل __________ بين المستخدمين.",
+                                "answer": "خاصة"
+                },
+                {
+                                "type": "fill",
+                                "question": "يستطيع مدير النظام تعيين __________ للمقررات.",
+                                "answer": "المدرسين"
+                },
+                {
+                                "type": "fill",
+                                "question": "من عيوب Moodle ارتفاع تكاليف __________ والدعم.",
+                                "answer": "الصيانة"
+                },
+                {
+                                "type": "tf",
+                                "question": "Cloud Moodle أحد الخدمات المقدمة من Moodle.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "Cloud Moodle نظام إدارة تعلم سحابي.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "لا يمكن إنشاء مقررات دراسية داخل Cloud Moodle.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "يمكن إعطاء الطالب واجبات واختبارات من خلال Cloud Moodle.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "لا يسمح Cloud Moodle بتخصيص الموقع.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "يتميز Cloud Moodle بالسهولة والسرعة.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "من خصائص Cloud Moodle المرونة.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "لا يدعم Cloud Moodle الأجهزة الذكية.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "Cloud Moodle مفتوح المصدر وقابل للتطوير.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "يمكن تطوير Cloud Moodle من خلال الاشتراك في خدمات إضافية.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "Cloud Moodle يوفر إنشاء المقررات الدراسية.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "Cloud Moodle لا يسمح بمشاركة الموقع مع الطالب.",
+                                "answer": false
+                },
+                {
+                                "type": "tf",
+                                "question": "يمكن للطالب الدخول إلى المقررات الدراسية عبر Cloud Moodle.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "يعتمد Cloud Moodle على الاستضافة السحابية.",
+                                "answer": true
+                },
+                {
+                                "type": "tf",
+                                "question": "يتطلب Cloud Moodle وجود خادم محلي داخل المؤسسة.",
+                                "answer": false
+                },
+                {
+                                "type": "mcq",
+                                "question": "Moodle Cloud هو:",
+                                "options": [
+                                                "نظام تجاري",
+                                                "نظام إدارة تعلم سحابي",
+                                                "قاعدة بيانات",
+                                                "محرك بحث"
+                                ],
+                                "answer": 1
+                },
+                {
+                                "type": "mcq",
+                                "question": "Cloud Moodle إحدى الخدمات المقدمة من:",
+                                "options": [
+                                                "Blackboard",
+                                                "Google",
+                                                "Moodle",
+                                                "Microsoft"
+                                ],
+                                "answer": 2
+                },
+                {
+                                "type": "mcq",
+                                "question": "من خصائص Cloud Moodle:",
+                                "options": [
+                                                "المرونة",
+                                                "السهولة",
+                                                "السرعة",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "يمكن من خلال Cloud Moodle:",
+                                "options": [
+                                                "إنشاء المقررات",
+                                                "إدارة المقررات",
+                                                "تخصيص الموقع",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "يعتمد Cloud Moodle على:",
+                                "options": [
+                                                "الخوادم المحلية",
+                                                "الاستضافة السحابية",
+                                                "الأقراص الصلبة",
+                                                "الشبكات الداخلية فقط"
+                                ],
+                                "answer": 1
+                },
+                {
+                                "type": "mcq",
+                                "question": "من خصائص Cloud Moodle:",
+                                "options": [
+                                                "بيئة صديقة للأجهزة الذكية",
+                                                "لا يدعم الهواتف",
+                                                "يحتاج أجهزة خاصة",
+                                                "لا يعمل عبر الإنترنت"
+                                ],
+                                "answer": 0
+                },
+                {
+                                "type": "mcq",
+                                "question": "يتيح Moodle Cloud:",
+                                "options": [
+                                                "الواجبات",
+                                                "الاختبارات",
+                                                "المقررات",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "من مزايا Cloud Moodle:",
+                                "options": [
+                                                "قابلية التطوير",
+                                                "قابلية التخصيص",
+                                                "المرونة",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "يتم تطوير Cloud Moodle عبر:",
+                                "options": [
+                                                "حذف الخدمات",
+                                                "الاشتراك في خدمات إضافية",
+                                                "تغيير اللغة",
+                                                "تغيير الخادم"
+                                ],
+                                "answer": 1
+                },
+                {
+                                "type": "mcq",
+                                "question": "يمكن مشاركة الموقع مع:",
+                                "options": [
+                                                "الطالب",
+                                                "الإدارة فقط",
+                                                "المعلمين فقط",
+                                                "أولياء الأمور فقط"
+                                ],
+                                "answer": 0
+                },
+                {
+                                "type": "mcq",
+                                "question": "من خصائص Cloud Moodle:",
+                                "options": [
+                                                "السرعة",
+                                                "التعقيد",
+                                                "المركزية",
+                                                "المحلية"
+                                ],
+                                "answer": 0
+                },
+                {
+                                "type": "mcq",
+                                "question": "يستطيع الطالب من خلال Cloud Moodle:",
+                                "options": [
+                                                "أداء الاختبارات",
+                                                "استلام الواجبات",
+                                                "دخول المقررات",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "يعد Moodle Cloud:",
+                                "options": [
+                                                "LMS سحابي",
+                                                "نظام تشغيل",
+                                                "قاعدة بيانات",
+                                                "لغة برمجة"
+                                ],
+                                "answer": 0
+                },
+                {
+                                "type": "mcq",
+                                "question": "من خصائص Cloud Moodle:",
+                                "options": [
+                                                "المرونة",
+                                                "التخصيص",
+                                                "دعم الأجهزة الذكية",
+                                                "جميع ما سبق"
+                                ],
+                                "answer": 3
+                },
+                {
+                                "type": "mcq",
+                                "question": "يتم الحصول على موقع Cloud Moodle من:",
+                                "options": [
+                                                "الموقع الرسمي لـ Moodle",
+                                                "جوجل",
+                                                "مايكروسوفت",
+                                                "ياهو"
+                                ],
+                                "answer": 0
+                },
+                {
+                                "type": "fill",
+                                "question": "Cloud Moodle أحد الخدمات المقدمة من __________.",
+                                "answer": "Moodle"
+                },
+                {
+                                "type": "fill",
+                                "question": "Cloud Moodle نظام إدارة تعلم __________.",
+                                "answer": "سحابي"
+                },
+                {
+                                "type": "fill",
+                                "question": "يمكن __________ المقررات الدراسية داخل Cloud Moodle.",
+                                "answer": "إنشاء"
+                },
+                {
+                                "type": "fill",
+                                "question": "يتميز Cloud Moodle بالسهولة و__________.",
+                                "answer": "السرعة"
+                },
+                {
+                                "type": "fill",
+                                "question": "من خصائص Cloud Moodle __________.",
+                                "answer": "المرونة"
+                },
+                {
+                                "type": "fill",
+                                "question": "يدعم Cloud Moodle الأجهزة __________.",
+                                "answer": "الذكية"
+                },
+                {
+                                "type": "fill",
+                                "question": "يمكن __________ الموقع بما يتناسب مع المستخدم.",
+                                "answer": "تخصيص"
+                },
+                {
+                                "type": "fill",
+                                "question": "__________ قابل للتطوير.",
+                                "answer": "Moodle Cloud"
+                },
+                {
+                                "type": "fill",
+                                "question": "يستطيع الطالب الدخول إلى __________ الدراسية.",
+                                "answer": "المقررات"
+                },
+                {
+                                "type": "fill",
+                                "question": "يتم الحصول على الموقع من الموقع __________ لـ Moodle.",
+                                "answer": "الرسمي"
                 }
-                if (i > 0) costs[shorter.length] = lastValue;
-            }
-            return (longerLength - costs[shorter.length]) / parseFloat(longerLength);
+];
+
+        // ============ Storage helpers ============
+        function safeGet(key, fallback) {
+            try {
+                const raw = localStorage.getItem(key);
+                if (!raw) return fallback;
+                return JSON.parse(raw);
+            } catch (e) { return fallback; }
+        }
+        function safeSet(key, value) {
+            try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
         }
 
-        function checkFillInAnswer(userVal, correctArray) {
-            const correctString = correctArray.join(" "); 
-            const normalizedUser = normalizeArabic(userVal);
-            const normalizedCorrectFull = normalizeArabic(correctString);
+        function getStarred() { return safeGet(KEY_STARRED, []); }
+        function setStarred(arr) { safeSet(KEY_STARRED, arr); }
+        function getWrongBank() { return safeGet(KEY_WRONG, []); }
+        function setWrongBank(arr) { safeSet(KEY_WRONG, arr); }
+        function getSession() { return safeGet(KEY_SESSION, null); }
+        function setSession(obj) { safeSet(KEY_SESSION, obj); }
+        function clearSession() { try { localStorage.removeItem(KEY_SESSION); } catch(e){} }
 
-            // 1. Direct inclusion check
-            if (normalizedCorrectFull.includes(normalizedUser) || normalizedUser.includes(normalizedCorrectFull)) {
-                return true;
-            }
-
-            // 2. Similarity Check (>= 70%)
-            const similarity = checkSimilarity(normalizedUser, normalizedCorrectFull);
-            if (similarity >= 0.7) return true;
-
-            return false;
+        function addToWrongBank(qIndex) {
+            const bank = getWrongBank();
+            if (!bank.includes(qIndex)) { bank.push(qIndex); setWrongBank(bank); }
+        }
+        function removeFromWrongBank(qIndex) {
+            const bank = getWrongBank();
+            const idx = bank.indexOf(qIndex);
+            if (idx !== -1) { bank.splice(idx, 1); setWrongBank(bank); }
+        }
+        function toggleStar(qIndex) {
+            const starred = getStarred();
+            const idx = starred.indexOf(qIndex);
+            if (idx === -1) starred.push(qIndex); else starred.splice(idx, 1);
+            setStarred(starred);
+            const btn = document.getElementById('starBtn');
+            if (btn) btn.classList.toggle('active', starred.includes(qIndex));
         }
 
-        function getCorrectAnswerString(q) {
-            if (q.type === 'mcq') return q.options[q.answer];
-            if (q.type === 'tf') return q.answer ? "صح" : "خطأ";
-            if (q.type === 'complete') return q.answer.join(" / ");
-            return "";
+        // ============ App state ============
+        let currentQuestion = 0;
+        let examOrder = [];
+        let currentMode = 'full';
+        let score = 0;
+        let userAnswers = [];
+        let detailedAnswers = [];
+        let selectedMCQ = null;
+        let selectedTF = null;
+
+        const MODE_LABELS = {
+            full: 'امتحان شامل 🌐',
+            fill: 'أكمل فقط 📝',
+            mcq: 'اختيار من متعدد 🔘',
+            tf: 'صح وخطأ ✓✗',
+            starred: 'مراجعتي ⭐',
+            wrongHistory: 'أخطائي السابقة 🔁'
+        };
+
+        // ============ Screen switching (single source of truth) ============
+        function showScreen(name) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            const target = document.getElementById('screen-' + name);
+            if (target) target.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
         }
 
-        // ==========================================
-        // CORE: Exam Functions
-        // ==========================================
-        function startExam() {
-            document.getElementById('start-screen').classList.remove('active');
-            document.getElementById('start-screen').classList.add('hidden');
-            document.getElementById('quiz-screen').classList.remove('hidden');
-            document.getElementById('quiz-screen').classList.add('active');
-            
-            document.getElementById('total-questions').innerText = questionsDB.length;
-            loadQuestion();
-        }
+        // ============ Init ============
+        window.addEventListener('DOMContentLoaded', function() {
+            bindEvents();
+            goHome();
+        });
 
-        function loadQuestion() {
-            const q = questionsDB[currentQuestionIndex];
-            
-            document.getElementById('question-counter').innerText = `سؤال ${currentQuestionIndex + 1} من ${questionsDB.length}`;
-            document.getElementById('progress-bar').style.width = `${((currentQuestionIndex) / questionsDB.length) * 100}%`;
-            
-            let sectionName = "";
-            if (q.type === 'complete') sectionName = "أكمل الفراغ";
-            else if (q.type === 'mcq') sectionName = "اختر الإجابة الصحيحة";
-            else sectionName = "صح أم خطأ";
-            document.getElementById('section-name').innerText = `القسم: ${sectionName}`;
+        function bindEvents() {
+            document.getElementById('btnResume').addEventListener('click', resumeSession);
+            document.getElementById('btnDiscard').addEventListener('click', discardSessionAndShowMenu);
+            document.getElementById('btnBackHome').addEventListener('click', confirmBackToMenu);
+            document.getElementById('btnHomeFromResults').addEventListener('click', goHome);
+            document.getElementById('btnToggleReview').addEventListener('click', toggleReviewSection);
 
-            document.getElementById('question-text').innerText = q.text;
-
-            document.getElementById('submit-btn').classList.remove('hidden');
-            document.getElementById('next-btn').classList.add('hidden');
-            document.getElementById('feedback-area').style.display = 'none';
-            userAnswered = false;
-            selectedOptionValue = null;
-
-            const interactionArea = document.getElementById('interaction-area');
-            interactionArea.innerHTML = '';
-
-            if (q.type === 'complete') {
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.className = 'text-input';
-                input.placeholder = 'اكتب الإجابة هنا...';
-                input.id = 'user-input';
-                interactionArea.appendChild(input);
-                input.addEventListener("keypress", function(event) {
-                    if (event.key === "Enter") submitAnswer();
+            document.querySelectorAll('.mode-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    startNewExam(this.getAttribute('data-mode'));
                 });
-            } else if (q.type === 'mcq') {
-                const grid = document.createElement('div');
-                grid.className = 'options-grid';
-                q.options.forEach((opt, idx) => {
-                    const btn = document.createElement('button');
-                    btn.className = 'option-btn';
-                    btn.innerText = opt;
-                    btn.onclick = () => selectOption(idx, btn);
-                    btn.id = `opt-${idx}`;
-                    grid.appendChild(btn);
-                });
-                interactionArea.appendChild(grid);
-            } else if (q.type === 'tf') {
-                const grid = document.createElement('div');
-                grid.className = 'tf-container';
-                const opts = ["صح", "خطأ"];
-                opts.forEach((opt, idx) => {
-                    const btn = document.createElement('button');
-                    btn.className = 'tf-btn';
-                    btn.innerText = opt;
-                    btn.onclick = () => selectOption(idx === 0 ? true : false, btn);
-                    btn.id = `opt-${idx}`;
-                    grid.appendChild(btn);
-                });
-                interactionArea.appendChild(grid);
-            }
-        }
-
-        function selectOption(value, btnElement) {
-            if (userAnswered) return;
-            selectedOptionValue = value;
-            
-            if (document.querySelector('.selected-true')) document.querySelector('.selected-true').classList.remove('selected-true');
-            if (document.querySelector('.selected-false')) document.querySelector('.selected-false').classList.remove('selected-false');
-            document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-
-            if (btnElement.classList.contains('tf-btn')) {
-                if (value) btnElement.classList.add('selected-true');
-                else btnElement.classList.add('selected-false');
-            } else {
-                btnElement.classList.add('selected');
-            }
-        }
-
-        function submitAnswer() {
-            if (userAnswered) return;
-            const q = questionsDB[currentQuestionIndex];
-            
-            let isCorrect = false;
-            let userAnswerStr = "";
-            let correctAnswerStr = getCorrectAnswerString(q);
-
-            if (q.type === 'complete') {
-                const val = document.getElementById('user-input').value;
-                if (!val.trim()) return;
-                userAnswerStr = val;
-                isCorrect = checkFillInAnswer(val, q.answer);
-            } else if (q.type === 'mcq' || q.type === 'tf') {
-                if (selectedOptionValue === null) return;
-                userAnswerStr = (q.type === 'tf') ? (selectedOptionValue ? "صح" : "خطأ") : q.options[selectedOptionValue];
-                isCorrect = (selectedOptionValue === q.answer);
-            }
-
-            userAnswered = true;
-            if (isCorrect) score++;
-
-            userHistory.push({
-                qIndex: currentQuestionIndex,
-                qText: q.text,
-                userAns: userAnswerStr,
-                correctAns: correctAnswerStr,
-                isCorrect: isCorrect
             });
+        }
 
-            const feedbackArea = document.getElementById('feedback-area');
-            feedbackArea.style.display = 'block';
-
-            if (isCorrect) {
-                feedbackArea.className = 'feedback-area feedback-correct';
-                feedbackArea.innerHTML = `<span>✔️ الإجابة الصحيحة: ${correctAnswerStr}</span>`;
+        function goHome() {
+            updateModeCounts();
+            const session = getSession();
+            const banner = document.getElementById('resumeBanner');
+            if (session && Array.isArray(session.order) && session.position < session.order.length) {
+                banner.classList.remove('hidden');
+                const info = (MODE_LABELS[session.mode] || session.mode) + ' — لسه واقف عند السؤال ' + (session.position + 1) + ' من ' + session.order.length;
+                document.getElementById('resumeInfo').textContent = info;
             } else {
-                feedbackArea.className = 'feedback-area feedback-wrong';
-                feedbackArea.innerHTML = `
-                    <span>❌ إجابتك: ${userAnswerStr}</span><br>
-                    <span>✔️ التصحيح: ${correctAnswerStr}</span>
+                banner.classList.add('hidden');
+            }
+            showScreen('home');
+        }
+
+        function updateModeCounts() {
+            const total = questions.length;
+            const fillCount = questions.filter(q => q.type === 'fill').length;
+            const mcqCount = questions.filter(q => q.type === 'mcq').length;
+            const tfCount = questions.filter(q => q.type === 'tf').length;
+            const starred = getStarred();
+            const wrong = getWrongBank();
+
+            document.getElementById('countFull').textContent = total + ' سؤال';
+            document.getElementById('countFill').textContent = fillCount + ' سؤال';
+            document.getElementById('countMcq').textContent = mcqCount + ' سؤال';
+            document.getElementById('countTf').textContent = tfCount + ' سؤال';
+            document.getElementById('countStarred').textContent = starred.length + ' سؤال';
+            document.getElementById('countWrong').textContent = wrong.length + ' سؤال';
+
+            document.getElementById('starredCard').classList.toggle('hidden', starred.length === 0);
+            document.getElementById('wrongCard').classList.toggle('hidden', wrong.length === 0);
+        }
+
+        function resumeSession() {
+            const session = getSession();
+            if (!session) { goHome(); return; }
+            examOrder = session.order;
+            currentQuestion = session.position;
+            currentMode = session.mode;
+            score = session.score;
+            userAnswers = session.userAnswers || [];
+            detailedAnswers = session.detailedAnswers || [];
+
+            enterExamUI();
+            showQuestion();
+            updateLiveStats();
+        }
+
+        function discardSessionAndShowMenu() {
+            clearSession();
+            goHome();
+        }
+
+        function startNewExam(mode) {
+            let order = [];
+            if (mode === 'full') {
+                order = questions.map((q, i) => i);
+            } else if (mode === 'fill' || mode === 'mcq' || mode === 'tf') {
+                order = questions.map((q, i) => i).filter(i => questions[i].type === mode);
+            } else if (mode === 'starred') {
+                order = getStarred().slice();
+                if (order.length === 0) { alert('مفيش أسئلة في المراجعة لسه. حط نجمة على أي سؤال الأول.'); return; }
+            } else if (mode === 'wrongHistory') {
+                order = getWrongBank().slice();
+                if (order.length === 0) { alert('مفيش أخطاء محفوظة لسه.'); return; }
+            }
+
+            if (order.length === 0) { alert('مفيش أسئلة من النوع ده.'); return; }
+
+            currentMode = mode;
+            examOrder = order;
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            detailedAnswers = [];
+            selectedMCQ = null;
+            selectedTF = null;
+
+            saveSession();
+            enterExamUI();
+            showQuestion();
+            updateLiveStats();
+        }
+
+        function enterExamUI() {
+            document.getElementById('modeLabel').textContent = MODE_LABELS[currentMode] || currentMode;
+            showScreen('exam');
+        }
+
+        function confirmBackToMenu() {
+            if (confirm('هترجع للقائمة الرئيسية وهيتحفظ مكانك عشان تكمل بعدين. تمام؟')) {
+                saveSession();
+                goHome();
+            }
+        }
+
+        function saveSession() {
+            setSession({
+                mode: currentMode,
+                order: examOrder,
+                position: currentQuestion,
+                score: score,
+                userAnswers: userAnswers,
+                detailedAnswers: detailedAnswers
+            });
+        }
+
+        function updateLiveStats() {
+            const answered = userAnswers.length;
+            const correct = score;
+            const incorrect = answered - correct;
+            const remaining = examOrder.length - answered;
+            const percentage = answered > 0 ? Math.round((correct / answered) * 100) : 0;
+
+            updateStatWithAnimation('correctLive', correct);
+            updateStatWithAnimation('incorrectLive', incorrect);
+            updateStatWithAnimation('remainingLive', remaining);
+            updateStatWithAnimation('percentageLive', percentage + '%');
+        }
+
+        function updateStatWithAnimation(elementId, value) {
+            const element = document.getElementById(elementId);
+            element.classList.add('updated');
+            element.textContent = value;
+            setTimeout(() => { element.classList.remove('updated'); }, 500);
+        }
+
+        function showQuestion() {
+            const qIndex = examOrder[currentQuestion];
+            const q = questions[qIndex];
+            const container = document.getElementById('questionContainer');
+
+            const starred = getStarred();
+            const isStarred = starred.includes(qIndex);
+
+            let questionHTML = `
+                <div class="question-card" style="--type-color: ${getQuestionTypeColor(q.type)}">
+                    <div class="question-top-row">
+                        <span class="question-type">${getQuestionTypeLabel(q.type)}</span>
+                        <button class="star-btn${isStarred ? ' active' : ''}" id="starBtn" title="حط نجمة للمراجعة">★</button>
+                    </div>
+                    <div class="question-text">${q.question}</div>
+            `;
+
+            if (q.type === 'fill') {
+                questionHTML += `
+                    <input type="text" class="fill-input" id="fillAnswer" placeholder="اكتب الإجابة هنا..." autocomplete="off">
+                    <div class="feedback" id="feedback"></div>
+                    <div class="nav-buttons">
+                        <button class="nav-btn check-btn" id="checkBtn">تحقق من الإجابة</button>
+                        <button class="nav-btn next-btn" id="nextBtn" disabled>السؤال التالي</button>
+                    </div>
+                `;
+            } else if (q.type === 'mcq') {
+                questionHTML += '<div class="options">';
+                q.options.forEach((option, index) => {
+                    questionHTML += `<div class="option" data-index="${index}" id="opt${index}">${option}</div>`;
+                });
+                questionHTML += `
+                    </div>
+                    <div class="feedback" id="feedback"></div>
+                    <div class="nav-buttons">
+                        <button class="nav-btn check-btn" id="checkBtn">تحقق من الإجابة</button>
+                        <button class="nav-btn next-btn" id="nextBtn" disabled>السؤال التالي</button>
+                    </div>
+                `;
+            } else if (q.type === 'tf') {
+                questionHTML += `
+                    <div class="tf-buttons">
+                        <button class="tf-btn" id="tfTrue">صح ✓</button>
+                        <button class="tf-btn" id="tfFalse">خطأ ✗</button>
+                    </div>
+                    <div class="feedback" id="feedback"></div>
+                    <div class="nav-buttons">
+                        <button class="nav-btn check-btn" id="checkBtn">تحقق من الإجابة</button>
+                        <button class="nav-btn next-btn" id="nextBtn" disabled>السؤال التالي</button>
+                    </div>
                 `;
             }
 
-            document.getElementById('submit-btn').classList.add('hidden');
-            document.getElementById('next-btn').classList.remove('hidden');
+            questionHTML += '</div>';
+            container.innerHTML = questionHTML;
+            selectedMCQ = null;
+            selectedTF = null;
+
+            document.getElementById('starBtn').addEventListener('click', function() { toggleStar(qIndex); });
+            document.getElementById('checkBtn').addEventListener('click', function() {
+                if (q.type === 'fill') checkFillAnswer();
+                else if (q.type === 'mcq') checkMCQAnswer();
+                else if (q.type === 'tf') checkTFAnswer();
+            });
+            document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+
+            if (q.type === 'mcq') {
+                document.querySelectorAll('.option').forEach(opt => {
+                    opt.addEventListener('click', function() { selectOption(parseInt(this.getAttribute('data-index'), 10)); });
+                });
+            } else if (q.type === 'tf') {
+                document.getElementById('tfTrue').addEventListener('click', function() { selectTF(true); });
+                document.getElementById('tfFalse').addEventListener('click', function() { selectTF(false); });
+            } else if (q.type === 'fill') {
+                document.getElementById('fillAnswer').addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') checkFillAnswer();
+                });
+            }
+
+            updateProgress();
+        }
+
+        function getQuestionTypeLabel(type) {
+            switch(type) {
+                case 'fill': return '📝 أكمل';
+                case 'mcq': return '🔘 اختر الإجابة الصحيحة';
+                case 'tf': return '✓✗ صح أم خطأ';
+            }
+        }
+
+        function getQuestionTypeColor(type) {
+            switch(type) {
+                case 'fill': return '#4F8CFF';
+                case 'mcq': return '#F5B94D';
+                case 'tf': return '#35D0A8';
+                default: return '#4F8CFF';
+            }
+        }
+
+        function selectOption(index) {
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            document.getElementById('opt' + index).classList.add('selected');
+            selectedMCQ = index;
+        }
+
+        function selectTF(value) {
+            document.querySelectorAll('.tf-btn').forEach(btn => btn.classList.remove('selected'));
+            if (value) document.getElementById('tfTrue').classList.add('selected');
+            else document.getElementById('tfFalse').classList.add('selected');
+            selectedTF = value;
+        }
+
+        function checkFillAnswer() {
+            const qIndex = examOrder[currentQuestion];
+            const userAnswer = document.getElementById('fillAnswer').value;
+            const correctAnswer = questions[qIndex].answer;
+            const feedback = document.getElementById('feedback');
+            const nextBtn = document.getElementById('nextBtn');
+
+            const normalizedUser = normalizeArabic(userAnswer);
+            const normalizedCorrect = normalizeArabic(correctAnswer);
+            const isCorrect = normalizedUser === normalizedCorrect || (normalizedUser.length > 0 && (normalizedUser.includes(normalizedCorrect) || normalizedCorrect.includes(normalizedUser)));
+
+            registerAnswer(isCorrect, qIndex, {
+                type: 'fill',
+                userAnswer: userAnswer || 'لم يتم الإجابة',
+                correctAnswer: correctAnswer
+            });
+
+            if (isCorrect) {
+                feedback.className = 'feedback correct show';
+                feedback.innerHTML = '✓ إجابة صحيحة! أحسنت';
+            } else {
+                feedback.className = 'feedback incorrect show';
+                feedback.innerHTML = `✗ إجابة خاطئة!<br>الإجابة الصحيحة: ${correctAnswer}`;
+            }
+
+            nextBtn.disabled = false;
+            document.getElementById('checkBtn').disabled = true;
+        }
+
+        function checkMCQAnswer() {
+            if (selectedMCQ === null) return;
+            const qIndex = examOrder[currentQuestion];
+            const correctAnswer = questions[qIndex].answer;
+            const feedback = document.getElementById('feedback');
+            const nextBtn = document.getElementById('nextBtn');
+
+            const isCorrect = selectedMCQ === correctAnswer;
+
+            registerAnswer(isCorrect, qIndex, {
+                type: 'mcq',
+                userAnswer: questions[qIndex].options[selectedMCQ],
+                correctAnswer: questions[qIndex].options[correctAnswer]
+            });
+
+            if (isCorrect) {
+                feedback.className = 'feedback correct show';
+                feedback.innerHTML = '✓ إجابة صحيحة! أحسنت';
+            } else {
+                feedback.className = 'feedback incorrect show';
+                feedback.innerHTML = `✗ إجابة خاطئة!<br>الإجابة الصحيحة: ${questions[qIndex].options[correctAnswer]}`;
+            }
+
+            nextBtn.disabled = false;
+            document.getElementById('checkBtn').disabled = true;
+            document.querySelectorAll('.option').forEach(opt => opt.style.pointerEvents = 'none');
+        }
+
+        function checkTFAnswer() {
+            if (selectedTF === null) return;
+            const qIndex = examOrder[currentQuestion];
+            const correctAnswer = questions[qIndex].answer;
+            const feedback = document.getElementById('feedback');
+            const nextBtn = document.getElementById('nextBtn');
+
+            const isCorrect = selectedTF === correctAnswer;
+
+            registerAnswer(isCorrect, qIndex, {
+                type: 'tf',
+                userAnswer: selectedTF ? 'صح ✓' : 'خطأ ✗',
+                correctAnswer: correctAnswer ? 'صح ✓' : 'خطأ ✗'
+            });
+
+            if (isCorrect) {
+                feedback.className = 'feedback correct show';
+                feedback.innerHTML = '✓ إجابة صحيحة! أحسنت';
+            } else {
+                feedback.className = 'feedback incorrect show';
+                feedback.innerHTML = `✗ إجابة خاطئة!<br>الإجابة الصحيحة: ${correctAnswer ? 'صح ✓' : 'خطأ ✗'}`;
+            }
+
+            nextBtn.disabled = false;
+            document.getElementById('checkBtn').disabled = true;
+            document.querySelectorAll('.tf-btn').forEach(btn => btn.style.pointerEvents = 'none');
+        }
+
+        function registerAnswer(isCorrect, qIndex, details) {
+            if (isCorrect) {
+                score++;
+                removeFromWrongBank(qIndex);
+            } else {
+                addToWrongBank(qIndex);
+                detailedAnswers.push({
+                    questionNumber: currentQuestion + 1,
+                    question: questions[qIndex].question,
+                    isCorrect: false,
+                    ...details
+                });
+            }
+            userAnswers.push({ qIndex: qIndex, correct: isCorrect });
+            updateLiveStats();
+            saveSession();
         }
 
         function nextQuestion() {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questionsDB.length) {
-                loadQuestion();
+            currentQuestion++;
+            if (currentQuestion < examOrder.length) {
+                saveSession();
+                showQuestion();
             } else {
+                clearSession();
                 showResults();
             }
         }
 
-        function showResults() {
-            document.getElementById('quiz-screen').classList.remove('active');
-            document.getElementById('quiz-screen').classList.add('hidden');
-            document.getElementById('result-screen').classList.remove('hidden');
-            document.getElementById('result-screen').classList.add('active');
-
-            document.getElementById('final-score').innerText = score;
-            
-            const percent = Math.round((score / questionsDB.length) * 100);
-            document.getElementById('accuracy-percent').innerText = percent;
-
-            const statusBadge = document.getElementById('status-badge');
-            const resultMessage = document.getElementById('result-message');
-            const reviewContainer = document.getElementById('review-container');
-            const reviewList = document.getElementById('review-list');
-
-            const isPassed = percent >= 60;
-
-            if (isPassed) {
-                statusBadge.className = "status-badge status-pass";
-                statusBadge.innerText = "ناجح ✅";
-                resultMessage.innerHTML = "أحسنت! <br> ناجح... غششني بكره يسطا 😂";
-            } else {
-                statusBadge.className = "status-badge status-fail";
-                statusBadge.innerText = "ساقط ❌";
-                resultMessage.innerHTML = "للأسف... <br> ساقط، حاول تاني بكرة يا صاحبي 🤣";
-            }
-
-            reviewList.innerHTML = "";
-            const wrongAnswers = userHistory.filter(item => !item.isCorrect);
-
-            if (wrongAnswers.length > 0) {
-                reviewContainer.classList.remove('hidden');
-                wrongAnswers.forEach(item => {
-                    const div = document.createElement('div');
-                    div.className = 'review-item';
-                    div.innerHTML = `
-                        <div class="review-q-text">${item.qText}</div>
-                        <div class="review-ans-box">
-                            <span class="ans-wrong">❌ إجابتك: ${item.userAns}</span>
-                            <span class="ans-correct">✔️ التصحيح: ${item.correctAns}</span>
-                        </div>
-                    `;
-                    reviewList.appendChild(div);
-                });
-            } else {
-                reviewContainer.classList.add('hidden');
-            }
+        function updateProgress() {
+            const percent = ((currentQuestion + 1) / examOrder.length) * 100;
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('currentQ').textContent = currentQuestion + 1;
+            document.getElementById('totalQ').textContent = examOrder.length;
+            document.getElementById('progressPercent').textContent = Math.round(percent) + '%';
         }
 
-        function restartExam() {
-            currentQuestionIndex = 0;
-            score = 0;
-            userAnswered = false;
-            selectedOptionValue = null;
-            userHistory = [];
+        function showResults() {
+            const total = examOrder.length;
+            const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
+            const incorrect = total - score;
 
-            document.getElementById('result-screen').classList.remove('active');
-            document.getElementById('result-screen').classList.add('hidden');
-            document.getElementById('start-screen').classList.remove('hidden');
-            document.getElementById('start-screen').classList.add('active');
+            const passFailElement = document.getElementById('passFailStatus');
+            if (percentage >= 50) {
+                passFailElement.textContent = 'ناجح 😎';
+                passFailElement.className = 'pass-fail-status passed';
+            } else {
+                passFailElement.textContent = 'راسب 🙂';
+                passFailElement.className = 'pass-fail-status failed';
+            }
+
+            document.getElementById('finalScore').textContent = percentage + '%';
+            document.getElementById('correctCount').textContent = score;
+            document.getElementById('incorrectCount').textContent = incorrect;
+            document.getElementById('percentageScore').textContent = percentage + '%';
+
+            const reviewBtn = document.getElementById('btnToggleReview');
+            const reviewSection = document.getElementById('wrongAnswersSection');
+            reviewSection.classList.add('hidden');
+            reviewBtn.textContent = 'إظهار مراجعة الإجابات الخاطئة';
+
+            if (detailedAnswers.length === 0) {
+                reviewBtn.classList.add('hidden');
+            } else {
+                reviewBtn.classList.remove('hidden');
+            }
+
+            displayWrongAnswers();
+            showScreen('results');
+        }
+
+        function toggleReviewSection() {
+            const reviewSection = document.getElementById('wrongAnswersSection');
+            const reviewBtn = document.getElementById('btnToggleReview');
+            const willShow = reviewSection.classList.contains('hidden');
+            reviewSection.classList.toggle('hidden', !willShow);
+            reviewBtn.textContent = willShow ? 'إخفاء مراجعة الإجابات الخاطئة' : 'إظهار مراجعة الإجابات الخاطئة';
+        }
+
+        function displayWrongAnswers() {
+            const wrongAnswersList = document.getElementById('wrongAnswersList');
+
+            if (detailedAnswers.length === 0) {
+                wrongAnswersList.innerHTML = `<div class="no-wrong-answers">🎉 ممتاز! لم تخطئ في أي سؤال! 🎉</div>`;
+                return;
+            }
+
+            let html = '';
+            detailedAnswers.forEach((answer) => {
+                html += `
+                    <div class="wrong-answer-item">
+                        <span class="wrong-answer-number">السؤال رقم ${answer.questionNumber}</span>
+                        <div class="wrong-answer-question">${answer.question}</div>
+                        <div class="wrong-answer-details">
+                            <div class="wrong-answer-label">إجابتك:</div>
+                            <div class="wrong-answer-text user-answer">✗ ${answer.userAnswer}</div>
+                            <div class="wrong-answer-label">الإجابة الصحيحة:</div>
+                            <div class="wrong-answer-text correct-answer">✓ ${answer.correctAnswer}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            wrongAnswersList.innerHTML = html;
         }
     </script>
 </body>
