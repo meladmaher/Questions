@@ -89,7 +89,6 @@
             flex: 1;
         }
 
-        /* ===== Screen system: exactly one screen visible at a time ===== */
         .screen { display: none; }
         .screen.active { display: block; animation: fadeIn 0.35s ease-out; }
 
@@ -194,7 +193,7 @@
             filter: drop-shadow(0 2px 6px rgba(79, 140, 255, 0.6));
         }
 
-        /* Live Statistics */
+        /* Stats */
         .stats-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -337,9 +336,13 @@
             box-shadow: 0 0 18px rgba(53, 208, 168, 0.28);
         }
 
-        .tf-buttons { display: flex; gap: 14px; justify-content: center; }
+        .tf-buttons, .review-buttons {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+        }
 
-        .tf-btn {
+        .tf-btn, .review-btn {
             flex: 1;
             padding: 18px;
             font-size: 1.15em;
@@ -353,13 +356,16 @@
             font-family: 'Cairo', sans-serif;
         }
 
-        .tf-btn:hover { background: rgba(255, 255, 255, 0.09); border-color: var(--gold); }
-        .tf-btn.selected {
+        .tf-btn:hover, .review-btn:hover { background: rgba(255, 255, 255, 0.09); border-color: var(--gold); }
+        .tf-btn.selected, .review-btn.selected {
             background: rgba(53, 208, 168, 0.14);
             border-color: var(--mint);
             color: var(--mint);
             box-shadow: 0 0 18px rgba(53, 208, 168, 0.28);
         }
+
+        .review-btn.review-correct { border-color: var(--mint); color: var(--mint); }
+        .review-btn.review-wrong { border-color: var(--rose); color: var(--rose); }
 
         .feedback {
             margin-top: 18px;
@@ -376,6 +382,7 @@
 
         .feedback.correct { background: rgba(53, 208, 168, 0.12); border: 1.5px solid var(--mint); color: var(--mint); }
         .feedback.incorrect { background: rgba(255, 92, 122, 0.10); border: 1.5px solid var(--rose); color: var(--rose); }
+        .feedback.info { background: rgba(79, 140, 255, 0.10); border: 1.5px solid var(--azure); color: var(--azure); }
         .feedback.show { display: block; }
 
         .nav-buttons { display: flex; gap: 14px; margin-top: 26px; }
@@ -400,6 +407,24 @@
         .check-btn { background: var(--grad-brand); box-shadow: var(--shadow-btn); }
         .check-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(139, 92, 246, 0.38); }
         .check-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+        .review-show-answer-btn {
+            background: var(--grad-brand);
+            box-shadow: var(--shadow-btn);
+            width: 100%;
+            padding: 14px;
+            font-size: 1.1em;
+            font-weight: 700;
+            border: none;
+            border-radius: 14px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Cairo', sans-serif;
+            margin-top: 10px;
+        }
+
+        .review-show-answer-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(139, 92, 246, 0.38); }
 
         /* Resume banner */
         .resume-banner {
@@ -478,6 +503,8 @@
         .mode-card.starred-card .mode-card-title { color: var(--gold); }
         .mode-card.wrong-card { border-color: rgba(255, 92, 122, 0.4); }
         .mode-card.wrong-card .mode-card-title { color: var(--rose); }
+        .mode-card.review-card { border-color: rgba(53, 208, 168, 0.4); }
+        .mode-card.review-card .mode-card-title { color: var(--mint); }
 
         .exam-top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
 
@@ -506,7 +533,7 @@
             border-radius: 999px;
         }
 
-        /* Results Screen */
+        /* Results */
         .results-screen {
             text-align: center;
             padding: 38px 26px;
@@ -629,7 +656,6 @@
         }
         .review-link:hover { color: var(--ink); }
 
-        /* Footer credit */
         .site-footer {
             position: relative;
             z-index: 1;
@@ -647,7 +673,7 @@
             .question-card { padding: 22px 18px; }
             .question-text { font-size: 1.1em; }
             .score-display { font-size: 2.9em; }
-            .tf-buttons { flex-direction: column; }
+            .tf-buttons, .review-buttons { flex-direction: column; }
             .stats-container { grid-template-columns: repeat(2, 1fr); gap: 8px; }
             .stat-value { font-size: 1.3em; }
             .score-breakdown { grid-template-columns: 1fr; }
@@ -669,7 +695,7 @@
             <p>اختبر معلوماتك في الاختبارات الإلكترونية</p>
         </div>
 
-        <!-- ===================== SCREEN: HOME (resume + choose exam) ===================== -->
+        <!-- ===================== SCREEN: HOME ===================== -->
         <section id="screen-home" class="screen">
             <div id="resumeBanner" class="resume-banner hidden">
                 <div class="resume-icon">⏳</div>
@@ -708,6 +734,11 @@
                     <span class="mode-card-title">صح وخطأ</span>
                     <span class="mode-card-count" id="countTf">0 سؤال</span>
                 </button>
+                <button class="mode-card review-card" id="reviewModeBtn" data-mode="review-select">
+                    <span class="mode-card-icon">🔄</span>
+                    <span class="mode-card-title">مراجعة</span>
+                    <span class="mode-card-count" id="countReview">0 سؤال</span>
+                </button>
                 <button class="mode-card starred-card hidden" id="starredCard" data-mode="starred">
                     <span class="mode-card-icon">⭐</span>
                     <span class="mode-card-title">مراجعتي</span>
@@ -717,6 +748,39 @@
                     <span class="mode-card-icon">🔁</span>
                     <span class="mode-card-title">أخطائي السابقة</span>
                     <span class="mode-card-count" id="countWrong">0 سؤال</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ===================== SCREEN: REVIEW SELECT ===================== -->
+        <section id="screen-review-select" class="screen">
+            <div class="exam-top-bar">
+                <button class="menu-link" id="btnBackHomeReview">🏠 القائمة الرئيسية</button>
+            </div>
+            <div class="mode-intro">
+                <h2>مراجعة الأسئلة</h2>
+                <p>اختار نوع الأسئلة اللي عايز تراجعها</p>
+            </div>
+            <div class="mode-grid">
+                <button class="mode-card" data-review-type="all">
+                    <span class="mode-card-icon">📚</span>
+                    <span class="mode-card-title">كل الأسئلة</span>
+                    <span class="mode-card-count" id="reviewAllCount">0 سؤال</span>
+                </button>
+                <button class="mode-card" data-review-type="mcq">
+                    <span class="mode-card-icon">🔘</span>
+                    <span class="mode-card-title">اختيار من متعدد</span>
+                    <span class="mode-card-count" id="reviewMcqCount">0 سؤال</span>
+                </button>
+                <button class="mode-card" data-review-type="tf">
+                    <span class="mode-card-icon">✓✗</span>
+                    <span class="mode-card-title">صح وخطأ</span>
+                    <span class="mode-card-count" id="reviewTfCount">0 سؤال</span>
+                </button>
+                <button class="mode-card" data-review-type="fill">
+                    <span class="mode-card-icon">📝</span>
+                    <span class="mode-card-title">مقالي (أكمل)</span>
+                    <span class="mode-card-count" id="reviewFillCount">0 سؤال</span>
                 </button>
             </div>
         </section>
@@ -800,179 +864,171 @@
     <footer class="site-footer">برمجة: ميلاد ماهر</footer>
 
     <script>
-        // ============ Subject / storage config ============
-        const SUBJECT_NAME = "الاختبارات الإلكترونية";
-        const STORAGE_PREFIX = "examApp_v2_CloudLMS_";
+        // ============ STORAGE (new prefix for fresh start) ============
+        const STORAGE_PREFIX = "examApp_v3_Electronic_";
         const KEY_STARRED = STORAGE_PREFIX + "starred";
         const KEY_WRONG = STORAGE_PREFIX + "wrong";
         const KEY_SESSION = STORAGE_PREFIX + "session";
 
         function normalizeArabic(text) {
             if (!text) return '';
-            return text
-                .trim()
-                .replace(/\s+/g, ' ')
-                .replace(/[أإآ]/g, 'ا')
-                .replace(/ة/g, 'ه')
-                .replace(/ى/g, 'ي')
-                .toLowerCase();
+            return text.trim().replace(/\s+/g, ' ').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').toLowerCase();
         }
 
-        // ============ COMPLETE QUESTIONS DATA (with correct answers from PDF) ============
+        // ============ COMPLETE QUESTIONS DATA (with correct answers) ============
         const questions = [
-            // ---------- الأسئلة من 1 إلى 25 (اختيار من متعدد) ----------
+            // MCQ 1-25
             {
                 type: "mcq",
                 question: "أي من المفاهيم التالية يشير إلى العملية التي نحدد بواسطتها كمية ما يوجد في الشيء من  المقاييس المدرجة، أو السمة التي نقيسها ويعبر عنها بقيمة رقمية؟",
                 options: ["العد", "القياس", "التقدير", "التقييم"],
-                answer: 1  // ب
+                answer: 1
             },
             {
                 type: "mcq",
                 question: "أي من المفاهيم التالية هو أقدم من القياس ومرادف للتخمين، ويتم اللجوء إليه فقط إذا كانت الفروق في السمة واضحة أو لم تكن لدينا أداة قياس؟",
                 options: ["التقييم", "التقدير", "التقويم", "العد"],
-                answer: 1  // ب
+                answer: 1
             },
             {
                 type: "mcq",
                 question: "أي من الخطوات التالية تُعدَ المرحلة األخيرة في عملية التقويم المكونة من ثماني خطوات؟",
                 options: ["تحديد الهدف من التقويم", "تصميم وبناء أدوات التقويم", "إصدار الحكم أو القرار ومتابعة تنفيذه"],
-                answer: 2  // ج
+                answer: 2
             },
             {
                 type: "mcq",
                 question: "من وظائف التقويم \"تمكين صانعي القرارات من اتخاذ قرارات مناسبة حول التطوير التربوي وتطوير المنهج\". هذا يندرج تحت وظيفة :",
                 options: ["مساعدة المتعلم على اتخاذ القرار المناسب حول مواصلة الدراسة", "توفير معلومات وافية وصحيحة عن الفرد أو مجموعة األفراد", "تقدير مستوى التحصيل المبدئي للمتعلم", "تحفيز المتعلمين على التعلم"],
-                answer: 1  // ب
+                answer: 1
             },
             {
                 type: "mcq",
                 question: "أي من أسس التقويم التالية تعني أن األدوات المستخدمة فيه يجب أن تعطي نتائج متسقة  نسبيًا حول تحصيل المتعلم في كل مرة تطبق فيها؟",
                 options: ["الصدق", "الثبات", "الموضوعية", "الشمولية"],
-                answer: 1  // ب
+                answer: 1
             },
             {
                 type: "mcq",
                 question: "أي نوع من التقويم يطلق عليه أيضاً التقويم البنائي أو الشكلي أو المستمر؟",
                 options: ["التقويم المبدئي", "التقويم التكويني", "التقويم التشخيصي", "التقويم الختامي"],
-                answer: 1  // ب
+                answer: 1
             },
             {
                 type: "mcq",
                 question: "أي معيار تقارن فيه الدرجة التي يحصل عليها المتعلم إما في ضوء مستواه القبلي أو في ضوء أداء محكي؟",
                 options: ["القياس معياري المرجع", "المعيار السيكومتري", "القياس محكى المرجع", "المعيار النسبي"],
-                answer: 2  // ج
+                answer: 2
             },
             {
                 type: "mcq",
                 question: "أي من مصطلحات التقييم بالكمبيوتر تشير إلى التقييم الذي يكون فيه استخدام الكمبيوتر  جوهرًا ويستخدم لتقييم ووضع درجات لالستجابات المقدمة من الطالب؟",
                 options: ["التقييم بمساعدة الكمبيوتر(CAA)", "التقييم بوساطة الكمبيوتر(CMA)", "التقييم المعتمد على الكمبيوتر(CBA)", "التقييم على اإلنترنت(Online Assessment)"],
-                answer: 2  // ج
+                answer: 2
             },
             {
                 type: "mcq",
                 question: "أي من أدوات التقويم اإللكتروني التالية تتضمن أدوات اختبارية تتصف بالموضوعية  وتستخدم في تقويم الجانب المعرفي للنتاجات التعليمية؟",
                 options: ["االستبانات", "قوائم التقدير", "ساللم التقدير", "االختبارات التحصيلية"],
-                answer: 3  // د
+                answer: 3
             },
             {
                 type: "mcq",
                 question: "في طرق القياس والتقويم اإللكتروني، أي طريقة تهدف إلى قياس الوعي الذاتي والمهارات فوق المعرفية؟",
                 options: ["األنشطة التطبيقية", "األوراق البحثية", "القياس الذاتي", "االختبارات الفترية"],
-                answer: 2  // ج
+                answer: 2
             },
             {
                 type: "mcq",
                 question: "أي من األساليب التالية تُعد من أبرز أساليب التقييم اإللكتروني شيوعًا؟",
                 options: ["برامج التعلم الخصوصي", "التكليفات على الشبكة(Online Assignments)", "أنظمة التعلم التكاملية", "الحقيبة الوثائقية اإللكترونية"],
-                answer: 1  // ب
+                answer: 1
             },
             {
                 type: "mcq",
                 question: "من ميزات االختبارات اإللكترونية سهولة إعداد األسئلة والمهام والتكليفات وتوفير الوقت والجهد في ذلك. أي من التالي يدعم هذه الميزة؟",
                 options: ["توظيف تكنولوجيا الوسائط المتعددة", "إمكانية إجراء تعديالت في أسئلة االختبارات  بسهولة ويسر", "مرونة التطبيق", "توافر عنصر الموضوعية في التصحيح"],
-                answer: 1  // ب
+                answer: 1
             },
             {
                 type: "mcq",
                 question: "من أبرز مشكالت االختبارات اإللكترونية التي تتطلب وقتًا وجهًا كبيرًا في غياب بنوك  األسئلة؟",
                 options: ["صعوبة تقدير الدرجات في حالة اإلجابة ليست صحيحة تمامًا", "تكلفة البنية األساسية للتقييم اإللكتروني", "إعداد األسئلة", "صعوبة تصحيح االختبارات الطويلة الّيًا"],
-                answer: 2  // ج
+                answer: 2
             },
             {
                 type: "mcq",
                 question: "أي من اإلجراءات االحترازية التالية تهدف إلى منع الغش من اآلخرين في االختبارات  اإللكترونية؟",
                 options: ["تحميل ملف أسئلة االختبار واإلجابة الصحيحة على خادم آخر لحين الحاجة", "عمل اختبار وهمي (Fake Test) على الخادم لسبيل التمويه", "تقديم صور متكافئة من االختبار الواحد للمتعلمين المتجاوزين في قاعة االختبار", "منع المتعلم من استخدام المصادر اإللكترونية أو الورقية غير المسموح بها"],
-                answer: 2  // ج
+                answer: 2
             },
             {
                 type: "mcq",
                 question: "أي من أنواع االختبارات اإللكترونية التالية يقوم فيها الكمبيوتر برسم األسئلة بشكل  عشوائي من مجموعة أسئلة ليحصل كل ممتحن على اختبار فريد بمحتويات إحصائية  معادلة؟",
                 options: ["اختبار الشكل الثابت المعتمد على الكمبيوتر (CBT)", "االختبار الطائر الخطى (LOFT)", "االختبارات التكيفية", "االختبارات الخطية"],
-                answer: 1  // ب
+                answer: 1
             },
             {
                 type: "mcq",
                 question: "ما الفرق بين االختبارات الخطية والتكيفية، أي من العبارات التالية صحيحة؟",
                 options: ["زمن تطبيق االختبار موحد لجميع المتعلمين في االختبار التكيفي", "المتعلم يجيب عن عدد معين من األسئلة في االختبار التكيفي مختلف عن زميله المطبق عليه االختبار ذاته", "تقدر درجة المتعلم في االختبار الخطى بمستوى صعوبة األسئلة التي أجاب عنها", "تقديم أسئلة االختبار الخطى يتوقف متى حدد الكمبيوتر المستوى التحصيلي للمتعلم."],
-                answer: 1  // ب
+                answer: 1
             },
             {
                 type: "mcq",
                 question: "أي نوع من االختبارات يستخدم للحصول على معلومات أساسية قبل إعداد أي برنامج  تعليمي، مثل تحديد االحتياجات واألهداف؟",
                 options: ["اختبارات التسكين", "االختبارات القبلية", "االختبارات التشخيصية", "االختبارات البنائية"],
-                answer: 1  // ب
+                answer: 1
             },
             {
                 type: "mcq",
                 question: "من استراتيجيات إعطاء اختبارات التسكين، إعطاء االختبار عند المستوى الذي ال يستطيع  التلميذ أن يحرز مزيدًا من التقدم. أي من التالي يُعدّ من عيوب هذه اإلستراتيجية؟",
                 options: ["عدم إثارة التالميذ ذوي الخبرات الوفيرة المتعلقة بالمقرر الدراسي", "تقليل الوقت الذي يستغرقه التلميذ في اإلجابة عن االختبار", "تحديد نقاط بداية مالئمة لكل تلميذ", "إمكانية قياس مدى تقدم التلميذ بشكل دقيق"],
-                answer: 0  // أ
+                answer: 0
             },
             {
                 type: "mcq",
                 question: "أي نوع من االختبارات يهدف إلى معرفة درجة التالميذ في محتوى المادة الدراسية،  ويصحح عن طريق عدد المفردات الصحيحة التي أجاب عنها التلميذ؟",
                 options: ["االختبارات التشخيصية", "االختبارات التحصيلية العادية", "االختبارات التتبعية", "اختبارات التسكين"],
-                answer: 1  // ب
+                answer: 1
             },
             {
                 type: "mcq",
                 question: "أي من أنواع االختبارات اإللكترونية تتم فيها االختبارات على محطات عمل قائمة بذاتها على جهاز الكمبيوتر مباشرة باستخدام البرامج؟",
                 options: ["االختبارات المعتمدة على الشبكة المحلية", "االختبارات المعتمدة على اإلنترنت", "االختبارات على محطة عمل قائمة بذاتها", "االختبارات التكيفية"],
-                answer: 2  // ج
+                answer: 2
             },
             {
                 type: "mcq",
                 question: "أي من أشكال نشر االختبارات اإللكترونية يسمح بتسجيل إجابات المتعلمين إلكترونيًا  ويمكن أن يكون مفيدًا في تحديد الدروس القادمة والحكم على كفاءة المتعلم؟",
                 options: ["اختبارات مفردة", "اختبارات ضمن مقرر", "اختبارات تكيفية", "اختبارات خطية"],
-                answer: 1  // ب
+                answer: 1
             },
             {
                 type: "mcq",
                 question: "أي من برامج إنشاء االختبارات اإللكترونية الجاهزة التالية تُعدّ من البرامج التي توفر  خيارات عديدة لتصدير االختبارات بأنواع مختلفة مثل  cd  و  exe  ؟",
                 options: ["Quiz Creator", "Hot Potatoes", "Kahoot", "Google Forms"],
-                answer: 0  // أ
+                answer: 0
             },
             {
                 type: "mcq",
                 question: "أي من البرامج التالية يمكن استخدامها كبرنامج غير متخصص في إنشاء االختبارات  اإللكترونية؟",
                 options: ["Hot Potatoes", "Moodle", "Quiz Creator", "TCExam"],
-                answer: 1  // ب
+                answer: 1
             },
             {
                 type: "mcq",
                 question: "أي من االختبارات التحصيلية الموقوتة يكون أحد معاييرها تحديد فترة زمنية لإلجابة عن  االختبار ككل، وتستخدم غالبًا عند قياس مهارات يتطلب فيها إتقان المهارة أداء العمل بدقة  وفي أقل وقت ممكن؟",
                 options: ["اختبارات التمكن", "االختبارات الخطية", "اختبار سرعة الكتابة (مثل)", "االختبارات التكيفية"],
-                answer: 2  // ج
+                answer: 2
             },
             {
                 type: "mcq",
                 question: "أي من العناصر التالية ال يدخل في تحديد زمن االختبار؟",
                 options: ["عدد األسئلة التي يتكون منها االختبار", "نوع الوسائط المتعددة المستخدمة", "نوع اإلجابة الصحيحة", "خصائص المتعلمين"],
-                answer: 2  // ج
+                answer: 2
             },
-
-            // ---------- الأسئلة من 1 إلى 54 (صح/خطأ) ----------
+            // TF 1-54
             { type: "tf", question: "العد هو العملية التي نحدد بواسطتها كمية ما يوجد في الشيء من المقاييس المدرجة.", answer: false },
             { type: "tf", question: "القياس تقريبي دائماً، ووحداته متصلة ومستمرة فال فجوات بينها.", answer: true },
             { type: "tf", question: "التقييم يعني بيان قيمة الشيء بصورة نوعية (كيفية).", answer: true },
@@ -1027,8 +1083,7 @@
             { type: "tf", question: "التقويم الإلكتروني يقتصر على إعطاء الدرجات فقط ولا يقدم أي معلومات إضافية عن أداء المتعلم.", answer: false },
             { type: "tf", question: "يمكن استخدام قواعد البيانات لحفظ نتائج الاختبارات الإلكترونية وتحليلها.", answer: true },
             { type: "tf", question: "يعتمد نجاح الاختبار الإلكتروني على توفر الأجهزة والبرمجيات المناسبة للتطبيق.", answer: true },
-
-            // ---------- الأسئلة المقالية (fill) من صفحة 9-11 ----------
+            // Fill (Essay) 1-10
             {
                 type: "fill",
                 question: "الفرق بين التقييم والتقويم ؟",
@@ -1081,17 +1136,11 @@
             }
         ];
 
-        // ============ Storage helpers ============
+        // ============ Storage ============
         function safeGet(key, fallback) {
-            try {
-                const raw = localStorage.getItem(key);
-                if (!raw) return fallback;
-                return JSON.parse(raw);
-            } catch (e) { return fallback; }
+            try { const raw = localStorage.getItem(key); if (!raw) return fallback; return JSON.parse(raw); } catch (e) { return fallback; }
         }
-        function safeSet(key, value) {
-            try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
-        }
+        function safeSet(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {} }
 
         function getStarred() { return safeGet(KEY_STARRED, []); }
         function setStarred(arr) { safeSet(KEY_STARRED, arr); }
@@ -1123,22 +1172,25 @@
         let currentQuestion = 0;
         let examOrder = [];
         let currentMode = 'full';
+        let currentReviewType = 'all'; // for review mode
         let score = 0;
         let userAnswers = [];
         let detailedAnswers = [];
         let selectedMCQ = null;
         let selectedTF = null;
+        let reviewAnswerShown = false;
 
         const MODE_LABELS = {
             full: 'امتحان شامل 🌐',
             fill: 'أكمل فقط 📝',
             mcq: 'اختيار من متعدد 🔘',
             tf: 'صح وخطأ ✓✗',
+            review: 'مراجعة 🔄',
             starred: 'مراجعتي ⭐',
             wrongHistory: 'أخطائي السابقة 🔁'
         };
 
-        // ============ Screen switching (single source of truth) ============
+        // ============ Screen ============
         function showScreen(name) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             const target = document.getElementById('screen-' + name);
@@ -1156,12 +1208,28 @@
             document.getElementById('btnResume').addEventListener('click', resumeSession);
             document.getElementById('btnDiscard').addEventListener('click', discardSessionAndShowMenu);
             document.getElementById('btnBackHome').addEventListener('click', confirmBackToMenu);
+            document.getElementById('btnBackHomeReview').addEventListener('click', goHome);
             document.getElementById('btnHomeFromResults').addEventListener('click', goHome);
             document.getElementById('btnToggleReview').addEventListener('click', toggleReviewSection);
 
             document.querySelectorAll('.mode-card').forEach(card => {
                 card.addEventListener('click', function() {
-                    startNewExam(this.getAttribute('data-mode'));
+                    const mode = this.getAttribute('data-mode');
+                    if (mode === 'review-select') {
+                        // show review selection screen
+                        updateReviewCounts();
+                        showScreen('review-select');
+                    } else {
+                        startNewExam(mode);
+                    }
+                });
+            });
+
+            // Review type cards in review-select screen
+            document.querySelectorAll('#screen-review-select .mode-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const type = this.getAttribute('data-review-type');
+                    startReviewExam(type);
                 });
             });
         }
@@ -1192,11 +1260,50 @@
             document.getElementById('countFill').textContent = fillCount + ' سؤال';
             document.getElementById('countMcq').textContent = mcqCount + ' سؤال';
             document.getElementById('countTf').textContent = tfCount + ' سؤال';
+            document.getElementById('countReview').textContent = total + ' سؤال (اختر النوع)';
             document.getElementById('countStarred').textContent = starred.length + ' سؤال';
             document.getElementById('countWrong').textContent = wrong.length + ' سؤال';
 
             document.getElementById('starredCard').classList.toggle('hidden', starred.length === 0);
             document.getElementById('wrongCard').classList.toggle('hidden', wrong.length === 0);
+        }
+
+        function updateReviewCounts() {
+            const all = questions.length;
+            const mcq = questions.filter(q => q.type === 'mcq').length;
+            const tf = questions.filter(q => q.type === 'tf').length;
+            const fill = questions.filter(q => q.type === 'fill').length;
+            document.getElementById('reviewAllCount').textContent = all + ' سؤال';
+            document.getElementById('reviewMcqCount').textContent = mcq + ' سؤال';
+            document.getElementById('reviewTfCount').textContent = tf + ' سؤال';
+            document.getElementById('reviewFillCount').textContent = fill + ' سؤال';
+        }
+
+        function startReviewExam(type) {
+            // Build order based on type
+            let order = [];
+            if (type === 'all') {
+                order = questions.map((q, i) => i);
+            } else if (type === 'mcq' || type === 'tf' || type === 'fill') {
+                order = questions.map((q, i) => i).filter(i => questions[i].type === type);
+            }
+            if (order.length === 0) { alert('مفيش أسئلة من النوع ده.'); return; }
+
+            currentMode = 'review';
+            currentReviewType = type;
+            examOrder = order;
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            detailedAnswers = [];
+            selectedMCQ = null;
+            selectedTF = null;
+            reviewAnswerShown = false;
+
+            saveSession();
+            enterExamUI();
+            showQuestion();
+            updateLiveStats();
         }
 
         function resumeSession() {
@@ -1208,7 +1315,8 @@
             score = session.score;
             userAnswers = session.userAnswers || [];
             detailedAnswers = session.detailedAnswers || [];
-
+            // if review mode, we need to know the type? we can store it, but we can just use the mode.
+            // We'll add a field in session if needed, but not critical.
             enterExamUI();
             showQuestion();
             updateLiveStats();
@@ -1231,6 +1339,8 @@
             } else if (mode === 'wrongHistory') {
                 order = getWrongBank().slice();
                 if (order.length === 0) { alert('مفيش أخطاء محفوظة لسه.'); return; }
+            } else {
+                return;
             }
 
             if (order.length === 0) { alert('مفيش أسئلة من النوع ده.'); return; }
@@ -1243,6 +1353,7 @@
             detailedAnswers = [];
             selectedMCQ = null;
             selectedTF = null;
+            reviewAnswerShown = false;
 
             saveSession();
             enterExamUI();
@@ -1293,6 +1404,7 @@
             setTimeout(() => { element.classList.remove('updated'); }, 500);
         }
 
+        // ============ showQuestion ============
         function showQuestion() {
             const qIndex = examOrder[currentQuestion];
             const q = questions[qIndex];
@@ -1310,6 +1422,65 @@
                     <div class="question-text">${q.question}</div>
             `;
 
+            // Special rendering for review mode
+            if (currentMode === 'review') {
+                questionHTML += `
+                    <button class="review-show-answer-btn" id="showAnswerBtn">📖 إظهار الإجابة</button>
+                    <div class="review-buttons" id="reviewButtons" style="display:none; margin-top:16px;">
+                        <button class="review-btn" id="reviewCorrect">✓ صح (عرفت الإجابة)</button>
+                        <button class="review-btn" id="reviewWrong">✗ خطأ (ما عرفتهاش)</button>
+                    </div>
+                    <div class="feedback" id="feedback"></div>
+                    <div class="nav-buttons">
+                        <button class="nav-btn next-btn" id="nextBtn" disabled>السؤال التالي</button>
+                    </div>
+                `;
+                container.innerHTML = questionHTML;
+
+                document.getElementById('starBtn').addEventListener('click', function() { toggleStar(qIndex); });
+
+                const showBtn = document.getElementById('showAnswerBtn');
+                const reviewBtns = document.getElementById('reviewButtons');
+                const nextBtn = document.getElementById('nextBtn');
+
+                showBtn.addEventListener('click', function() {
+                    const feedback = document.getElementById('feedback');
+                    let correctText = '';
+                    if (q.type === 'mcq') {
+                        correctText = q.options[q.answer];
+                    } else if (q.type === 'tf') {
+                        correctText = q.answer ? 'صح ✓' : 'خطأ ✗';
+                    } else if (q.type === 'fill') {
+                        correctText = q.answer;
+                    }
+                    feedback.className = 'feedback info show';
+                    feedback.innerHTML = `الإجابة الصحيحة: <strong>${correctText}</strong>`;
+                    showBtn.style.display = 'none';
+                    reviewBtns.style.display = 'flex';
+                    reviewAnswerShown = true;
+                });
+
+                document.getElementById('reviewCorrect').addEventListener('click', function() {
+                    if (!reviewAnswerShown) return;
+                    registerReviewAnswer(true, qIndex);
+                    nextBtn.disabled = false;
+                    document.querySelectorAll('.review-btn').forEach(btn => btn.style.pointerEvents = 'none');
+                });
+
+                document.getElementById('reviewWrong').addEventListener('click', function() {
+                    if (!reviewAnswerShown) return;
+                    registerReviewAnswer(false, qIndex);
+                    nextBtn.disabled = false;
+                    document.querySelectorAll('.review-btn').forEach(btn => btn.style.pointerEvents = 'none');
+                });
+
+                nextBtn.addEventListener('click', nextQuestion);
+
+                updateProgress();
+                return;
+            }
+
+            // ------------- Normal modes (non-review) -------------
             if (q.type === 'fill') {
                 questionHTML += `
                     <input type="text" class="fill-input" id="fillAnswer" placeholder="اكتب الإجابة هنا..." autocomplete="off">
@@ -1346,52 +1517,65 @@
                 `;
             }
 
-            questionHTML += '</div>';
             container.innerHTML = questionHTML;
             selectedMCQ = null;
             selectedTF = null;
 
             document.getElementById('starBtn').addEventListener('click', function() { toggleStar(qIndex); });
-            document.getElementById('checkBtn').addEventListener('click', function() {
-                if (q.type === 'fill') checkFillAnswer();
-                else if (q.type === 'mcq') checkMCQAnswer();
-                else if (q.type === 'tf') checkTFAnswer();
-            });
-            document.getElementById('nextBtn').addEventListener('click', nextQuestion);
 
-            if (q.type === 'mcq') {
-                document.querySelectorAll('.option').forEach(opt => {
-                    opt.addEventListener('click', function() { selectOption(parseInt(this.getAttribute('data-index'), 10)); });
+            if (q.type !== 'review') {
+                document.getElementById('checkBtn').addEventListener('click', function() {
+                    if (q.type === 'fill') checkFillAnswer();
+                    else if (q.type === 'mcq') checkMCQAnswer();
+                    else if (q.type === 'tf') checkTFAnswer();
                 });
-            } else if (q.type === 'tf') {
-                document.getElementById('tfTrue').addEventListener('click', function() { selectTF(true); });
-                document.getElementById('tfFalse').addEventListener('click', function() { selectTF(false); });
-            } else if (q.type === 'fill') {
-                document.getElementById('fillAnswer').addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter') checkFillAnswer();
-                });
+                document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+
+                if (q.type === 'mcq') {
+                    document.querySelectorAll('.option').forEach(opt => {
+                        opt.addEventListener('click', function() { selectOption(parseInt(this.getAttribute('data-index'), 10)); });
+                    });
+                } else if (q.type === 'tf') {
+                    document.getElementById('tfTrue').addEventListener('click', function() { selectTF(true); });
+                    document.getElementById('tfFalse').addEventListener('click', function() { selectTF(false); });
+                } else if (q.type === 'fill') {
+                    document.getElementById('fillAnswer').addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter') checkFillAnswer();
+                    });
+                }
             }
 
             updateProgress();
         }
 
-        function getQuestionTypeLabel(type) {
-            switch(type) {
-                case 'fill': return '📝 أكمل';
-                case 'mcq': return '🔘 اختر الإجابة الصحيحة';
-                case 'tf': return '✓✗ صح أم خطأ';
+        // ============ Review specific answer registration ============
+        function registerReviewAnswer(isCorrectSelf, qIndex) {
+            const correct = isCorrectSelf;
+            if (correct) {
+                score++;
+                removeFromWrongBank(qIndex);
+            } else {
+                addToWrongBank(qIndex);
+                const q = questions[qIndex];
+                let correctText = '';
+                if (q.type === 'mcq') correctText = q.options[q.answer];
+                else if (q.type === 'tf') correctText = q.answer ? 'صح ✓' : 'خطأ ✗';
+                else if (q.type === 'fill') correctText = q.answer;
+                detailedAnswers.push({
+                    questionNumber: currentQuestion + 1,
+                    question: q.question,
+                    isCorrect: false,
+                    type: 'review',
+                    userAnswer: isCorrectSelf ? 'صح (عرفت الإجابة)' : 'خطأ (ما عرفتهاش)',
+                    correctAnswer: correctText
+                });
             }
+            userAnswers.push({ qIndex: qIndex, correct: correct });
+            updateLiveStats();
+            saveSession();
         }
 
-        function getQuestionTypeColor(type) {
-            switch(type) {
-                case 'fill': return '#4F8CFF';
-                case 'mcq': return '#F5B94D';
-                case 'tf': return '#35D0A8';
-                default: return '#4F8CFF';
-            }
-        }
-
+        // ============ Normal answer checks (fill, mcq, tf) ============
         function selectOption(index) {
             document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
             document.getElementById('opt' + index).classList.add('selected');
@@ -1593,6 +1777,25 @@
                 `;
             });
             wrongAnswersList.innerHTML = html;
+        }
+
+        // ============ Helpers ============
+        function getQuestionTypeLabel(type) {
+            switch(type) {
+                case 'fill': return '📝 أكمل';
+                case 'mcq': return '🔘 اختيار من متعدد';
+                case 'tf': return '✓✗ صح وخطأ';
+                default: return '📖 مراجعة';
+            }
+        }
+
+        function getQuestionTypeColor(type) {
+            switch(type) {
+                case 'fill': return '#4F8CFF';
+                case 'mcq': return '#F5B94D';
+                case 'tf': return '#35D0A8';
+                default: return '#8B5CF6';
+            }
         }
     </script>
 </body>
