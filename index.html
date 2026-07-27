@@ -6,8 +6,8 @@
     <title>الاختبارات الإلكترونية</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        /* ===== RESET & BASE ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         :root {
             --bg-deep: #0B0F1D;
             --bg-mid: #141B33;
@@ -16,29 +16,18 @@
             --ink: #F4F6FC;
             --muted: #9BA6C4;
             --line: rgba(255, 255, 255, 0.10);
-
             --violet: #8B5CF6;
             --azure: #4F8CFF;
             --pink: #F45CA6;
             --gold: #F5B94D;
             --mint: #35D0A8;
             --rose: #FF5C7A;
-
             --grad-brand: linear-gradient(120deg, var(--azure) 0%, var(--violet) 55%, var(--pink) 100%);
             --shadow-card: 0 20px 50px rgba(3, 6, 20, 0.45);
             --shadow-btn: 0 10px 24px rgba(79, 140, 255, 0.28);
         }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
         html, body { height: 100%; }
-
         body {
             font-family: 'Cairo', sans-serif;
             background: var(--bg-deep);
@@ -49,7 +38,6 @@
             display: flex;
             flex-direction: column;
         }
-
         body::before, body::after {
             content: '';
             position: fixed;
@@ -61,385 +49,178 @@
             z-index: 0;
             pointer-events: none;
         }
-
-        body::before {
-            top: -180px;
-            inset-inline-start: -160px;
-            background: var(--azure);
-            animation: drift1 22s ease-in-out infinite alternate;
-        }
-
-        body::after {
-            bottom: -220px;
-            inset-inline-end: -180px;
-            background: var(--violet);
-            animation: drift2 26s ease-in-out infinite alternate;
-        }
-
+        body::before { top: -180px; inset-inline-start: -160px; background: var(--azure); animation: drift1 22s ease-in-out infinite alternate; }
+        body::after { bottom: -220px; inset-inline-end: -180px; background: var(--violet); animation: drift2 26s ease-in-out infinite alternate; }
         @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(40px,60px) scale(1.15); } }
         @keyframes drift2 { from { transform: translate(0,0) scale(1); } to { transform: translate(-50px,-40px) scale(1.1); } }
 
-        .container {
-            max-width: 760px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 32px 20px 20px;
-            position: relative;
-            z-index: 1;
-            flex: 1;
-        }
-
+        .container { max-width: 760px; width: 100%; margin: 0 auto; padding: 32px 20px 20px; position: relative; z-index: 1; flex: 1; }
         .screen { display: none; }
         .screen.active { display: block; animation: fadeIn 0.35s ease-out; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         .hidden { display: none !important; }
 
-        /* Header */
-        .header {
-            text-align: center;
-            padding: 6px 10px 30px;
-            margin-bottom: 22px;
-        }
-
+        /* ===== HEADER ===== */
+        .header { text-align: center; padding: 6px 10px 30px; margin-bottom: 22px; }
         .header .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.82em;
-            font-weight: 700;
-            color: var(--ink);
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--line);
-            padding: 6px 18px;
-            border-radius: 999px;
-            margin-bottom: 18px;
-            backdrop-filter: blur(6px);
+            display: inline-flex; align-items: center; gap: 8px; font-size: 0.82em; font-weight: 700;
+            color: var(--ink); background: rgba(255,255,255,0.08); border: 1px solid var(--line);
+            padding: 6px 18px; border-radius: 999px; margin-bottom: 18px; backdrop-filter: blur(6px);
         }
-
         .header h1 {
-            font-family: 'Tajawal', sans-serif;
-            font-size: 2.3em;
-            font-weight: 900;
-            background: var(--grad-brand);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-            letter-spacing: -0.01em;
+            font-family: 'Tajawal', sans-serif; font-size: 2.3em; font-weight: 900;
+            background: var(--grad-brand); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; margin-bottom: 10px; letter-spacing: -0.01em;
         }
-
         .header p { font-size: 1em; color: var(--muted); font-weight: 400; }
 
-        /* Progress */
+        /* ===== PROGRESS ===== */
         .progress-container {
-            background: var(--paper);
-            border: 1px solid var(--line);
-            border-radius: 18px;
-            padding: 16px 18px;
-            margin-bottom: 16px;
-            backdrop-filter: blur(16px);
-            box-shadow: var(--shadow-card);
+            background: var(--paper); border: 1px solid var(--line); border-radius: 18px;
+            padding: 16px 18px; margin-bottom: 16px; backdrop-filter: blur(16px); box-shadow: var(--shadow-card);
         }
-
         .progress-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 12px;
-            font-size: 0.92em;
-            font-weight: 600;
-            color: var(--muted);
+            display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;
+            font-size: 0.92em; font-weight: 600; color: var(--muted);
         }
-
         .progress-info span:last-child {
-            font-family: 'Tajawal', sans-serif;
-            font-weight: 800;
-            background: var(--grad-brand);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-family: 'Tajawal', sans-serif; font-weight: 800;
+            background: var(--grad-brand); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
-        .progress-bar {
-            position: relative;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 999px;
-            height: 10px;
-            overflow: visible;
-        }
-
+        .progress-bar { position: relative; background: rgba(255,255,255,0.08); border-radius: 999px; height: 10px; overflow: visible; }
         .progress-fill {
-            position: relative;
-            height: 100%;
-            background: var(--grad-brand);
-            border-radius: 999px;
-            transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-            min-width: 10px;
-            box-shadow: 0 0 16px rgba(139, 92, 246, 0.55);
+            position: relative; height: 100%; background: var(--grad-brand); border-radius: 999px;
+            transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1); min-width: 10px; box-shadow: 0 0 16px rgba(139,92,246,0.55);
         }
+        .progress-fill::after { content: '☁'; position: absolute; inset-inline-end: -14px; top: 50%; transform: translateY(-58%); font-size: 1.25em; filter: drop-shadow(0 2px 6px rgba(79,140,255,0.6)); }
 
-        .progress-fill::after {
-            content: '☁';
-            position: absolute;
-            inset-inline-end: -14px;
-            top: 50%;
-            transform: translateY(-58%);
-            font-size: 1.25em;
-            filter: drop-shadow(0 2px 6px rgba(79, 140, 255, 0.6));
-        }
-
-        /* Stats */
+        /* ===== STATS ===== */
         .stats-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 22px;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 22px;
         }
-
         .stat-card {
-            background: var(--paper);
-            border: 1px solid var(--line);
-            border-radius: 16px;
-            padding: 15px 8px;
-            text-align: center;
-            backdrop-filter: blur(16px);
+            background: var(--paper); border: 1px solid var(--line); border-radius: 16px;
+            padding: 15px 8px; text-align: center; backdrop-filter: blur(16px);
             transition: transform 0.2s ease, border-color 0.2s ease;
         }
-
-        .stat-card:hover { transform: translateY(-3px); border-color: rgba(255, 255, 255, 0.22); }
+        .stat-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.22); }
         .stat-icon { font-size: 1.15em; margin-bottom: 4px; opacity: 0.9; }
         .stat-label { font-size: 0.7em; color: var(--muted); margin-bottom: 5px; font-weight: 600; line-height: 1.3; }
         .stat-value { font-family: 'Tajawal', sans-serif; font-size: 1.55em; font-weight: 800; color: var(--ink); transition: color 0.3s ease; }
         .stat-value.updated { animation: pulse 0.45s ease; }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.22); color: var(--azure); } }
 
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.22); color: var(--azure); } }
-
-        /* Question Card */
+        /* ===== QUESTION CARD ===== */
         .question-card {
-            background: var(--paper-solid);
-            border-radius: 22px;
-            padding: 30px 26px;
-            margin-bottom: 22px;
-            box-shadow: var(--shadow-card);
-            border: 1px solid var(--line);
-            animation: slideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-            position: relative;
-            overflow: hidden;
+            background: var(--paper-solid); border-radius: 22px; padding: 30px 26px; margin-bottom: 22px;
+            box-shadow: var(--shadow-card); border: 1px solid var(--line);
+            animation: slideIn 0.4s cubic-bezier(0.22,1,0.36,1); position: relative; overflow: hidden;
         }
-
         .question-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            inset-inline-start: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--type-color, var(--azure));
-            box-shadow: 0 0 16px var(--type-color, var(--azure));
+            content: ''; position: absolute; top: 0; inset-inline-start: 0; width: 100%; height: 4px;
+            background: var(--type-color, var(--azure)); box-shadow: 0 0 16px var(--type-color, var(--azure));
         }
-
         @keyframes slideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
         .question-top-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 20px; }
-
         .question-type {
-            display: inline-block;
-            background: color-mix(in srgb, var(--type-color, var(--azure)) 18%, transparent);
-            color: var(--type-color, var(--azure));
-            padding: 6px 16px;
-            border-radius: 999px;
-            font-size: 0.82em;
-            font-weight: 700;
-            border: 1px solid color-mix(in srgb, var(--type-color, var(--azure)) 45%, transparent);
+            display: inline-block; background: color-mix(in srgb, var(--type-color, var(--azure)) 18%, transparent);
+            color: var(--type-color, var(--azure)); padding: 6px 16px; border-radius: 999px;
+            font-size: 0.82em; font-weight: 700; border: 1px solid color-mix(in srgb, var(--type-color, var(--azure)) 45%, transparent);
         }
-
         .star-btn {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1.5px solid var(--line);
-            color: var(--muted);
-            font-size: 1.2em;
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1;
+            background: rgba(255,255,255,0.06); border: 1.5px solid var(--line); color: var(--muted);
+            font-size: 1.2em; width: 42px; height: 42px; border-radius: 12px; cursor: pointer;
+            transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; line-height: 1;
         }
-
         .star-btn:hover { border-color: var(--gold); transform: translateY(-1px); }
-        .star-btn.active {
-            background: rgba(245, 185, 77, 0.16);
-            border-color: var(--gold);
-            color: var(--gold);
-            box-shadow: 0 0 14px rgba(245, 185, 77, 0.3);
-        }
+        .star-btn.active { background: rgba(245,185,77,0.16); border-color: var(--gold); color: var(--gold); box-shadow: 0 0 14px rgba(245,185,77,0.3); }
 
-        .question-text {
-            font-family: 'Tajawal', sans-serif;
-            font-size: 1.22em;
-            font-weight: 700;
-            margin-bottom: 24px;
-            line-height: 1.7;
-            color: var(--ink);
-        }
+        .question-text { font-family: 'Tajawal', sans-serif; font-size: 1.22em; font-weight: 700; margin-bottom: 24px; line-height: 1.7; color: var(--ink); }
 
         .fill-input {
-            width: 100%;
-            padding: 15px 18px;
-            font-size: 1.05em;
-            border: 2px solid var(--line);
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--ink);
-            font-family: 'Cairo', sans-serif;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            margin-bottom: 15px;
+            width: 100%; padding: 15px 18px; font-size: 1.05em; border: 2px solid var(--line);
+            border-radius: 14px; background: rgba(255,255,255,0.05); color: var(--ink);
+            font-family: 'Cairo', sans-serif; font-weight: 600; transition: all 0.2s ease; margin-bottom: 15px;
         }
-
         .fill-input::placeholder { color: var(--muted); font-weight: 400; }
-        .fill-input:focus {
-            outline: none;
-            border-color: var(--azure);
-            background: rgba(79, 140, 255, 0.08);
-            box-shadow: 0 0 0 4px rgba(79, 140, 255, 0.15);
-        }
+        .fill-input:focus { outline: none; border-color: var(--azure); background: rgba(79,140,255,0.08); box-shadow: 0 0 0 4px rgba(79,140,255,0.15); }
 
         .options { display: grid; gap: 12px; }
-
         .option {
-            background: rgba(255, 255, 255, 0.045);
-            padding: 16px 20px;
-            border-radius: 14px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: 2px solid var(--line);
-            font-size: 1.02em;
-            font-weight: 600;
-            color: var(--ink);
-            position: relative;
+            background: rgba(255,255,255,0.045); padding: 16px 20px; border-radius: 14px; cursor: pointer;
+            transition: all 0.2s ease; border: 2px solid var(--line); font-size: 1.02em; font-weight: 600; color: var(--ink);
         }
+        .option:hover { background: rgba(255,255,255,0.09); border-color: var(--gold); }
+        .option.selected { background: rgba(53,208,168,0.14); border-color: var(--mint); color: var(--mint); box-shadow: 0 0 18px rgba(53,208,168,0.28); }
 
-        .option:hover { background: rgba(255, 255, 255, 0.09); border-color: var(--gold); }
-        .option.selected {
-            background: rgba(53, 208, 168, 0.14);
-            border-color: var(--mint);
-            color: var(--mint);
-            box-shadow: 0 0 18px rgba(53, 208, 168, 0.28);
+        .tf-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+        .tf-btn {
+            flex: 1; min-width: 120px; padding: 18px; font-size: 1.15em; font-weight: 700;
+            border: 2px solid var(--line); border-radius: 14px; background: rgba(255,255,255,0.045);
+            color: var(--ink); cursor: pointer; transition: all 0.2s ease; font-family: 'Cairo', sans-serif;
         }
+        .tf-btn:hover { background: rgba(255,255,255,0.09); border-color: var(--gold); }
+        .tf-btn.selected { background: rgba(53,208,168,0.14); border-color: var(--mint); color: var(--mint); box-shadow: 0 0 18px rgba(53,208,168,0.28); }
 
-        .tf-buttons, .review-buttons {
-            display: flex;
-            gap: 14px;
-            justify-content: center;
+        .review-buttons {
+            display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 16px;
         }
-
-        .tf-btn, .review-btn {
-            flex: 1;
-            padding: 18px;
-            font-size: 1.15em;
-            font-weight: 700;
-            border: 2px solid var(--line);
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.045);
-            color: var(--ink);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: 'Cairo', sans-serif;
+        .review-btn {
+            flex: 1; min-width: 140px; padding: 16px 20px; font-size: 1.05em; font-weight: 700;
+            border: 2px solid var(--line); border-radius: 14px; background: rgba(255,255,255,0.045);
+            color: var(--ink); cursor: pointer; transition: all 0.2s ease; font-family: 'Cairo', sans-serif;
         }
-
-        .tf-btn:hover, .review-btn:hover { background: rgba(255, 255, 255, 0.09); border-color: var(--gold); }
-        .tf-btn.selected, .review-btn.selected {
-            background: rgba(53, 208, 168, 0.14);
-            border-color: var(--mint);
-            color: var(--mint);
-            box-shadow: 0 0 18px rgba(53, 208, 168, 0.28);
-        }
-
-        .review-btn.review-correct { border-color: var(--mint); color: var(--mint); }
-        .review-btn.review-wrong { border-color: var(--rose); color: var(--rose); }
+        .review-btn:hover { background: rgba(255,255,255,0.09); border-color: var(--gold); }
+        .review-btn.review-add { border-color: var(--gold); color: var(--gold); }
+        .review-btn.review-add:hover { background: rgba(245,185,77,0.15); }
+        .review-btn.review-remove { border-color: var(--rose); color: var(--rose); }
+        .review-btn.review-remove:hover { background: rgba(255,92,122,0.15); }
 
         .feedback {
-            margin-top: 18px;
-            padding: 14px 18px;
-            border-radius: 14px;
-            font-size: 1em;
-            font-weight: 600;
-            line-height: 1.6;
-            animation: popIn 0.25s ease-out;
-            display: none;
+            margin-top: 18px; padding: 14px 18px; border-radius: 14px; font-size: 1em; font-weight: 600;
+            line-height: 1.6; animation: popIn 0.25s ease-out; display: none;
         }
-
-        @keyframes popIn { 0% { opacity: 0; transform: translateY(4px); } 100% { opacity: 1; transform: translateY(0); } }
-
-        .feedback.correct { background: rgba(53, 208, 168, 0.12); border: 1.5px solid var(--mint); color: var(--mint); }
-        .feedback.incorrect { background: rgba(255, 92, 122, 0.10); border: 1.5px solid var(--rose); color: var(--rose); }
-        .feedback.info { background: rgba(79, 140, 255, 0.10); border: 1.5px solid var(--azure); color: var(--azure); }
+        @keyframes popIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+        .feedback.correct { background: rgba(53,208,168,0.12); border: 1.5px solid var(--mint); color: var(--mint); }
+        .feedback.incorrect { background: rgba(255,92,122,0.10); border: 1.5px solid var(--rose); color: var(--rose); }
+        .feedback.info { background: rgba(79,140,255,0.10); border: 1.5px solid var(--azure); color: var(--azure); }
         .feedback.show { display: block; }
 
         .nav-buttons { display: flex; gap: 14px; margin-top: 26px; }
-
         .nav-btn {
-            flex: 1;
-            padding: 16px 24px;
-            font-size: 1.05em;
-            font-weight: 700;
-            border: none;
-            border-radius: 14px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: 'Cairo', sans-serif;
-            color: white;
+            flex: 1; padding: 16px 24px; font-size: 1.05em; font-weight: 700; border: none;
+            border-radius: 14px; cursor: pointer; transition: all 0.2s ease; font-family: 'Cairo', sans-serif; color: white;
         }
-
-        .next-btn { background: rgba(255, 255, 255, 0.08); border: 1px solid var(--line); }
-        .next-btn:hover:not(:disabled) { background: rgba(255, 255, 255, 0.14); transform: translateY(-2px); }
+        .next-btn { background: rgba(255,255,255,0.08); border: 1px solid var(--line); }
+        .next-btn:hover:not(:disabled) { background: rgba(255,255,255,0.14); transform: translateY(-2px); }
         .next-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-
         .check-btn { background: var(--grad-brand); box-shadow: var(--shadow-btn); }
-        .check-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(139, 92, 246, 0.38); }
+        .check-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(139,92,246,0.38); }
         .check-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 
         .review-show-answer-btn {
-            background: var(--grad-brand);
-            box-shadow: var(--shadow-btn);
-            width: 100%;
-            padding: 14px;
-            font-size: 1.1em;
-            font-weight: 700;
-            border: none;
-            border-radius: 14px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: 'Cairo', sans-serif;
-            margin-top: 10px;
+            background: var(--grad-brand); box-shadow: var(--shadow-btn); width: 100%; padding: 14px;
+            font-size: 1.1em; font-weight: 700; border: none; border-radius: 14px; color: white;
+            cursor: pointer; transition: all 0.2s ease; font-family: 'Cairo', sans-serif; margin-top: 10px;
         }
+        .review-show-answer-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(139,92,246,0.38); }
 
-        .review-show-answer-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(139, 92, 246, 0.38); }
+        .wrong-list-btn {
+            background: rgba(255,255,255,0.06); border: 1.5px solid var(--rose); color: var(--rose);
+            padding: 10px 20px; border-radius: 12px; font-size: 0.95em; font-weight: 700;
+            cursor: pointer; transition: all 0.2s ease; font-family: 'Cairo', sans-serif; margin-top: 10px;
+            display: inline-block;
+        }
+        .wrong-list-btn:hover { background: rgba(255,92,122,0.12); transform: translateY(-2px); }
 
-        /* Resume banner */
+        /* ===== RESUME BANNER ===== */
         .resume-banner {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            background: var(--paper-solid);
-            border: 1.5px solid var(--gold);
-            border-radius: 20px;
-            padding: 20px 22px;
-            margin-bottom: 22px;
-            box-shadow: 0 0 26px rgba(245, 185, 77, 0.15), var(--shadow-card);
-            flex-wrap: wrap;
+            display: flex; align-items: center; gap: 16px; background: var(--paper-solid);
+            border: 1.5px solid var(--gold); border-radius: 20px; padding: 20px 22px; margin-bottom: 22px;
+            box-shadow: 0 0 26px rgba(245,185,77,0.15), var(--shadow-card); flex-wrap: wrap;
         }
-
         .resume-icon { font-size: 2em; flex-shrink: 0; }
         .resume-text { flex: 1; min-width: 160px; }
         .resume-text h3 { font-family: 'Tajawal', sans-serif; font-size: 1.05em; font-weight: 800; margin-bottom: 4px; color: var(--ink); }
@@ -447,137 +228,81 @@
         .resume-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
         .mode-btn {
-            padding: 12px 20px;
-            border-radius: 12px;
-            border: none;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 700;
-            font-size: 0.95em;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            white-space: nowrap;
+            padding: 12px 20px; border-radius: 12px; border: none; font-family: 'Cairo', sans-serif;
+            font-weight: 700; font-size: 0.95em; cursor: pointer; transition: all 0.2s ease; white-space: nowrap;
         }
-
         .mode-btn.primary { background: var(--grad-brand); color: white; box-shadow: var(--shadow-btn); }
         .mode-btn.primary:hover { transform: translateY(-2px); }
-        .mode-btn.ghost { background: rgba(255, 255, 255, 0.06); color: var(--ink); border: 1.5px solid var(--line); }
-        .mode-btn.ghost:hover { background: rgba(255, 255, 255, 0.12); }
+        .mode-btn.ghost { background: rgba(255,255,255,0.06); color: var(--ink); border: 1.5px solid var(--line); }
+        .mode-btn.ghost:hover { background: rgba(255,255,255,0.12); }
 
+        /* ===== MODE GRID ===== */
         .mode-intro { text-align: center; margin-bottom: 26px; }
         .mode-intro h2 {
-            font-family: 'Tajawal', sans-serif;
-            font-size: 1.5em;
-            font-weight: 800;
-            margin-bottom: 8px;
-            background: var(--grad-brand);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-family: 'Tajawal', sans-serif; font-size: 1.5em; font-weight: 800; margin-bottom: 8px;
+            background: var(--grad-brand); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         .mode-intro p { color: var(--muted); font-size: 0.95em; }
 
         .mode-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 18px; }
-
         .mode-card {
-            background: var(--paper-solid);
-            border: 1.5px solid var(--line);
-            border-radius: 18px;
-            padding: 22px 14px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Cairo', sans-serif;
-            color: var(--ink);
+            background: var(--paper-solid); border: 1.5px solid var(--line); border-radius: 18px;
+            padding: 22px 14px; text-align: center; cursor: pointer; transition: all 0.2s ease;
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            font-family: 'Cairo', sans-serif; color: var(--ink);
         }
-
-        .mode-card:hover { transform: translateY(-3px); border-color: var(--azure); box-shadow: 0 14px 30px rgba(79, 140, 255, 0.18); }
+        .mode-card:hover { transform: translateY(-3px); border-color: var(--azure); box-shadow: 0 14px 30px rgba(79,140,255,0.18); }
         .mode-card-icon { font-size: 1.8em; }
         .mode-card-title { font-family: 'Tajawal', sans-serif; font-weight: 800; font-size: 1.05em; }
         .mode-card-count { color: var(--muted); font-size: 0.85em; font-weight: 600; }
 
-        .mode-card.starred-card { border-color: rgba(245, 185, 77, 0.4); }
-        .mode-card.starred-card .mode-card-title { color: var(--gold); }
-        .mode-card.wrong-card { border-color: rgba(255, 92, 122, 0.4); }
-        .mode-card.wrong-card .mode-card-title { color: var(--rose); }
-        .mode-card.review-card { border-color: rgba(53, 208, 168, 0.4); }
+        .mode-card.review-card { border-color: rgba(53,208,168,0.4); }
         .mode-card.review-card .mode-card-title { color: var(--mint); }
+        .mode-card.myreview-card { border-color: rgba(245,185,77,0.5); }
+        .mode-card.myreview-card .mode-card-title { color: var(--gold); }
+        .mode-card.starred-card { border-color: rgba(245,185,77,0.4); }
+        .mode-card.starred-card .mode-card-title { color: var(--gold); }
+        .mode-card.wrong-card { border-color: rgba(255,92,122,0.4); }
+        .mode-card.wrong-card .mode-card-title { color: var(--rose); }
 
+        /* ===== EXAM TOP BAR ===== */
         .exam-top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-
         .menu-link {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid var(--line);
-            color: var(--ink);
-            padding: 9px 16px;
-            border-radius: 999px;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 700;
-            font-size: 0.88em;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            background: rgba(255,255,255,0.06); border: 1px solid var(--line); color: var(--ink);
+            padding: 9px 16px; border-radius: 999px; font-family: 'Cairo', sans-serif; font-weight: 700;
+            font-size: 0.88em; cursor: pointer; transition: all 0.2s ease;
         }
-
-        .menu-link:hover { background: rgba(255, 255, 255, 0.12); }
-
+        .menu-link:hover { background: rgba(255,255,255,0.12); }
         .mode-label {
-            font-weight: 700;
-            font-size: 0.9em;
-            color: var(--muted);
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid var(--line);
-            padding: 8px 16px;
-            border-radius: 999px;
+            font-weight: 700; font-size: 0.9em; color: var(--muted);
+            background: rgba(255,255,255,0.06); border: 1px solid var(--line); padding: 8px 16px; border-radius: 999px;
         }
 
-        /* Results */
+        /* ===== RESULTS ===== */
         .results-screen {
-            text-align: center;
-            padding: 38px 26px;
-            background: var(--paper-solid);
-            border-radius: 24px;
-            box-shadow: var(--shadow-card);
-            border: 1px solid var(--line);
+            text-align: center; padding: 38px 26px; background: var(--paper-solid);
+            border-radius: 24px; box-shadow: var(--shadow-card); border: 1px solid var(--line);
         }
-
         .pass-fail-status {
-            font-family: 'Tajawal', sans-serif;
-            font-size: 2.3em;
-            font-weight: 900;
-            margin-bottom: 8px;
-            padding: 16px;
-            border-radius: 16px;
+            font-family: 'Tajawal', sans-serif; font-size: 2.3em; font-weight: 900; margin-bottom: 8px;
+            padding: 16px; border-radius: 16px;
         }
-
-        .pass-fail-status.passed { background: rgba(53, 208, 168, 0.12); color: var(--mint); box-shadow: 0 0 30px rgba(53, 208, 168, 0.22); }
-        .pass-fail-status.failed { background: rgba(255, 92, 122, 0.10); color: var(--rose); box-shadow: 0 0 30px rgba(255, 92, 122, 0.20); }
-
+        .pass-fail-status.passed { background: rgba(53,208,168,0.12); color: var(--mint); box-shadow: 0 0 30px rgba(53,208,168,0.22); }
+        .pass-fail-status.failed { background: rgba(255,92,122,0.10); color: var(--rose); box-shadow: 0 0 30px rgba(255,92,122,0.20); }
         .results-screen h2 { font-family: 'Tajawal', sans-serif; font-size: 1.5em; font-weight: 800; margin-bottom: 22px; color: var(--muted); }
-
         .score-display {
-            font-family: 'Tajawal', sans-serif;
-            font-size: 4.2em;
-            font-weight: 900;
-            margin: 10px 0 28px;
-            background: var(--grad-brand);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-family: 'Tajawal', sans-serif; font-size: 4.2em; font-weight: 900; margin: 10px 0 28px;
+            background: var(--grad-brand); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
         .score-breakdown { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 0 0 38px; }
-
-        .score-item { background: rgba(255, 255, 255, 0.05); padding: 18px 10px; border-radius: 16px; border: 1px solid var(--line); }
+        .score-item { background: rgba(255,255,255,0.05); padding: 18px 10px; border-radius: 16px; border: 1px solid var(--line); }
         .score-item h3 { font-size: 0.8em; color: var(--muted); margin-bottom: 8px; font-weight: 600; }
         .score-item p { font-family: 'Tajawal', sans-serif; font-size: 1.9em; font-weight: 800; color: var(--ink); }
 
         .wrong-answers-section { margin: 10px 0 22px; text-align: right; }
-
         .review-title { font-family: 'Tajawal', sans-serif; font-size: 1.3em; font-weight: 800; margin-bottom: 18px; color: var(--ink); text-align: center; }
-
         .wrong-answers-list { max-height: 560px; overflow-y: auto; padding: 4px 4px 4px 10px; }
         .wrong-answers-list::-webkit-scrollbar { width: 8px; }
         .wrong-answers-list::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 10px; }
@@ -585,88 +310,39 @@
         .wrong-answers-list::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.28); }
 
         .wrong-answer-item {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--line);
-            border-inline-start: 4px solid var(--rose);
-            border-radius: 14px;
-            padding: 18px;
-            margin-bottom: 14px;
-            text-align: right;
+            background: rgba(255,255,255,0.04); border: 1px solid var(--line);
+            border-inline-start: 4px solid var(--rose); border-radius: 14px; padding: 18px; margin-bottom: 14px; text-align: right;
         }
-
         .wrong-answer-number {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.08);
-            color: var(--muted);
-            padding: 4px 14px;
-            border-radius: 999px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            font-size: 0.82em;
+            display: inline-block; background: rgba(255,255,255,0.08); color: var(--muted);
+            padding: 4px 14px; border-radius: 999px; font-weight: 700; margin-bottom: 12px; font-size: 0.82em;
         }
-
         .wrong-answer-question { font-size: 1.05em; font-weight: 700; margin-bottom: 12px; color: var(--ink); line-height: 1.6; }
-        .wrong-answer-details { background: rgba(255, 255, 255, 0.04); padding: 13px 15px; border-radius: 12px; margin-top: 8px; }
+        .wrong-answer-details { background: rgba(255,255,255,0.04); padding: 13px 15px; border-radius: 12px; margin-top: 8px; }
         .wrong-answer-label { color: var(--muted); font-size: 0.82em; margin-bottom: 4px; font-weight: 600; }
         .wrong-answer-text { font-size: 1.02em; font-weight: 700; margin-bottom: 8px; }
         .user-answer { color: var(--rose); }
         .correct-answer { color: var(--mint); margin-bottom: 0; }
 
         .no-wrong-answers {
-            text-align: center;
-            padding: 38px 20px;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 1.2em;
-            font-weight: 700;
-            color: var(--mint);
-            background: rgba(53, 208, 168, 0.10);
-            border: 1px solid var(--mint);
-            border-radius: 16px;
+            text-align: center; padding: 38px 20px; font-family: 'Tajawal', sans-serif; font-size: 1.2em;
+            font-weight: 700; color: var(--mint); background: rgba(53,208,168,0.10); border: 1px solid var(--mint); border-radius: 16px;
         }
-
         .restart-btn {
-            background: var(--grad-brand);
-            color: white;
-            border: none;
-            padding: 17px 48px;
-            font-size: 1.1em;
-            font-weight: 700;
-            border-radius: 999px;
-            cursor: pointer;
-            margin-top: 6px;
-            box-shadow: var(--shadow-btn);
-            transition: all 0.2s ease;
-            font-family: 'Cairo', sans-serif;
+            background: var(--grad-brand); color: white; border: none; padding: 17px 48px;
+            font-size: 1.1em; font-weight: 700; border-radius: 999px; cursor: pointer; margin-top: 6px;
+            box-shadow: var(--shadow-btn); transition: all 0.2s ease; font-family: 'Cairo', sans-serif;
         }
-
-        .restart-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(139, 92, 246, 0.4); }
-
+        .restart-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(139,92,246,0.4); }
         .review-link {
-            display: inline-block;
-            margin-top: 14px;
-            background: none;
-            border: none;
-            color: var(--muted);
-            font-family: 'Cairo', sans-serif;
-            font-weight: 700;
-            font-size: 0.9em;
-            cursor: pointer;
-            text-decoration: underline;
-            text-underline-offset: 4px;
+            display: inline-block; margin-top: 14px; background: none; border: none;
+            color: var(--muted); font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 0.9em;
+            cursor: pointer; text-decoration: underline; text-underline-offset: 4px;
         }
         .review-link:hover { color: var(--ink); }
+        .site-footer { position: relative; z-index: 1; text-align: center; padding: 18px 10px 22px; font-size: 0.75em; color: var(--muted); opacity: 0.6; font-weight: 400; }
 
-        .site-footer {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 18px 10px 22px;
-            font-size: 0.75em;
-            color: var(--muted);
-            opacity: 0.6;
-            font-weight: 400;
-        }
-
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 640px) {
             .container { padding: 22px 14px 10px; }
             .header h1 { font-size: 1.7em; }
@@ -695,7 +371,7 @@
             <p>اختبر معلوماتك في الاختبارات الإلكترونية</p>
         </div>
 
-        <!-- ===================== SCREEN: HOME ===================== -->
+        <!-- ===== HOME ===== -->
         <section id="screen-home" class="screen">
             <div id="resumeBanner" class="resume-banner hidden">
                 <div class="resume-icon">⏳</div>
@@ -714,6 +390,7 @@
                 <p>اختار الأسئلة اللي عايز تتمرن عليها دلوقتي</p>
             </div>
             <div class="mode-grid">
+                <!-- Exam modes -->
                 <button class="mode-card" data-mode="full">
                     <span class="mode-card-icon">🌐</span>
                     <span class="mode-card-title">امتحان شامل</span>
@@ -734,10 +411,32 @@
                     <span class="mode-card-title">صح وخطأ</span>
                     <span class="mode-card-count" id="countTf">0 سؤال</span>
                 </button>
-                <button class="mode-card review-card" id="reviewModeBtn" data-mode="review-select">
-                    <span class="mode-card-icon">🔄</span>
-                    <span class="mode-card-title">مراجعة</span>
-                    <span class="mode-card-count" id="countReview">0 سؤال</span>
+            </div>
+
+            <div class="mode-intro" style="margin-top:30px;">
+                <h2>📂 ملفات المراجعة</h2>
+                <p>اختار نوع الأسئلة اللي عايز تراجعها</p>
+            </div>
+            <div class="mode-grid">
+                <button class="mode-card review-card" data-review-type="tf">
+                    <span class="mode-card-icon">✓✗</span>
+                    <span class="mode-card-title">مراجعة صح/خطأ</span>
+                    <span class="mode-card-count" id="reviewTfCountHome">0 سؤال</span>
+                </button>
+                <button class="mode-card review-card" data-review-type="mcq">
+                    <span class="mode-card-icon">🔘</span>
+                    <span class="mode-card-title">مراجعة اختيار من متعدد</span>
+                    <span class="mode-card-count" id="reviewMcqCountHome">0 سؤال</span>
+                </button>
+                <button class="mode-card review-card" data-review-type="fill">
+                    <span class="mode-card-icon">📝</span>
+                    <span class="mode-card-title">مراجعة مقالي</span>
+                    <span class="mode-card-count" id="reviewFillCountHome">0 سؤال</span>
+                </button>
+                <button class="mode-card myreview-card" id="myReviewBtn" data-mode="myReview">
+                    <span class="mode-card-icon">📌</span>
+                    <span class="mode-card-title">كل أسئلتي للمراجعة</span>
+                    <span class="mode-card-count" id="countMyReview">0 سؤال</span>
                 </button>
                 <button class="mode-card starred-card hidden" id="starredCard" data-mode="starred">
                     <span class="mode-card-icon">⭐</span>
@@ -752,40 +451,7 @@
             </div>
         </section>
 
-        <!-- ===================== SCREEN: REVIEW SELECT ===================== -->
-        <section id="screen-review-select" class="screen">
-            <div class="exam-top-bar">
-                <button class="menu-link" id="btnBackHomeReview">🏠 القائمة الرئيسية</button>
-            </div>
-            <div class="mode-intro">
-                <h2>مراجعة الأسئلة</h2>
-                <p>اختار نوع الأسئلة اللي عايز تراجعها</p>
-            </div>
-            <div class="mode-grid">
-                <button class="mode-card" data-review-type="all">
-                    <span class="mode-card-icon">📚</span>
-                    <span class="mode-card-title">كل الأسئلة</span>
-                    <span class="mode-card-count" id="reviewAllCount">0 سؤال</span>
-                </button>
-                <button class="mode-card" data-review-type="mcq">
-                    <span class="mode-card-icon">🔘</span>
-                    <span class="mode-card-title">اختيار من متعدد</span>
-                    <span class="mode-card-count" id="reviewMcqCount">0 سؤال</span>
-                </button>
-                <button class="mode-card" data-review-type="tf">
-                    <span class="mode-card-icon">✓✗</span>
-                    <span class="mode-card-title">صح وخطأ</span>
-                    <span class="mode-card-count" id="reviewTfCount">0 سؤال</span>
-                </button>
-                <button class="mode-card" data-review-type="fill">
-                    <span class="mode-card-icon">📝</span>
-                    <span class="mode-card-title">مقالي (أكمل)</span>
-                    <span class="mode-card-count" id="reviewFillCount">0 سؤال</span>
-                </button>
-            </div>
-        </section>
-
-        <!-- ===================== SCREEN: EXAM ===================== -->
+        <!-- ===== EXAM / REVIEW ===== -->
         <section id="screen-exam" class="screen">
             <div class="exam-top-bar">
                 <button class="menu-link" id="btnBackHome">🏠 القائمة الرئيسية</button>
@@ -828,7 +494,18 @@
             <div id="questionContainer"></div>
         </section>
 
-        <!-- ===================== SCREEN: RESULTS ===================== -->
+        <!-- ===== WRONG ANSWERS LIST (popup style) ===== -->
+        <section id="screen-wrong-list" class="screen">
+            <div class="results-screen" style="text-align:right;">
+                <div class="exam-top-bar" style="margin-bottom:20px;">
+                    <button class="menu-link" id="btnBackFromWrong">🔙 رجوع</button>
+                    <span class="mode-label" id="wrongListLabel">أخطائي السابقة</span>
+                </div>
+                <div id="wrongListContainer"></div>
+            </div>
+        </section>
+
+        <!-- ===== RESULTS ===== -->
         <section id="screen-results" class="screen">
             <div class="results-screen">
                 <div id="passFailStatus" class="pass-fail-status"></div>
@@ -864,170 +541,99 @@
     <footer class="site-footer">برمجة: ميلاد ماهر</footer>
 
     <script>
-        // ============ STORAGE (new prefix for fresh start) ============
-        const STORAGE_PREFIX = "examApp_v3_Electronic_";
+        // ============================================================
+        // STORAGE
+        // ============================================================
+        const STORAGE_PREFIX = "examApp_v4_";
         const KEY_STARRED = STORAGE_PREFIX + "starred";
-        const KEY_WRONG = STORAGE_PREFIX + "wrong";
         const KEY_SESSION = STORAGE_PREFIX + "session";
 
+        // لكل نوع ملف خاص به
+        const KEY_MY_REVIEW = {
+            mcq: STORAGE_PREFIX + "myReview_mcq",
+            tf: STORAGE_PREFIX + "myReview_tf",
+            fill: STORAGE_PREFIX + "myReview_fill"
+        };
+        const KEY_WRONG = {
+            mcq: STORAGE_PREFIX + "wrong_mcq",
+            tf: STORAGE_PREFIX + "wrong_tf",
+            fill: STORAGE_PREFIX + "wrong_fill"
+        };
+
+        function safeGet(key, fallback) {
+            try { const raw = localStorage.getItem(key); if (!raw) return fallback; return JSON.parse(raw); } catch (e) { return fallback; }
+        }
+        function safeSet(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {} }
+
+        function getStarred() { return safeGet(KEY_STARRED, []); }
+        function setStarred(arr) { safeSet(KEY_STARRED, arr); }
+        function getSession() { return safeGet(KEY_SESSION, null); }
+        function setSession(obj) { safeSet(KEY_SESSION, obj); }
+        function clearSession() { try { localStorage.removeItem(KEY_SESSION); } catch(e){} }
+
+        function getMyReview(type) { return safeGet(KEY_MY_REVIEW[type], []); }
+        function setMyReview(type, arr) { safeSet(KEY_MY_REVIEW[type], arr); }
+        function addToMyReview(type, qIndex) {
+            const list = getMyReview(type);
+            if (!list.includes(qIndex)) { list.push(qIndex); setMyReview(type, list); }
+        }
+        function removeFromMyReview(type, qIndex) {
+            const list = getMyReview(type);
+            const idx = list.indexOf(qIndex);
+            if (idx !== -1) { list.splice(idx, 1); setMyReview(type, list); }
+        }
+        function isInMyReview(type, qIndex) { return getMyReview(type).includes(qIndex); }
+
+        function getWrongBank(type) { return safeGet(KEY_WRONG[type], []); }
+        function setWrongBank(type, arr) { safeSet(KEY_WRONG[type], arr); }
+        function addToWrongBank(type, qIndex) {
+            const list = getWrongBank(type);
+            if (!list.includes(qIndex)) { list.push(qIndex); setWrongBank(type, list); }
+        }
+        function removeFromWrongBank(type, qIndex) {
+            const list = getWrongBank(type);
+            const idx = list.indexOf(qIndex);
+            if (idx !== -1) { list.splice(idx, 1); setWrongBank(type, list); }
+        }
+
+        // ============================================================
+        // NORMALIZE
+        // ============================================================
         function normalizeArabic(text) {
             if (!text) return '';
             return text.trim().replace(/\s+/g, ' ').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').toLowerCase();
         }
 
-        // ============ COMPLETE QUESTIONS DATA (with correct answers) ============
+        // ============================================================
+        // QUESTIONS DATA (89 سؤال)
+        // ============================================================
         const questions = [
             // MCQ 1-25
-            {
-                type: "mcq",
-                question: "أي من المفاهيم التالية يشير إلى العملية التي نحدد بواسطتها كمية ما يوجد في الشيء من  المقاييس المدرجة، أو السمة التي نقيسها ويعبر عنها بقيمة رقمية؟",
-                options: ["العد", "القياس", "التقدير", "التقييم"],
-                answer: 1
-            },
-            {
-                type: "mcq",
-                question: "أي من المفاهيم التالية هو أقدم من القياس ومرادف للتخمين، ويتم اللجوء إليه فقط إذا كانت الفروق في السمة واضحة أو لم تكن لدينا أداة قياس؟",
-                options: ["التقييم", "التقدير", "التقويم", "العد"],
-                answer: 1
-            },
-            {
-                type: "mcq",
-                question: "أي من الخطوات التالية تُعدَ المرحلة األخيرة في عملية التقويم المكونة من ثماني خطوات؟",
-                options: ["تحديد الهدف من التقويم", "تصميم وبناء أدوات التقويم", "إصدار الحكم أو القرار ومتابعة تنفيذه"],
-                answer: 2
-            },
-            {
-                type: "mcq",
-                question: "من وظائف التقويم \"تمكين صانعي القرارات من اتخاذ قرارات مناسبة حول التطوير التربوي وتطوير المنهج\". هذا يندرج تحت وظيفة :",
-                options: ["مساعدة المتعلم على اتخاذ القرار المناسب حول مواصلة الدراسة", "توفير معلومات وافية وصحيحة عن الفرد أو مجموعة األفراد", "تقدير مستوى التحصيل المبدئي للمتعلم", "تحفيز المتعلمين على التعلم"],
-                answer: 1
-            },
-            {
-                type: "mcq",
-                question: "أي من أسس التقويم التالية تعني أن األدوات المستخدمة فيه يجب أن تعطي نتائج متسقة  نسبيًا حول تحصيل المتعلم في كل مرة تطبق فيها؟",
-                options: ["الصدق", "الثبات", "الموضوعية", "الشمولية"],
-                answer: 1
-            },
-            {
-                type: "mcq",
-                question: "أي نوع من التقويم يطلق عليه أيضاً التقويم البنائي أو الشكلي أو المستمر؟",
-                options: ["التقويم المبدئي", "التقويم التكويني", "التقويم التشخيصي", "التقويم الختامي"],
-                answer: 1
-            },
-            {
-                type: "mcq",
-                question: "أي معيار تقارن فيه الدرجة التي يحصل عليها المتعلم إما في ضوء مستواه القبلي أو في ضوء أداء محكي؟",
-                options: ["القياس معياري المرجع", "المعيار السيكومتري", "القياس محكى المرجع", "المعيار النسبي"],
-                answer: 2
-            },
-            {
-                type: "mcq",
-                question: "أي من مصطلحات التقييم بالكمبيوتر تشير إلى التقييم الذي يكون فيه استخدام الكمبيوتر  جوهرًا ويستخدم لتقييم ووضع درجات لالستجابات المقدمة من الطالب؟",
-                options: ["التقييم بمساعدة الكمبيوتر(CAA)", "التقييم بوساطة الكمبيوتر(CMA)", "التقييم المعتمد على الكمبيوتر(CBA)", "التقييم على اإلنترنت(Online Assessment)"],
-                answer: 2
-            },
-            {
-                type: "mcq",
-                question: "أي من أدوات التقويم اإللكتروني التالية تتضمن أدوات اختبارية تتصف بالموضوعية  وتستخدم في تقويم الجانب المعرفي للنتاجات التعليمية؟",
-                options: ["االستبانات", "قوائم التقدير", "ساللم التقدير", "االختبارات التحصيلية"],
-                answer: 3
-            },
-            {
-                type: "mcq",
-                question: "في طرق القياس والتقويم اإللكتروني، أي طريقة تهدف إلى قياس الوعي الذاتي والمهارات فوق المعرفية؟",
-                options: ["األنشطة التطبيقية", "األوراق البحثية", "القياس الذاتي", "االختبارات الفترية"],
-                answer: 2
-            },
-            {
-                type: "mcq",
-                question: "أي من األساليب التالية تُعد من أبرز أساليب التقييم اإللكتروني شيوعًا؟",
-                options: ["برامج التعلم الخصوصي", "التكليفات على الشبكة(Online Assignments)", "أنظمة التعلم التكاملية", "الحقيبة الوثائقية اإللكترونية"],
-                answer: 1
-            },
-            {
-                type: "mcq",
-                question: "من ميزات االختبارات اإللكترونية سهولة إعداد األسئلة والمهام والتكليفات وتوفير الوقت والجهد في ذلك. أي من التالي يدعم هذه الميزة؟",
-                options: ["توظيف تكنولوجيا الوسائط المتعددة", "إمكانية إجراء تعديالت في أسئلة االختبارات  بسهولة ويسر", "مرونة التطبيق", "توافر عنصر الموضوعية في التصحيح"],
-                answer: 1
-            },
-            {
-                type: "mcq",
-                question: "من أبرز مشكالت االختبارات اإللكترونية التي تتطلب وقتًا وجهًا كبيرًا في غياب بنوك  األسئلة؟",
-                options: ["صعوبة تقدير الدرجات في حالة اإلجابة ليست صحيحة تمامًا", "تكلفة البنية األساسية للتقييم اإللكتروني", "إعداد األسئلة", "صعوبة تصحيح االختبارات الطويلة الّيًا"],
-                answer: 2
-            },
-            {
-                type: "mcq",
-                question: "أي من اإلجراءات االحترازية التالية تهدف إلى منع الغش من اآلخرين في االختبارات  اإللكترونية؟",
-                options: ["تحميل ملف أسئلة االختبار واإلجابة الصحيحة على خادم آخر لحين الحاجة", "عمل اختبار وهمي (Fake Test) على الخادم لسبيل التمويه", "تقديم صور متكافئة من االختبار الواحد للمتعلمين المتجاوزين في قاعة االختبار", "منع المتعلم من استخدام المصادر اإللكترونية أو الورقية غير المسموح بها"],
-                answer: 2
-            },
-            {
-                type: "mcq",
-                question: "أي من أنواع االختبارات اإللكترونية التالية يقوم فيها الكمبيوتر برسم األسئلة بشكل  عشوائي من مجموعة أسئلة ليحصل كل ممتحن على اختبار فريد بمحتويات إحصائية  معادلة؟",
-                options: ["اختبار الشكل الثابت المعتمد على الكمبيوتر (CBT)", "االختبار الطائر الخطى (LOFT)", "االختبارات التكيفية", "االختبارات الخطية"],
-                answer: 1
-            },
-            {
-                type: "mcq",
-                question: "ما الفرق بين االختبارات الخطية والتكيفية، أي من العبارات التالية صحيحة؟",
-                options: ["زمن تطبيق االختبار موحد لجميع المتعلمين في االختبار التكيفي", "المتعلم يجيب عن عدد معين من األسئلة في االختبار التكيفي مختلف عن زميله المطبق عليه االختبار ذاته", "تقدر درجة المتعلم في االختبار الخطى بمستوى صعوبة األسئلة التي أجاب عنها", "تقديم أسئلة االختبار الخطى يتوقف متى حدد الكمبيوتر المستوى التحصيلي للمتعلم."],
-                answer: 1
-            },
-            {
-                type: "mcq",
-                question: "أي نوع من االختبارات يستخدم للحصول على معلومات أساسية قبل إعداد أي برنامج  تعليمي، مثل تحديد االحتياجات واألهداف؟",
-                options: ["اختبارات التسكين", "االختبارات القبلية", "االختبارات التشخيصية", "االختبارات البنائية"],
-                answer: 1
-            },
-            {
-                type: "mcq",
-                question: "من استراتيجيات إعطاء اختبارات التسكين، إعطاء االختبار عند المستوى الذي ال يستطيع  التلميذ أن يحرز مزيدًا من التقدم. أي من التالي يُعدّ من عيوب هذه اإلستراتيجية؟",
-                options: ["عدم إثارة التالميذ ذوي الخبرات الوفيرة المتعلقة بالمقرر الدراسي", "تقليل الوقت الذي يستغرقه التلميذ في اإلجابة عن االختبار", "تحديد نقاط بداية مالئمة لكل تلميذ", "إمكانية قياس مدى تقدم التلميذ بشكل دقيق"],
-                answer: 0
-            },
-            {
-                type: "mcq",
-                question: "أي نوع من االختبارات يهدف إلى معرفة درجة التالميذ في محتوى المادة الدراسية،  ويصحح عن طريق عدد المفردات الصحيحة التي أجاب عنها التلميذ؟",
-                options: ["االختبارات التشخيصية", "االختبارات التحصيلية العادية", "االختبارات التتبعية", "اختبارات التسكين"],
-                answer: 1
-            },
-            {
-                type: "mcq",
-                question: "أي من أنواع االختبارات اإللكترونية تتم فيها االختبارات على محطات عمل قائمة بذاتها على جهاز الكمبيوتر مباشرة باستخدام البرامج؟",
-                options: ["االختبارات المعتمدة على الشبكة المحلية", "االختبارات المعتمدة على اإلنترنت", "االختبارات على محطة عمل قائمة بذاتها", "االختبارات التكيفية"],
-                answer: 2
-            },
-            {
-                type: "mcq",
-                question: "أي من أشكال نشر االختبارات اإللكترونية يسمح بتسجيل إجابات المتعلمين إلكترونيًا  ويمكن أن يكون مفيدًا في تحديد الدروس القادمة والحكم على كفاءة المتعلم؟",
-                options: ["اختبارات مفردة", "اختبارات ضمن مقرر", "اختبارات تكيفية", "اختبارات خطية"],
-                answer: 1
-            },
-            {
-                type: "mcq",
-                question: "أي من برامج إنشاء االختبارات اإللكترونية الجاهزة التالية تُعدّ من البرامج التي توفر  خيارات عديدة لتصدير االختبارات بأنواع مختلفة مثل  cd  و  exe  ؟",
-                options: ["Quiz Creator", "Hot Potatoes", "Kahoot", "Google Forms"],
-                answer: 0
-            },
-            {
-                type: "mcq",
-                question: "أي من البرامج التالية يمكن استخدامها كبرنامج غير متخصص في إنشاء االختبارات  اإللكترونية؟",
-                options: ["Hot Potatoes", "Moodle", "Quiz Creator", "TCExam"],
-                answer: 1
-            },
-            {
-                type: "mcq",
-                question: "أي من االختبارات التحصيلية الموقوتة يكون أحد معاييرها تحديد فترة زمنية لإلجابة عن  االختبار ككل، وتستخدم غالبًا عند قياس مهارات يتطلب فيها إتقان المهارة أداء العمل بدقة  وفي أقل وقت ممكن؟",
-                options: ["اختبارات التمكن", "االختبارات الخطية", "اختبار سرعة الكتابة (مثل)", "االختبارات التكيفية"],
-                answer: 2
-            },
-            {
-                type: "mcq",
-                question: "أي من العناصر التالية ال يدخل في تحديد زمن االختبار؟",
-                options: ["عدد األسئلة التي يتكون منها االختبار", "نوع الوسائط المتعددة المستخدمة", "نوع اإلجابة الصحيحة", "خصائص المتعلمين"],
-                answer: 2
-            },
+            { type: "mcq", question: "أي من المفاهيم التالية يشير إلى العملية التي نحدد بواسطتها كمية ما يوجد في الشيء من  المقاييس المدرجة، أو السمة التي نقيسها ويعبر عنها بقيمة رقمية؟", options: ["العد", "القياس", "التقدير", "التقييم"], answer: 1 },
+            { type: "mcq", question: "أي من المفاهيم التالية هو أقدم من القياس ومرادف للتخمين، ويتم اللجوء إليه فقط إذا كانت الفروق في السمة واضحة أو لم تكن لدينا أداة قياس؟", options: ["التقييم", "التقدير", "التقويم", "العد"], answer: 1 },
+            { type: "mcq", question: "أي من الخطوات التالية تُعدَ المرحلة األخيرة في عملية التقويم المكونة من ثماني خطوات؟", options: ["تحديد الهدف من التقويم", "تصميم وبناء أدوات التقويم", "إصدار الحكم أو القرار ومتابعة تنفيذه"], answer: 2 },
+            { type: "mcq", question: "من وظائف التقويم \"تمكين صانعي القرارات من اتخاذ قرارات مناسبة حول التطوير التربوي وتطوير المنهج\". هذا يندرج تحت وظيفة :", options: ["مساعدة المتعلم على اتخاذ القرار المناسب حول مواصلة الدراسة", "توفير معلومات وافية وصحيحة عن الفرد أو مجموعة األفراد", "تقدير مستوى التحصيل المبدئي للمتعلم", "تحفيز المتعلمين على التعلم"], answer: 1 },
+            { type: "mcq", question: "أي من أسس التقويم التالية تعني أن األدوات المستخدمة فيه يجب أن تعطي نتائج متسقة  نسبيًا حول تحصيل المتعلم في كل مرة تطبق فيها؟", options: ["الصدق", "الثبات", "الموضوعية", "الشمولية"], answer: 1 },
+            { type: "mcq", question: "أي نوع من التقويم يطلق عليه أيضاً التقويم البنائي أو الشكلي أو المستمر؟", options: ["التقويم المبدئي", "التقويم التكويني", "التقويم التشخيصي", "التقويم الختامي"], answer: 1 },
+            { type: "mcq", question: "أي معيار تقارن فيه الدرجة التي يحصل عليها المتعلم إما في ضوء مستواه القبلي أو في ضوء أداء محكي؟", options: ["القياس معياري المرجع", "المعيار السيكومتري", "القياس محكى المرجع", "المعيار النسبي"], answer: 2 },
+            { type: "mcq", question: "أي من مصطلحات التقييم بالكمبيوتر تشير إلى التقييم الذي يكون فيه استخدام الكمبيوتر  جوهرًا ويستخدم لتقييم ووضع درجات لالستجابات المقدمة من الطالب؟", options: ["التقييم بمساعدة الكمبيوتر(CAA)", "التقييم بوساطة الكمبيوتر(CMA)", "التقييم المعتمد على الكمبيوتر(CBA)", "التقييم على اإلنترنت(Online Assessment)"], answer: 2 },
+            { type: "mcq", question: "أي من أدوات التقويم اإللكتروني التالية تتضمن أدوات اختبارية تتصف بالموضوعية  وتستخدم في تقويم الجانب المعرفي للنتاجات التعليمية؟", options: ["االستبانات", "قوائم التقدير", "ساللم التقدير", "االختبارات التحصيلية"], answer: 3 },
+            { type: "mcq", question: "في طرق القياس والتقويم اإللكتروني، أي طريقة تهدف إلى قياس الوعي الذاتي والمهارات فوق المعرفية؟", options: ["األنشطة التطبيقية", "األوراق البحثية", "القياس الذاتي", "االختبارات الفترية"], answer: 2 },
+            { type: "mcq", question: "أي من األساليب التالية تُعد من أبرز أساليب التقييم اإللكتروني شيوعًا؟", options: ["برامج التعلم الخصوصي", "التكليفات على الشبكة(Online Assignments)", "أنظمة التعلم التكاملية", "الحقيبة الوثائقية اإللكترونية"], answer: 1 },
+            { type: "mcq", question: "من ميزات االختبارات اإللكترونية سهولة إعداد األسئلة والمهام والتكليفات وتوفير الوقت والجهد في ذلك. أي من التالي يدعم هذه الميزة؟", options: ["توظيف تكنولوجيا الوسائط المتعددة", "إمكانية إجراء تعديالت في أسئلة االختبارات  بسهولة ويسر", "مرونة التطبيق", "توافر عنصر الموضوعية في التصحيح"], answer: 1 },
+            { type: "mcq", question: "من أبرز مشكالت االختبارات اإللكترونية التي تتطلب وقتًا وجهًا كبيرًا في غياب بنوك  األسئلة؟", options: ["صعوبة تقدير الدرجات في حالة اإلجابة ليست صحيحة تمامًا", "تكلفة البنية األساسية للتقييم اإللكتروني", "إعداد األسئلة", "صعوبة تصحيح االختبارات الطويلة الّيًا"], answer: 2 },
+            { type: "mcq", question: "أي من اإلجراءات االحترازية التالية تهدف إلى منع الغش من اآلخرين في االختبارات  اإللكترونية؟", options: ["تحميل ملف أسئلة االختبار واإلجابة الصحيحة على خادم آخر لحين الحاجة", "عمل اختبار وهمي (Fake Test) على الخادم لسبيل التمويه", "تقديم صور متكافئة من االختبار الواحد للمتعلمين المتجاوزين في قاعة االختبار", "منع المتعلم من استخدام المصادر اإللكترونية أو الورقية غير المسموح بها"], answer: 2 },
+            { type: "mcq", question: "أي من أنواع االختبارات اإللكترونية التالية يقوم فيها الكمبيوتر برسم األسئلة بشكل  عشوائي من مجموعة أسئلة ليحصل كل ممتحن على اختبار فريد بمحتويات إحصائية  معادلة؟", options: ["اختبار الشكل الثابت المعتمد على الكمبيوتر (CBT)", "االختبار الطائر الخطى (LOFT)", "االختبارات التكيفية", "االختبارات الخطية"], answer: 1 },
+            { type: "mcq", question: "ما الفرق بين االختبارات الخطية والتكيفية، أي من العبارات التالية صحيحة؟", options: ["زمن تطبيق االختبار موحد لجميع المتعلمين في االختبار التكيفي", "المتعلم يجيب عن عدد معين من األسئلة في االختبار التكيفي مختلف عن زميله المطبق عليه االختبار ذاته", "تقدر درجة المتعلم في االختبار الخطى بمستوى صعوبة األسئلة التي أجاب عنها", "تقديم أسئلة االختبار الخطى يتوقف متى حدد الكمبيوتر المستوى التحصيلي للمتعلم."], answer: 1 },
+            { type: "mcq", question: "أي نوع من االختبارات يستخدم للحصول على معلومات أساسية قبل إعداد أي برنامج  تعليمي، مثل تحديد االحتياجات واألهداف؟", options: ["اختبارات التسكين", "االختبارات القبلية", "االختبارات التشخيصية", "االختبارات البنائية"], answer: 1 },
+            { type: "mcq", question: "من استراتيجيات إعطاء اختبارات التسكين، إعطاء االختبار عند المستوى الذي ال يستطيع  التلميذ أن يحرز مزيدًا من التقدم. أي من التالي يُعدّ من عيوب هذه اإلستراتيجية؟", options: ["عدم إثارة التالميذ ذوي الخبرات الوفيرة المتعلقة بالمقرر الدراسي", "تقليل الوقت الذي يستغرقه التلميذ في اإلجابة عن االختبار", "تحديد نقاط بداية مالئمة لكل تلميذ", "إمكانية قياس مدى تقدم التلميذ بشكل دقيق"], answer: 0 },
+            { type: "mcq", question: "أي نوع من االختبارات يهدف إلى معرفة درجة التالميذ في محتوى المادة الدراسية،  ويصحح عن طريق عدد المفردات الصحيحة التي أجاب عنها التلميذ؟", options: ["االختبارات التشخيصية", "االختبارات التحصيلية العادية", "االختبارات التتبعية", "اختبارات التسكين"], answer: 1 },
+            { type: "mcq", question: "أي من أنواع االختبارات اإللكترونية تتم فيها االختبارات على محطات عمل قائمة بذاتها على جهاز الكمبيوتر مباشرة باستخدام البرامج؟", options: ["االختبارات المعتمدة على الشبكة المحلية", "االختبارات المعتمدة على اإلنترنت", "االختبارات على محطة عمل قائمة بذاتها", "االختبارات التكيفية"], answer: 2 },
+            { type: "mcq", question: "أي من أشكال نشر االختبارات اإللكترونية يسمح بتسجيل إجابات المتعلمين إلكترونيًا  ويمكن أن يكون مفيدًا في تحديد الدروس القادمة والحكم على كفاءة المتعلم؟", options: ["اختبارات مفردة", "اختبارات ضمن مقرر", "اختبارات تكيفية", "اختبارات خطية"], answer: 1 },
+            { type: "mcq", question: "أي من برامج إنشاء االختبارات اإللكترونية الجاهزة التالية تُعدّ من البرامج التي توفر  خيارات عديدة لتصدير االختبارات بأنواع مختلفة مثل  cd  و  exe  ؟", options: ["Quiz Creator", "Hot Potatoes", "Kahoot", "Google Forms"], answer: 0 },
+            { type: "mcq", question: "أي من البرامج التالية يمكن استخدامها كبرنامج غير متخصص في إنشاء االختبارات  اإللكترونية؟", options: ["Hot Potatoes", "Moodle", "Quiz Creator", "TCExam"], answer: 1 },
+            { type: "mcq", question: "أي من االختبارات التحصيلية الموقوتة يكون أحد معاييرها تحديد فترة زمنية لإلجابة عن  االختبار ككل، وتستخدم غالبًا عند قياس مهارات يتطلب فيها إتقان المهارة أداء العمل بدقة  وفي أقل وقت ممكن؟", options: ["اختبارات التمكن", "االختبارات الخطية", "اختبار سرعة الكتابة (مثل)", "االختبارات التكيفية"], answer: 2 },
+            { type: "mcq", question: "أي من العناصر التالية ال يدخل في تحديد زمن االختبار؟", options: ["عدد األسئلة التي يتكون منها االختبار", "نوع الوسائط المتعددة المستخدمة", "نوع اإلجابة الصحيحة", "خصائص المتعلمين"], answer: 2 },
             // TF 1-54
             { type: "tf", question: "العد هو العملية التي نحدد بواسطتها كمية ما يوجد في الشيء من المقاييس المدرجة.", answer: false },
             { type: "tf", question: "القياس تقريبي دائماً، ووحداته متصلة ومستمرة فال فجوات بينها.", answer: true },
@@ -1084,95 +690,25 @@
             { type: "tf", question: "يمكن استخدام قواعد البيانات لحفظ نتائج الاختبارات الإلكترونية وتحليلها.", answer: true },
             { type: "tf", question: "يعتمد نجاح الاختبار الإلكتروني على توفر الأجهزة والبرمجيات المناسبة للتطبيق.", answer: true },
             // Fill (Essay) 1-10
-            {
-                type: "fill",
-                question: "الفرق بين التقييم والتقويم ؟",
-                answer: "التقييم : هو بيان قيمة الشئ بصوره نوعية (كيفية) فالقياس يسبق التقييم ويعد حكما (كميا) . التقويم :عملية جمع وتصنيف وتحليل وتفسير بيانات او معلومات (كمية / كيفية ) عن ظاهرة او موقف او سلوك بقصد أستخدامها في إصدار حكم او قرار ."
-            },
-            {
-                type: "fill",
-                question: "مكونات التقويم االلكتروني ؟",
-                answer: "(Hardware- Software): محرك التقييم بنك العناصر : (االسئلة او إلنشاء االختبارات )"
-            },
-            {
-                type: "fill",
-                question: "االساليب االكثر شيوعاً في التقييم االلكتروني ؟",
-                answer: "االختبارات االلكترونية الرسمية . االختبارات القصيرة على الشبكة. (االختبارات القصيرة الفورية) . التكليفات على الشبكه. (التكليفات الفوريه ) . الحقيبة الوثائقية (البورتفليو )االلكترونية . برامج التعلم الخصوصي, التدريب, الممارسة, انظمة التعلم التكاملية . استبانات التقييم الذاتي االلكتروني"
-            },
-            {
-                type: "fill",
-                question: "مميزات االختبارات االلكترونية ؟",
-                answer: "سهوله إعداد االسئله والمهام والتكليفات ، وتوفر الوقت والجهد في ذلك . إمكانية توظيف تكنولوجيا الوسائط المتعددة في إعداد االختبارات وإنجازها . مرونة التطبيق . وتنوعها feed back سرعة تقديم التغذية الراجعة . سرعة وسهولة التصحيح ورصد النتائج واستدعاؤها ومتابعة التقدم الدراسي للمتعلم . توافر عنصر الموضوعية في التصحيح وعنصر الخصوصية . اقل تكلفه علي المدي الطويل"
-            },
-            {
-                type: "fill",
-                question: "عيوب الاختبارات الالكترونية ؟",
-                answer: "الحفاظ علي آمن اسئلة الاختبار . الغش من الآخرين . الغش من مصادر غير مسموح بها . قيام شخص بالاجابة عن الاختبار منتحال شخصية آخر . تعطل الاجهزة والبرمجيات في أثناء تادية الاختبار . انقطاع التيار الكهربي ."
-            },
-            {
-                type: "fill",
-                question: "تعريف الاختبارات التكيفية ؟",
-                answer: "هي التي يقدم فيها السؤال للمتعلم بحسب اجابته على السؤال السابق فان اصاب في الاجابه عنه قدم له سؤاال اكثر صعوبه منه وان اخفق قدم له سؤاال اقل صعوبه."
-            },
-            {
-                type: "fill",
-                question: "مزايا الاختبارات التكيفية؟",
-                answer: "تحتاج الى زمن اقل في تطبيقها عن الاختبارات الخطيه . اقل تكلفه في تطبيقها من الاختبارات الخطيه . تحدد المستوى التحصيلي بدرجه اكثر دقه من الاختبارات الخطيه."
-            },
-            {
-                type: "fill",
-                question: "اذكر امثله لبرامج متخصصه في انشاء الاختبارات الالكترونيه؟",
-                answer: "Quizcreator . Quizmaker . Quick test . Tc exam . Quizfaber . Hot potatoes ."
-            },
-            {
-                type: "fill",
-                question: "عناصر بناء الاختبارات الالكترونيه؟",
-                answer: "اسئله الاختبار . الوصالت المتعدده . زمن الاختبار . تامين الاختبار . طرق التصحيح والاعالن عن النتائج . التغذيه الراجعه . اساليب التفاعل مع الاختبار . التحكم في برنامج الاختبار"
-            },
-            {
-                type: "fill",
-                question: "العوامل المؤثره في بنك الاختبارات الالكترونيه؟",
-                answer: "االهداف التربويه للمرحله التعليميه . خصائص المتعلمين . مهارات المتعلمين . الغرض من الاختبار . اشكال التقويم الالكتروني . التوافق في قدرات التشغيل . انماط الاستجابة"
-            }
+            { type: "fill", question: "الفرق بين التقييم والتقويم ؟", answer: "التقييم : هو بيان قيمة الشئ بصوره نوعية (كيفية) فالقياس يسبق التقييم ويعد حكما (كميا) . التقويم :عملية جمع وتصنيف وتحليل وتفسير بيانات او معلومات (كمية / كيفية ) عن ظاهرة او موقف او سلوك بقصد أستخدامها في إصدار حكم او قرار ." },
+            { type: "fill", question: "مكونات التقويم االلكتروني ؟", answer: "(Hardware- Software): محرك التقييم بنك العناصر : (االسئلة او إلنشاء االختبارات )" },
+            { type: "fill", question: "االساليب االكثر شيوعاً في التقييم االلكتروني ؟", answer: "االختبارات االلكترونية الرسمية . االختبارات القصيرة على الشبكة. (االختبارات القصيرة الفورية) . التكليفات على الشبكه. (التكليفات الفوريه ) . الحقيبة الوثائقية (البورتفليو )االلكترونية . برامج التعلم الخصوصي, التدريب, الممارسة, انظمة التعلم التكاملية . استبانات التقييم الذاتي االلكتروني" },
+            { type: "fill", question: "مميزات االختبارات االلكترونية ؟", answer: "سهوله إعداد االسئله والمهام والتكليفات ، وتوفر الوقت والجهد في ذلك . إمكانية توظيف تكنولوجيا الوسائط المتعددة في إعداد االختبارات وإنجازها . مرونة التطبيق . وتنوعها feed back سرعة تقديم التغذية الراجعة . سرعة وسهولة التصحيح ورصد النتائج واستدعاؤها ومتابعة التقدم الدراسي للمتعلم . توافر عنصر الموضوعية في التصحيح وعنصر الخصوصية . اقل تكلفه علي المدي الطويل" },
+            { type: "fill", question: "عيوب الاختبارات الالكترونية ؟", answer: "الحفاظ علي آمن اسئلة الاختبار . الغش من الآخرين . الغش من مصادر غير مسموح بها . قيام شخص بالاجابة عن الاختبار منتحال شخصية آخر . تعطل الاجهزة والبرمجيات في أثناء تادية الاختبار . انقطاع التيار الكهربي ." },
+            { type: "fill", question: "تعريف الاختبارات التكيفية ؟", answer: "هي التي يقدم فيها السؤال للمتعلم بحسب اجابته على السؤال السابق فان اصاب في الاجابه عنه قدم له سؤاال اكثر صعوبه منه وان اخفق قدم له سؤاال اقل صعوبه." },
+            { type: "fill", question: "مزايا الاختبارات التكيفية؟", answer: "تحتاج الى زمن اقل في تطبيقها عن الاختبارات الخطيه . اقل تكلفه في تطبيقها من الاختبارات الخطيه . تحدد المستوى التحصيلي بدرجه اكثر دقه من الاختبارات الخطيه." },
+            { type: "fill", question: "اذكر امثله لبرامج متخصصه في انشاء الاختبارات الالكترونيه؟", answer: "Quizcreator . Quizmaker . Quick test . Tc exam . Quizfaber . Hot potatoes ." },
+            { type: "fill", question: "عناصر بناء الاختبارات الالكترونيه؟", answer: "اسئله الاختبار . الوصالت المتعدده . زمن الاختبار . تامين الاختبار . طرق التصحيح والاعالن عن النتائج . التغذيه الراجعه . اساليب التفاعل مع الاختبار . التحكم في برنامج الاختبار" },
+            { type: "fill", question: "العوامل المؤثره في بنك الاختبارات الالكترونيه؟", answer: "االهداف التربويه للمرحله التعليميه . خصائص المتعلمين . مهارات المتعلمين . الغرض من الاختبار . اشكال التقويم الالكتروني . التوافق في قدرات التشغيل . انماط الاستجابة" }
         ];
 
-        // ============ Storage ============
-        function safeGet(key, fallback) {
-            try { const raw = localStorage.getItem(key); if (!raw) return fallback; return JSON.parse(raw); } catch (e) { return fallback; }
-        }
-        function safeSet(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {} }
-
-        function getStarred() { return safeGet(KEY_STARRED, []); }
-        function setStarred(arr) { safeSet(KEY_STARRED, arr); }
-        function getWrongBank() { return safeGet(KEY_WRONG, []); }
-        function setWrongBank(arr) { safeSet(KEY_WRONG, arr); }
-        function getSession() { return safeGet(KEY_SESSION, null); }
-        function setSession(obj) { safeSet(KEY_SESSION, obj); }
-        function clearSession() { try { localStorage.removeItem(KEY_SESSION); } catch(e){} }
-
-        function addToWrongBank(qIndex) {
-            const bank = getWrongBank();
-            if (!bank.includes(qIndex)) { bank.push(qIndex); setWrongBank(bank); }
-        }
-        function removeFromWrongBank(qIndex) {
-            const bank = getWrongBank();
-            const idx = bank.indexOf(qIndex);
-            if (idx !== -1) { bank.splice(idx, 1); setWrongBank(bank); }
-        }
-        function toggleStar(qIndex) {
-            const starred = getStarred();
-            const idx = starred.indexOf(qIndex);
-            if (idx === -1) starred.push(qIndex); else starred.splice(idx, 1);
-            setStarred(starred);
-            const btn = document.getElementById('starBtn');
-            if (btn) btn.classList.toggle('active', starred.includes(qIndex));
-        }
-
-        // ============ App state ============
+        // ============================================================
+        // APP STATE
+        // ============================================================
         let currentQuestion = 0;
         let examOrder = [];
-        let currentMode = 'full';
-        let currentReviewType = 'all'; // for review mode
+        let currentMode = 'full';        // 'full', 'mcq', 'tf', 'fill', 'review', 'myReview', 'starred', 'wrongHistory'
+        let currentReviewType = null;    // 'mcq', 'tf', 'fill' (used only in review mode)
         let score = 0;
         let userAnswers = [];
         let detailedAnswers = [];
@@ -1186,11 +722,19 @@
             mcq: 'اختيار من متعدد 🔘',
             tf: 'صح وخطأ ✓✗',
             review: 'مراجعة 🔄',
+            myReview: 'كل أسئلتي للمراجعة 📌',
             starred: 'مراجعتي ⭐',
             wrongHistory: 'أخطائي السابقة 🔁'
         };
+        const TYPE_LABELS = {
+            mcq: 'اختيار من متعدد',
+            tf: 'صح/خطأ',
+            fill: 'مقالي (أكمل)'
+        };
 
-        // ============ Screen ============
+        // ============================================================
+        // SCREEN MANAGEMENT
+        // ============================================================
         function showScreen(name) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             const target = document.getElementById('screen-' + name);
@@ -1198,7 +742,9 @@
             window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
         }
 
-        // ============ Init ============
+        // ============================================================
+        // INIT
+        // ============================================================
         window.addEventListener('DOMContentLoaded', function() {
             bindEvents();
             goHome();
@@ -1208,25 +754,30 @@
             document.getElementById('btnResume').addEventListener('click', resumeSession);
             document.getElementById('btnDiscard').addEventListener('click', discardSessionAndShowMenu);
             document.getElementById('btnBackHome').addEventListener('click', confirmBackToMenu);
-            document.getElementById('btnBackHomeReview').addEventListener('click', goHome);
+            document.getElementById('btnBackFromWrong').addEventListener('click', function() {
+                showScreen('exam');
+            });
             document.getElementById('btnHomeFromResults').addEventListener('click', goHome);
             document.getElementById('btnToggleReview').addEventListener('click', toggleReviewSection);
 
-            document.querySelectorAll('.mode-card').forEach(card => {
+            // بطاقات الامتحان
+            document.querySelectorAll('.mode-card[data-mode]').forEach(card => {
                 card.addEventListener('click', function() {
                     const mode = this.getAttribute('data-mode');
-                    if (mode === 'review-select') {
-                        // show review selection screen
-                        updateReviewCounts();
-                        showScreen('review-select');
+                    if (mode === 'myReview') {
+                        startMyReview();
+                    } else if (mode === 'starred') {
+                        startStarredExam();
+                    } else if (mode === 'wrongHistory') {
+                        startWrongHistoryExam();
                     } else {
                         startNewExam(mode);
                     }
                 });
             });
 
-            // Review type cards in review-select screen
-            document.querySelectorAll('#screen-review-select .mode-card').forEach(card => {
+            // بطاقات المراجعة (ملفات المراجعة)
+            document.querySelectorAll('.mode-card[data-review-type]').forEach(card => {
                 card.addEventListener('click', function() {
                     const type = this.getAttribute('data-review-type');
                     startReviewExam(type);
@@ -1234,8 +785,11 @@
             });
         }
 
+        // ============================================================
+        // HOME
+        // ============================================================
         function goHome() {
-            updateModeCounts();
+            updateAllCounts();
             const session = getSession();
             const banner = document.getElementById('resumeBanner');
             if (session && Array.isArray(session.order) && session.position < session.order.length) {
@@ -1248,47 +802,83 @@
             showScreen('home');
         }
 
-        function updateModeCounts() {
+        function updateAllCounts() {
             const total = questions.length;
             const fillCount = questions.filter(q => q.type === 'fill').length;
             const mcqCount = questions.filter(q => q.type === 'mcq').length;
             const tfCount = questions.filter(q => q.type === 'tf').length;
             const starred = getStarred();
-            const wrong = getWrongBank();
+            const myReviewAll = getAllMyReview();
 
             document.getElementById('countFull').textContent = total + ' سؤال';
             document.getElementById('countFill').textContent = fillCount + ' سؤال';
             document.getElementById('countMcq').textContent = mcqCount + ' سؤال';
             document.getElementById('countTf').textContent = tfCount + ' سؤال';
-            document.getElementById('countReview').textContent = total + ' سؤال (اختر النوع)';
+
+            // review counts per type
+            document.getElementById('reviewTfCountHome').textContent = tfCount + ' سؤال';
+            document.getElementById('reviewMcqCountHome').textContent = mcqCount + ' سؤال';
+            document.getElementById('reviewFillCountHome').textContent = fillCount + ' سؤال';
+
+            document.getElementById('countMyReview').textContent = myReviewAll.length + ' سؤال';
             document.getElementById('countStarred').textContent = starred.length + ' سؤال';
-            document.getElementById('countWrong').textContent = wrong.length + ' سؤال';
+
+            // wrong counts per type (total unique)
+            const wrongAll = getAllWrong();
+            document.getElementById('countWrong').textContent = wrongAll.length + ' سؤال';
 
             document.getElementById('starredCard').classList.toggle('hidden', starred.length === 0);
-            document.getElementById('wrongCard').classList.toggle('hidden', wrong.length === 0);
+            document.getElementById('wrongCard').classList.toggle('hidden', wrongAll.length === 0);
         }
 
-        function updateReviewCounts() {
-            const all = questions.length;
-            const mcq = questions.filter(q => q.type === 'mcq').length;
-            const tf = questions.filter(q => q.type === 'tf').length;
-            const fill = questions.filter(q => q.type === 'fill').length;
-            document.getElementById('reviewAllCount').textContent = all + ' سؤال';
-            document.getElementById('reviewMcqCount').textContent = mcq + ' سؤال';
-            document.getElementById('reviewTfCount').textContent = tf + ' سؤال';
-            document.getElementById('reviewFillCount').textContent = fill + ' سؤال';
+        function getAllMyReview() {
+            const all = [];
+            ['mcq', 'tf', 'fill'].forEach(t => {
+                getMyReview(t).forEach(idx => { if (!all.includes(idx)) all.push(idx); });
+            });
+            return all;
+        }
+
+        function getAllWrong() {
+            const all = [];
+            ['mcq', 'tf', 'fill'].forEach(t => {
+                getWrongBank(t).forEach(idx => { if (!all.includes(idx)) all.push(idx); });
+            });
+            return all;
+        }
+
+        // ============================================================
+        // START EXAM MODES
+        // ============================================================
+        function startNewExam(mode) {
+            let order = [];
+            if (mode === 'full') {
+                order = questions.map((q, i) => i);
+            } else if (mode === 'fill' || mode === 'mcq' || mode === 'tf') {
+                order = questions.map((q, i) => i).filter(i => questions[i].type === mode);
+            } else {
+                return;
+            }
+            if (order.length === 0) { alert('مفيش أسئلة من النوع ده.'); return; }
+            currentMode = mode;
+            currentReviewType = null;
+            examOrder = order;
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            detailedAnswers = [];
+            selectedMCQ = null;
+            selectedTF = null;
+            reviewAnswerShown = false;
+            saveSession();
+            enterExamUI();
+            showQuestion();
+            updateLiveStats();
         }
 
         function startReviewExam(type) {
-            // Build order based on type
-            let order = [];
-            if (type === 'all') {
-                order = questions.map((q, i) => i);
-            } else if (type === 'mcq' || type === 'tf' || type === 'fill') {
-                order = questions.map((q, i) => i).filter(i => questions[i].type === type);
-            }
+            const order = questions.map((q, i) => i).filter(i => questions[i].type === type);
             if (order.length === 0) { alert('مفيش أسئلة من النوع ده.'); return; }
-
             currentMode = 'review';
             currentReviewType = type;
             examOrder = order;
@@ -1299,24 +889,82 @@
             selectedMCQ = null;
             selectedTF = null;
             reviewAnswerShown = false;
-
             saveSession();
             enterExamUI();
             showQuestion();
             updateLiveStats();
         }
 
+        function startMyReview() {
+            const all = getAllMyReview();
+            if (all.length === 0) { alert('مفيش أسئلة في قائمة المراجعة الخاصة بك. أضف أسئلة من وضع المراجعة.'); return; }
+            currentMode = 'myReview';
+            currentReviewType = null;
+            examOrder = all.slice();
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            detailedAnswers = [];
+            selectedMCQ = null;
+            selectedTF = null;
+            reviewAnswerShown = false;
+            saveSession();
+            enterExamUI();
+            showQuestion();
+            updateLiveStats();
+        }
+
+        function startStarredExam() {
+            const starred = getStarred();
+            if (starred.length === 0) { alert('مفيش أسئلة في مراجعتي. حط نجمة على أي سؤال.'); return; }
+            currentMode = 'starred';
+            currentReviewType = null;
+            examOrder = starred.slice();
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            detailedAnswers = [];
+            selectedMCQ = null;
+            selectedTF = null;
+            reviewAnswerShown = false;
+            saveSession();
+            enterExamUI();
+            showQuestion();
+            updateLiveStats();
+        }
+
+        function startWrongHistoryExam() {
+            const all = getAllWrong();
+            if (all.length === 0) { alert('مفيش أخطاء محفوظة.'); return; }
+            currentMode = 'wrongHistory';
+            currentReviewType = null;
+            examOrder = all.slice();
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = [];
+            detailedAnswers = [];
+            selectedMCQ = null;
+            selectedTF = null;
+            reviewAnswerShown = false;
+            saveSession();
+            enterExamUI();
+            showQuestion();
+            updateLiveStats();
+        }
+
+        // ============================================================
+        // SESSION
+        // ============================================================
         function resumeSession() {
             const session = getSession();
             if (!session) { goHome(); return; }
             examOrder = session.order;
             currentQuestion = session.position;
             currentMode = session.mode;
-            score = session.score;
+            currentReviewType = session.reviewType || null;
+            score = session.score || 0;
             userAnswers = session.userAnswers || [];
             detailedAnswers = session.detailedAnswers || [];
-            // if review mode, we need to know the type? we can store it, but we can just use the mode.
-            // We'll add a field in session if needed, but not critical.
             enterExamUI();
             showQuestion();
             updateLiveStats();
@@ -1327,42 +975,24 @@
             goHome();
         }
 
-        function startNewExam(mode) {
-            let order = [];
-            if (mode === 'full') {
-                order = questions.map((q, i) => i);
-            } else if (mode === 'fill' || mode === 'mcq' || mode === 'tf') {
-                order = questions.map((q, i) => i).filter(i => questions[i].type === mode);
-            } else if (mode === 'starred') {
-                order = getStarred().slice();
-                if (order.length === 0) { alert('مفيش أسئلة في المراجعة لسه. حط نجمة على أي سؤال الأول.'); return; }
-            } else if (mode === 'wrongHistory') {
-                order = getWrongBank().slice();
-                if (order.length === 0) { alert('مفيش أخطاء محفوظة لسه.'); return; }
-            } else {
-                return;
-            }
-
-            if (order.length === 0) { alert('مفيش أسئلة من النوع ده.'); return; }
-
-            currentMode = mode;
-            examOrder = order;
-            currentQuestion = 0;
-            score = 0;
-            userAnswers = [];
-            detailedAnswers = [];
-            selectedMCQ = null;
-            selectedTF = null;
-            reviewAnswerShown = false;
-
-            saveSession();
-            enterExamUI();
-            showQuestion();
-            updateLiveStats();
+        function saveSession() {
+            setSession({
+                mode: currentMode,
+                reviewType: currentReviewType,
+                order: examOrder,
+                position: currentQuestion,
+                score: score,
+                userAnswers: userAnswers,
+                detailedAnswers: detailedAnswers
+            });
         }
 
         function enterExamUI() {
-            document.getElementById('modeLabel').textContent = MODE_LABELS[currentMode] || currentMode;
+            let label = MODE_LABELS[currentMode] || currentMode;
+            if (currentMode === 'review' && currentReviewType) {
+                label = 'مراجعة ' + TYPE_LABELS[currentReviewType] + ' 🔄';
+            }
+            document.getElementById('modeLabel').textContent = label;
             showScreen('exam');
         }
 
@@ -1373,18 +1003,19 @@
             }
         }
 
-        function saveSession() {
-            setSession({
-                mode: currentMode,
-                order: examOrder,
-                position: currentQuestion,
-                score: score,
-                userAnswers: userAnswers,
-                detailedAnswers: detailedAnswers
-            });
-        }
-
+        // ============================================================
+        // LIVE STATS
+        // ============================================================
         function updateLiveStats() {
+            // في وضع المراجعة لا نحتاج إحصائيات
+            if (currentMode === 'review' || currentMode === 'myReview' || currentMode === 'starred' || currentMode === 'wrongHistory') {
+                const remaining = examOrder.length - currentQuestion - 1;
+                document.getElementById('correctLive').textContent = '—';
+                document.getElementById('incorrectLive').textContent = '—';
+                document.getElementById('remainingLive').textContent = remaining;
+                document.getElementById('percentageLive').textContent = '—';
+                return;
+            }
             const answered = userAnswers.length;
             const correct = score;
             const incorrect = answered - correct;
@@ -1404,11 +1035,14 @@
             setTimeout(() => { element.classList.remove('updated'); }, 500);
         }
 
-        // ============ showQuestion ============
+        // ============================================================
+        // SHOW QUESTION
+        // ============================================================
         function showQuestion() {
             const qIndex = examOrder[currentQuestion];
             const q = questions[qIndex];
             const container = document.getElementById('questionContainer');
+            const isReviewMode = (currentMode === 'review' || currentMode === 'myReview' || currentMode === 'starred' || currentMode === 'wrongHistory');
 
             const starred = getStarred();
             const isStarred = starred.includes(qIndex);
@@ -1422,13 +1056,13 @@
                     <div class="question-text">${q.question}</div>
             `;
 
-            // Special rendering for review mode
-            if (currentMode === 'review') {
+            if (isReviewMode) {
+                // وضع المراجعة: عرض الإجابة + إضافة/إزالة من المراجعة
+                const inMyReview = isInMyReview(q.type, qIndex);
                 questionHTML += `
                     <button class="review-show-answer-btn" id="showAnswerBtn">📖 إظهار الإجابة</button>
                     <div class="review-buttons" id="reviewButtons" style="display:none; margin-top:16px;">
-                        <button class="review-btn" id="reviewCorrect">✓ صح (عرفت الإجابة)</button>
-                        <button class="review-btn" id="reviewWrong">✗ خطأ (ما عرفتهاش)</button>
+                        <button class="review-btn ${inMyReview ? 'review-remove' : 'review-add'}" id="reviewToggleMy">${inMyReview ? '🗑️ إزالة من المراجعة' : '📌 أضف للمراجعة'}</button>
                     </div>
                     <div class="feedback" id="feedback"></div>
                     <div class="nav-buttons">
@@ -1458,20 +1092,23 @@
                     showBtn.style.display = 'none';
                     reviewBtns.style.display = 'flex';
                     reviewAnswerShown = true;
+                    nextBtn.disabled = false;
                 });
 
-                document.getElementById('reviewCorrect').addEventListener('click', function() {
-                    if (!reviewAnswerShown) return;
-                    registerReviewAnswer(true, qIndex);
-                    nextBtn.disabled = false;
-                    document.querySelectorAll('.review-btn').forEach(btn => btn.style.pointerEvents = 'none');
-                });
-
-                document.getElementById('reviewWrong').addEventListener('click', function() {
-                    if (!reviewAnswerShown) return;
-                    registerReviewAnswer(false, qIndex);
-                    nextBtn.disabled = false;
-                    document.querySelectorAll('.review-btn').forEach(btn => btn.style.pointerEvents = 'none');
+                document.getElementById('reviewToggleMy').addEventListener('click', function() {
+                    const inList = isInMyReview(q.type, qIndex);
+                    if (inList) {
+                        removeFromMyReview(q.type, qIndex);
+                        this.textContent = '📌 أضف للمراجعة';
+                        this.className = 'review-btn review-add';
+                        showFeedback('تم إزالة السؤال من قائمة المراجعة.', 'info');
+                    } else {
+                        addToMyReview(q.type, qIndex);
+                        this.textContent = '🗑️ إزالة من المراجعة';
+                        this.className = 'review-btn review-remove';
+                        showFeedback('تم إضافة السؤال إلى قائمة المراجعة.', 'info');
+                    }
+                    // تحديث العدد في الصفحة الرئيسية
                 });
 
                 nextBtn.addEventListener('click', nextQuestion);
@@ -1480,7 +1117,7 @@
                 return;
             }
 
-            // ------------- Normal modes (non-review) -------------
+            // ------------- MODES: full, mcq, tf, fill (امتحان عادي) -------------
             if (q.type === 'fill') {
                 questionHTML += `
                     <input type="text" class="fill-input" id="fillAnswer" placeholder="اكتب الإجابة هنا..." autocomplete="off">
@@ -1522,60 +1159,38 @@
             selectedTF = null;
 
             document.getElementById('starBtn').addEventListener('click', function() { toggleStar(qIndex); });
+            document.getElementById('checkBtn').addEventListener('click', function() {
+                if (q.type === 'fill') checkFillAnswer();
+                else if (q.type === 'mcq') checkMCQAnswer();
+                else if (q.type === 'tf') checkTFAnswer();
+            });
+            document.getElementById('nextBtn').addEventListener('click', nextQuestion);
 
-            if (q.type !== 'review') {
-                document.getElementById('checkBtn').addEventListener('click', function() {
-                    if (q.type === 'fill') checkFillAnswer();
-                    else if (q.type === 'mcq') checkMCQAnswer();
-                    else if (q.type === 'tf') checkTFAnswer();
+            if (q.type === 'mcq') {
+                document.querySelectorAll('.option').forEach(opt => {
+                    opt.addEventListener('click', function() { selectOption(parseInt(this.getAttribute('data-index'), 10)); });
                 });
-                document.getElementById('nextBtn').addEventListener('click', nextQuestion);
-
-                if (q.type === 'mcq') {
-                    document.querySelectorAll('.option').forEach(opt => {
-                        opt.addEventListener('click', function() { selectOption(parseInt(this.getAttribute('data-index'), 10)); });
-                    });
-                } else if (q.type === 'tf') {
-                    document.getElementById('tfTrue').addEventListener('click', function() { selectTF(true); });
-                    document.getElementById('tfFalse').addEventListener('click', function() { selectTF(false); });
-                } else if (q.type === 'fill') {
-                    document.getElementById('fillAnswer').addEventListener('keydown', function(e) {
-                        if (e.key === 'Enter') checkFillAnswer();
-                    });
-                }
+            } else if (q.type === 'tf') {
+                document.getElementById('tfTrue').addEventListener('click', function() { selectTF(true); });
+                document.getElementById('tfFalse').addEventListener('click', function() { selectTF(false); });
+            } else if (q.type === 'fill') {
+                document.getElementById('fillAnswer').addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') checkFillAnswer();
+                });
             }
 
             updateProgress();
         }
 
-        // ============ Review specific answer registration ============
-        function registerReviewAnswer(isCorrectSelf, qIndex) {
-            const correct = isCorrectSelf;
-            if (correct) {
-                score++;
-                removeFromWrongBank(qIndex);
-            } else {
-                addToWrongBank(qIndex);
-                const q = questions[qIndex];
-                let correctText = '';
-                if (q.type === 'mcq') correctText = q.options[q.answer];
-                else if (q.type === 'tf') correctText = q.answer ? 'صح ✓' : 'خطأ ✗';
-                else if (q.type === 'fill') correctText = q.answer;
-                detailedAnswers.push({
-                    questionNumber: currentQuestion + 1,
-                    question: q.question,
-                    isCorrect: false,
-                    type: 'review',
-                    userAnswer: isCorrectSelf ? 'صح (عرفت الإجابة)' : 'خطأ (ما عرفتهاش)',
-                    correctAnswer: correctText
-                });
-            }
-            userAnswers.push({ qIndex: qIndex, correct: correct });
-            updateLiveStats();
-            saveSession();
+        function showFeedback(msg, type) {
+            const fb = document.getElementById('feedback');
+            fb.className = 'feedback ' + type + ' show';
+            fb.innerHTML = msg;
         }
 
-        // ============ Normal answer checks (fill, mcq, tf) ============
+        // ============================================================
+        // ANSWER CHECKS (Exam modes)
+        // ============================================================
         function selectOption(index) {
             document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
             document.getElementById('opt' + index).classList.add('selected');
@@ -1675,14 +1290,15 @@
         }
 
         function registerAnswer(isCorrect, qIndex, details) {
+            const q = questions[qIndex];
             if (isCorrect) {
                 score++;
-                removeFromWrongBank(qIndex);
+                removeFromWrongBank(q.type, qIndex);
             } else {
-                addToWrongBank(qIndex);
+                addToWrongBank(q.type, qIndex);
                 detailedAnswers.push({
                     questionNumber: currentQuestion + 1,
-                    question: questions[qIndex].question,
+                    question: q.question,
                     isCorrect: false,
                     ...details
                 });
@@ -1692,6 +1308,21 @@
             saveSession();
         }
 
+        // ============================================================
+        // STAR
+        // ============================================================
+        function toggleStar(qIndex) {
+            const starred = getStarred();
+            const idx = starred.indexOf(qIndex);
+            if (idx === -1) starred.push(qIndex); else starred.splice(idx, 1);
+            setStarred(starred);
+            const btn = document.getElementById('starBtn');
+            if (btn) btn.classList.toggle('active', starred.includes(qIndex));
+        }
+
+        // ============================================================
+        // NAVIGATION
+        // ============================================================
         function nextQuestion() {
             currentQuestion++;
             if (currentQuestion < examOrder.length) {
@@ -1711,6 +1342,9 @@
             document.getElementById('progressPercent').textContent = Math.round(percent) + '%';
         }
 
+        // ============================================================
+        // RESULTS
+        // ============================================================
         function showResults() {
             const total = examOrder.length;
             const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
@@ -1779,12 +1413,14 @@
             wrongAnswersList.innerHTML = html;
         }
 
-        // ============ Helpers ============
+        // ============================================================
+        // HELPERS
+        // ============================================================
         function getQuestionTypeLabel(type) {
             switch(type) {
                 case 'fill': return '📝 أكمل';
                 case 'mcq': return '🔘 اختيار من متعدد';
-                case 'tf': return '✓✗ صح وخطأ';
+                case 'tf': return '✓✗ صح/خطأ';
                 default: return '📖 مراجعة';
             }
         }
